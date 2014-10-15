@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheckedTextView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/spinner_drop_item_text"
+    android:layout_width="fill_parent"
+    android:layout_height="50dp"
+    android:background="@color/bbutton_inverse_pressed_edge"
+    android:singleLine="true"
+    android:textColor="@color/bthumbnail_border"
+    style="?android:attr/spinnerDropDownItemStyle"
+    />

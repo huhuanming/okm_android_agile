@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFF5EE"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_marginTop="10dp"
+                android:layout_width="fill_parent"
+                android:layout_height="89dp"
+                android:background="#2e2f33">
+
+                <LinearLayout
+                    android:layout_width="200dp"
+                    android:layout_height="89dp"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:id="@+id/address_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="37.75dp"
+                        android:layout_marginLeft="26dp"
+                        android:textSize="15.75sp"
+                        android:textColor="#ffffff"
+                        android:gravity="center_vertical"
+                        android:text="用于显示姓名" />
+
+                    <TextView
+                        android:id="@+id/address_number"
+                        android:layout_width="wrap_content"
+                        android:layout_height="26.75dp"
+                        android:text="用于显示电话号码"
+                        android:textSize="13.75sp"
+                        android:layout_marginLeft="26dp"
+                        android:textColor="#cccccc" />
+
+                    <TextView
+                        android:id="@+id/address_address"
+                        android:layout_width="wrap_content"
+                        android:layout_height="26.75dp"
+                        android:text="用于显示地址"
+                        android:textSize="13.75sp"
+                        android:layout_marginLeft="26dp"
+                        android:textColor="#cccccc" />
+
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:id="@+id/order_address_change"
+                    android:src="@drawable/abc_ic_go" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="90dp"
+                android:background="#ffffff"
+                android:orientation="vertical"
+                android:layout_marginTop="10dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="44.5dp" >
+
+                    <TextView
+                        android:id="@+id/textView4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="21.5dp"
+                        android:text="@string/small_ticket"
+                        android:textColor="#343434"
+                        android:textSize="15.75sp" />
+
+                    <CheckBox
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="21.5dp"
+                    android:background="#e6e6e6" >
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/setting_clean_cache"
+                    android:layout_width="match_parent"
+                    android:layout_height="44.5dp"
+                    android:background="@drawable/selector">
+
+                    <TextView
+                        android:id="@+id/show_food_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="21.5dp"
+                        android:text="@string/commercial_ticket"
+                        android:textColor="#343434"
+                        android:textSize="15.75sp" />
+
+                    <CheckBox
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true" />
+
+                </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="90dp"
+                android:layout_marginTop="10dp"
+                android:background="#ffffff"
+                android:orientation="vertical" >
+
+                <RelativeLayout
+                    android:id="@+id/setting_app_advise"
+                    android:layout_width="match_parent"
+                    android:layout_height="44.5dp"
+                    android:background="@drawable/selector" >
+
+                    <TextView
+                        android:id="@+id/advise"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="21.5dp"
+                        android:gravity="left|center_vertical"
+                        android:text="@string/instant_send"
+                        android:textColor="#343434"
+                        android:textSize="15.75sp" />
+
+                    <CheckBox
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="21.5dp"
+                    android:background="#e6e6e6" >
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/setting_app_mark"
+                    android:layout_width="match_parent"
+                    android:layout_height="44.5dp"
+                    android:background="@drawable/selector" >
+
+                    <TextView
+                        android:id="@+id/mark"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="21.5dp"
+                        android:gravity="left|center_vertical"
+                        android:text="@string/appoint_send"
+                        android:textColor="#343434"
+                        android:textSize="15.75sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="显示时间"
+                        android:layout_marginRight="20dp"
+                        android:textSize="15sp"
+                        android:layout_alignBottom="@+id/mark"
+                        android:layout_toLeftOf="@+id/order_appoint_change" />
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true"
+                        android:id="@+id/order_appoint_change"
+                        android:src="@drawable/abc_ic_go" />
+
+                </RelativeLayout>
+            </LinearLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="44.5dp"
+                android:layout_marginTop="10dp"
+                android:background="#ffffff">
+                <RelativeLayout
+                    android:id="@+id/setting_update"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:background="@drawable/selector"
+                    android:clickable="true" >
+
+                    <TextView
+                        android:id="@+id/update_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="21.5dp"
+                        android:gravity="left|center_vertical"
+                        android:text="@string/order_note"
+                        android:textColor="#343434"
+                        android:textSize="15.75sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="显示备注"
+                        android:textSize="15sp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_alignBottom="@+id/update_text"
+                        android:layout_toRightOf="@+id/update_text" />
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true"
+                        android:id="@+id/order_note_change"
+                        android:src="@drawable/abc_ic_go" />
+
+                </RelativeLayout>
+            </RelativeLayout>
+        </LinearLayout>
+
+    </ScrollView>
+</LinearLayout>

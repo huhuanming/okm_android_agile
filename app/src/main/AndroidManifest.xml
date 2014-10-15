@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.okm_android_agile" >
+
+    <!--ShareSdk-->
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS"/>
+    <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
+
+    <!--ShareSdk-->
+
+    <!-- 高德地图信息 -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.CHANGE_CONFIGURATION"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <!--高德地图-->
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/MyTheme" >
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="a2cb129d8113b3c5f534aa88f9b6de5b" />
+        <activity
+            android:name=".Activity.MenuActivity"
+            android:icon="@drawable/lingjiaxiaochu"
+            android:theme="@style/MyTheme"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:theme="@style/MyTheme"
+            android:name=".Activity.LoginRegisterActivity"
+            android:label="@string/name"
+            android:icon="@drawable/lingjiaxiaochu"
+            />
+
+        <activity android:name=".Activity.FoodMenuActivity"
+            android:theme="@style/MyTheme"
+            android:label="@string/lijiaxiaochu"
+            android:icon="@drawable/lingjiaxiaochu"
+            />
+        <activity android:name=".Activity.PlaceOrderActivity"
+            android:theme="@style/MyTheme"
+            android:label="@string/lijiaxiaochu"
+            android:icon="@drawable/lingjiaxiaochu"
+            />
+        <activity
+            android:theme="@style/MyTheme"
+            android:name=".Activity.PositionSearchActivity"
+            android:label="@string/search"
+            android:icon="@drawable/lingjiaxiaochu"
+            >
+            <meta-data android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:theme="@style/MyTheme"
+            android:name=".Activity.SearchActivity"
+            android:label="@string/search"
+            android:icon="@drawable/lingjiaxiaochu"
+            >
+            <meta-data android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+        </activity>
+
+
+        <activity
+            android:theme="@style/shake_style"
+            android:name=".Activity.ShakeActivity"
+            android:label="@string/do_not_kown_eat"
+            android:icon="@drawable/lingjiaxiaochu"
+            />
+
+        <activity
+            android:theme="@style/MyTheme"
+            android:name=".Activity.SortingActivity"
+            android:label="@string/lijiaxiaochu"
+            android:icon="@drawable/lingjiaxiaochu"
+            />
+
+        <activity
+            android:name="cn.sharesdk.framework.ShareSDKUIShell"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" >
+            <intent-filter>
+                <data android:scheme="tencent100371282" />
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <!--微信分享回调 -->
+        <activity
+            android:name=".wxapi.WXEntryActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:screenOrientation="portrait" />
+
+    </application>
+
+</manifest>

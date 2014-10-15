@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="67.5dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=" 显示餐品名称"
+        android:textSize="18sp"
+        android:textColor="#333333"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp"
+        android:id="@+id/food_menu_name"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="￥"
+        android:textColor="#e52e2e"
+        android:textSize="13.5sp"
+        android:gravity="center"
+        android:id="@+id/textView1"
+        android:layout_marginTop="12dp"
+        android:layout_below="@+id/food_menu_name"
+        android:layout_alignLeft="@+id/food_menu_name"
+        android:layout_alignStart="@+id/food_menu_name" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="显示单价"
+        android:textColor="#e52e2e"
+        android:textSize="13.5sp"
+        android:gravity="center"
+        android:layout_marginTop="12dp"
+        android:id="@+id/food_price"
+        android:layout_below="@+id/food_menu_name"
+        android:layout_toRightOf="@+id/textView1" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="显示月售多少份"
+        android:layout_marginLeft="20dp"
+        android:textColor="#e52e2e"
+        android:textSize="13.5sp"
+        android:gravity="center"
+        android:id="@+id/show_sale_count"
+        android:layout_alignTop="@+id/food_price"
+        android:layout_toRightOf="@+id/food_price" />
+
+    <LinearLayout
+        android:layout_width="120dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true">
+
+        <RelativeLayout
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:id="@+id/count_sub"
+            android:clickable="true"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:background="#ffffff"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:visibility="invisible">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:background="@drawable/radius"
+                android:text="-"
+                android:textColor="#25ade8"
+                android:textSize="18dp"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:id="@+id/one_food_count"
+            android:clickable="true"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:background="#25ade8"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:visibility="invisible">
+
+            <TextView
+                android:id="@+id/count"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="0"
+                android:textColor="#ffffff"
+                android:textSize="18dp"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:id="@+id/count_add"
+            android:clickable="true"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:background="#ffffff"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="+"
+                android:textColor="#25ade8"
+                android:background="@drawable/radius"
+                android:textSize="18dp"/>
+        </RelativeLayout>
+    </LinearLayout>
+</RelativeLayout>

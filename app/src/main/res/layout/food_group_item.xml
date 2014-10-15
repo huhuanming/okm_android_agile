@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="22.5dp"
+    android:background="#e6e6e6">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="22.5dp"
+        android:text="此处显示菜单分组"
+        android:textSize="13.5sp"
+        android:textColor="#999999"
+        android:id="@+id/food_group_name"
+        android:gravity="center"
+        android:layout_marginLeft="10dp"/>
+</LinearLayout>

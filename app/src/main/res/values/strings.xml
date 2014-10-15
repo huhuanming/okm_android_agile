@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="name">零公里</string>
+    <string name="app_name">零公里(买家版)</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="drawer_open">打开</string>
+    <string name="drawer_close">关闭</string>
+    <string name="home">首页</string>
+    <string name="version">订餐 beat 1.0</string>
+    <string name="login">登录</string>
+    <string name="register">注册</string>
+    <string name="phone_number">手机号</string>
+    <string name="password">密码</string>
+    <string name="quick_login">快捷登录</string>
+    <string name="sina">新浪微博</string>
+    <string name="weixin">腾讯微信</string>
+    <string name="weichat">微信</string>
+    <string name="tencent">腾讯QQ</string>
+    <string name="visitor">访客模式</string>
+    <string name="forgetpassword">忘记密码</string>
+    <string name="verification_code">验证码</string>
+    <string name="get_verification_code">获取验证码</string>
+    <string name="do_not_kown_eat">不知道吃什么?</string>
+    <string name="shake_food">摇一摇随机选单</string>
+    <string name="search">搜索</string>
+    <string name="search_food">输入关键字</string>
+    <string name="lijiaxiaochu">邻家小厨</string>
+
+    <string name="icon">icon</string>
+    <string name="back">返回</string>
+    <string name="setting">设置</string>
+    <string name="message_send">消息推送</string>
+    <string name="clean_cache">清除缓存</string>
+    <string name="app_advice">应用反馈</string>
+    <string name="app_mark">应用评分</string>
+    <string name="update">版本升级</string>
+    <string name="default_address">默认收货地址</string>
+    <string name="other_address">其它收货地址</string>
+    <string name="basket">订单信息</string>
+    <string name="address">收货地址</string>
+    <string name="choose_food">所选商品</string>
+    <string name="order_details">订单详细</string>
+    <string name="own_order">我的订单</string>
+
+    <string name="change_message">资料修改</string>
+    <string name="change_password">密码修改</string>
+    <string name="binding_phone">已绑定手机号</string>
+    <string name="binding_email">已绑定邮箱</string>
+    <string name="binding">账号绑定</string>
+    
+    <string name="sorting_time">按时间排序</string>
+    <string name="sorting_score">按评分排序</string>
+    
+    <string name="order_on">进行中的订单</string>
+    <string name="order_finish">已完成的订单</string>
+    <string name="small_ticket">收银小票</string>
+    <string name="commercial_ticket">商用小票</string>
+    <string name="instant_send">即时送</string>
+    <string name="appoint_send">预约送达</string>
+    <string name="order_note">订单备注</string>
+    <string name="shop_food_message">商品菜单</string>
+    <string name="shop_detail">店铺信息</string>
+    <string name="counts">数量：</string>
+    <string name="total_prices">总价：</string>
+    <string name="place_order">下订单</string>
+    <string name="see_evaluate">查看点评</string>
+    <string name="shop_address">地址：</string>
+    <string name="relation_number">联系电话：</string>
+    <string name="rmb_send">元/起送</string>
+    <string name="time_send">分/送达</string>
+    <string name="rmb_add">元/送餐费</string>
+    <string name="shop_announce">店家公告</string>
+</resources>

@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.okm_android_agile" >
-
+    package="com.okm_android.main"
+    android:versionCode="1"
+    android:versionName="1"
+    >
     <!--ShareSdk-->
     <uses-permission android:name="android.permission.GET_TASKS" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -28,7 +30,7 @@
         android:theme="@style/MyTheme" >
         <meta-data
             android:name="com.amap.api.v2.apikey"
-            android:value="a2cb129d8113b3c5f534aa88f9b6de5b" />
+            android:value="986619b8b6a5649d20bf944ba226d1ed" />
         <activity
             android:name=".Activity.MenuActivity"
             android:icon="@drawable/lingjiaxiaochu"

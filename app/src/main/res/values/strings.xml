@@ -72,4 +72,6 @@
     <string name="time_send">分/送达</string>
     <string name="rmb_add">元/送餐费</string>
     <string name="shop_announce">店家公告</string>
+
+    <string name="sure_place_order">确定下单</string>
 </resources>

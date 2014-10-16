@@ -1,5 +1,6 @@
 package com.okm_android.main.ApiManager;
 
+import com.okm_android.main.Model.DefaultAddressData;
 import com.okm_android.main.Model.RestaurantBackData;
 import com.okm_android.main.Model.RestaurantMenu;
 
@@ -28,6 +29,21 @@ public class QinApiManager extends MainApiManager{
                     observer.onError(e);
                 }
 
+                return Subscriptions.empty();
+            }
+        }).subscribeOn(Schedulers.threadPoolForIO());
+    }
+
+    private static final QinApiInterface.ApiManagerDefaultAddress defaultAddress = restAdapter.create(QinApiInterface.ApiManagerDefaultAddress.class);
+    public static Observable<DefaultAddressData> defaultAddressData(final String user_id){
+        return Observable.create(new Observable.OnSubscribeFunc<DefaultAddressData>(){
+            public Subscription onSubscribe(Observer<? super DefaultAddressData> observer){
+                try{
+                    observer.onNext(defaultAddress.defaultAddressData(user_id));
+                    observer.onCompleted();
+                }catch (Exception e){
+                    observer.onError(e);
+                }
                 return Subscriptions.empty();
             }
         }).subscribeOn(Schedulers.threadPoolForIO());

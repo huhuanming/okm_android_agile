@@ -26,9 +26,7 @@ import com.okm_android.main.Utils.ErrorUtils;
 import com.okm_android.main.Utils.ToastUtils;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import rx.android.concurrency.AndroidSchedulers;
 import rx.util.functions.Action1;
@@ -43,12 +41,11 @@ public class FoodMenuFragment extends Fragment{
     private Handler handler;
     private List<RestaurantMenu> restaurantMenus = new ArrayList<RestaurantMenu>();
     ListView listView;
-    List<Map<String,String>> list = new ArrayList<Map<String, String>>();
     FoodDataResolve foodDataResolve;
     TextView allFoodCount;
     TextView allFoodPrice;
     RelativeLayout relativeLayout_placeOrder;
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         parentView = inflater.inflate(R.layout.fragment_food_menu, container, false);
         getActivity().invalidateOptionsMenu();
         rid= getActivity().getIntent().getStringExtra("Restaurant_id");
@@ -76,13 +73,13 @@ public class FoodMenuFragment extends Fragment{
                 {
                     //获取成功
                     case Constant.MSG_SUCCESS:
-                        if(msg.obj != null)
+                        List<RestaurantMenu> list = (List<RestaurantMenu>) msg.obj;
+                        if(list.size() > 0)
                         {
                             restaurantMenus.clear();
-                            restaurantMenus.addAll((List<RestaurantMenu>) msg.obj);
+                            restaurantMenus.addAll(list);
                             foodDataResolve=new FoodDataResolve(restaurantMenus);
-                            list=getSearch();//数据加载过程
-                            foodMenuAdapter = new FoodMenuAdapter(getActivity(),list,foodDataResolve.getTypeLong());
+                            foodMenuAdapter = new FoodMenuAdapter(getActivity(),foodDataResolve.getFoods(),foodDataResolve.getTypeLong(),foodDataResolve.getTypeName());
                             listView.setAdapter(foodMenuAdapter);
                             foodMenuAdapter.notifyDataSetChanged();
                         }
@@ -99,6 +96,10 @@ public class FoodMenuFragment extends Fragment{
             public void onClick(View view) {
                 Intent intent = new Intent();
                 intent.setClass(getActivity() ,PlaceOrderActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("data", foodDataResolve.getFoods());
+                bundle.putString("allprice",allFoodPrice.getText().toString());
+                intent.putExtras(bundle);
                 startActivity(intent);
             }
         });
@@ -120,68 +121,6 @@ public class FoodMenuFragment extends Fragment{
     public void SubFoodPrice(String foodPrice)
     {
         allFoodPrice.setText(Float.valueOf((String)allFoodPrice.getText()) - Float.valueOf(foodPrice)+"");
-    }
-
-   // public void placeOrder(View view)//处理下单，获取当前已有的一些数据并把数据封装，传到下一个Activity
- //   {
-        /*List<PlaceOrder> placeOrders=new ArrayList<PlaceOrder>();
-        PlaceOrder placeOrder;
-        TextView foodCount,foodName,foodPrice;
- /     {
-            for(int j=0;j<foodDataResolve.getTypeLong().size();j++) //效率较底下，后期需要改进
-            {
-                if(i==foodDataResolve.getTypeLong().get(j))
-                    break ok;
-            }
-            RelativeLayout relativeLayout = (RelativeLayout)listView.getChildAt(i);
-            foodCount = (TextView)relativeLayout.findViewById(R.id.count);
-            if(Integer.valueOf(foodCount.getText().toString())==0)
-                continue;
-            else{
-                foodName = (TextView)relativeLayout.findViewById(R.id.food_menu_name);
-                foodPrice = (TextView)relativeLayout.findViewById(R.id.food_price);
-                placeOrder=new PlaceOrder();
-                placeOrder.foodName=foodName.getText().toString();
-                placeOrder.oneFoodPrice=Float.valueOf(foodPrice.getText().toString())*Float.valueOf(foodCount.getText().toString())+"";
-                placeOrder.Count=foodCount.getText().toString();
-                placeOrders.add(placeOrder);
-            }
-        }*/
-
-   // }
-    private ArrayList<Map<String,String>> getSearch()
-    {
-        ArrayList<Map<String,String>> arrayList=new ArrayList<Map<String,String>>();
-        Map<String,String> mapMenu;
-        Map<String,String> mapFood;
-        int i,j=0;
-        int k=0,isMenu=0;
-        for(i=0;i < foodDataResolve.getTypeNameCount(); i++)
-        {
-            for(int m=0;m < foodDataResolve.getTypeLong().size();m++){
-                if(foodDataResolve.getTypeLong().get(m)==i)
-                {
-                    isMenu=1;
-                    break;
-                }
-            }
-            if(isMenu==1)
-            {
-                mapMenu = new HashMap<String, String>();
-                mapMenu.put("menuName", foodDataResolve.getTypeName().get(k).toString());
-                arrayList.add(mapMenu);
-                k++;
-                isMenu=0;
-            }
-            else{
-                mapFood=new HashMap<String, String>();
-                mapFood.put("foodName", foodDataResolve.getFoods().get(j).food_name);
-                mapFood.put("foodPrice", foodDataResolve.getFoods().get(j).food_price);
-                mapFood.put("monthSale", foodDataResolve.getFoods().get(j++).sold_number);
-                arrayList.add(mapFood);
-            }
-        }
-        return arrayList;
     }
 
     public void restaurantData()

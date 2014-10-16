@@ -1,5 +1,6 @@
 package com.okm_android.main.ApiManager;
 
+import com.okm_android.main.Model.CommentBackData;
 import com.okm_android.main.Model.RegisterBackData;
 import com.okm_android.main.Model.RestaurantBackData;
 import com.okm_android.main.Model.RestaurantDetailsBackData;
@@ -59,5 +60,10 @@ public class ChenApiInterface {
     public interface ApiManagerRestaurantDetails {
         @GET("/restaurants/{restaurant_id}")
         RestaurantDetailsBackData RestaurantDetails(@Path("restaurant_id") String restaurant_id);
+    }
+
+    public interface ApiManagerGetComments {
+        @GET("/{restaurant_id}/comments")
+        CommentBackData GetComments(@Path("restaurant_id") String restaurant_id,@Query("cid")String cid,@Query("order")String order);
     }
 }

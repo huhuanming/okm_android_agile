@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.okm_android.main.Adapter.InstantOrderAdapter;
+import com.okm_android.main.Model.FoodsData;
 import com.okm_android.main.R;
 import com.okm_android.main.View.ListView.swipemenulistview.SwipeMenu;
 import com.okm_android.main.View.ListView.swipemenulistview.SwipeMenuCreator;
@@ -18,7 +19,6 @@ import com.okm_android.main.View.ListView.swipemenulistview.SwipeMenuItem;
 import com.okm_android.main.View.ListView.swipemenulistview.SwipeMenuListView;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -31,6 +31,8 @@ public class OrderChooseFragment extends Fragment{
     private List<Map<String,String>> mAppList;
     private InstantOrderAdapter mAdapter=null;
     private SwipeMenuListView mListView;
+    private String allPrice = "";
+    private ArrayList<FoodsData> list = new ArrayList<FoodsData>();
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         parentView=inflater.inflate(R.layout.fragment_order_choose, container, false);
@@ -38,10 +40,13 @@ public class OrderChooseFragment extends Fragment{
         getActivity().getActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
         getActivity().invalidateOptionsMenu();
 
+        initData();
+
+
         mListView = (SwipeMenuListView) parentView.findViewById(R.id.order_choose_listview);
-        mAppList=get_search();
-        mAdapter=new InstantOrderAdapter(getActivity(),mAppList);
+        mAdapter=new InstantOrderAdapter(getActivity(),list);
         mListView.setAdapter(mAdapter);
+
         SwipeMenuCreator creator = new SwipeMenuCreator() {
 
             @Override
@@ -63,22 +68,22 @@ public class OrderChooseFragment extends Fragment{
             }
         };
         // set creator
-        mListView.setMenuCreator(creator);        return parentView;
+        mListView.setMenuCreator(creator);
+        return parentView;
     }
-    private List<Map<String, String>> get_search()   //从服务器里加载数据
-    {
-        //ContentResolver resolver=mContext.getContentResolver();
-        List<Map<String,String>> list=new ArrayList<Map<String, String>>();
-        Map<String,String> map;
-        for(int i=0;i<4;i++)
+
+    private void initData(){
+        ArrayList<FoodsData> foodlist = new ArrayList<FoodsData>();
+             foodlist   = (ArrayList<FoodsData>)getActivity().getIntent().getExtras().getSerializable("data");
+        allPrice = getActivity().getIntent().getExtras().getString("allprice");
+        int num = foodlist.size();
+        for(int i = 0; i < num; i++)
         {
-            map=new HashMap<String, String>();
-            map.put("name", "秘制牛肉盖浇");
-            map.put("number","1");
-            map.put("money", "10");
-            list.add(map);
+            if(foodlist.get(i).isHave)
+            {
+                list.add(foodlist.get(i));
+            }
         }
-        return list;
     }
     private int dp2px(int dp) {
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp,

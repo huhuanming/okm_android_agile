@@ -6,6 +6,7 @@
     <ListView
         android:id="@+id/food_menu_listView"
         android:layout_width="fill_parent"
+        android:scrollbars="none"
         android:layout_height="fill_parent"
         android:layout_marginBottom="45dp"/>
 

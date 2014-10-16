@@ -35,12 +35,14 @@ public class PlaceOrderActivity extends FragmentActivity {
         ActionBar actionBar = this.getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         segmentedGroup.setTintColor(getResources().getColor(R.color.bbutton_info_edge), Color.WHITE);
-
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("data",getIntent().getExtras().getSerializable("data"));
+        bundle.putSerializable("allprice",getIntent().getExtras().getString("allprice"));
+        getIntent().putExtras(bundle);
         segmentedGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int checkedId) {
-                switch (checkedId)
-                {
+                switch (checkedId) {
                     case R.id.btn_order_choose:
                         FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
                         tx.replace(R.id.frame_order, Fragment.instantiate(PlaceOrderActivity.this, fragments[0]));

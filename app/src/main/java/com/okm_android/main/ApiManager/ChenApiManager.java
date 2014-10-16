@@ -1,6 +1,7 @@
 package com.okm_android.main.ApiManager;
 
 
+import com.okm_android.main.Model.CommentBackData;
 import com.okm_android.main.Model.RegisterBackData;
 import com.okm_android.main.Model.RestaurantBackData;
 import com.okm_android.main.Model.RestaurantDetailsBackData;
@@ -149,6 +150,23 @@ public class ChenApiManager extends MainApiManager{
             public Subscription onSubscribe(Observer<? super RestaurantDetailsBackData> observer) {
                 try {
                     observer.onNext(RestaurantsDetailsapiManager.RestaurantDetails(restaurant_id));
+                    observer.onCompleted();
+                } catch (Exception e) {
+                    observer.onError(e);
+                }
+
+                return Subscriptions.empty();
+            }
+        }).subscribeOn(Schedulers.threadPoolForIO());
+    }
+
+    private static final ChenApiInterface.ApiManagerGetComments GetCommentsapiManager = restAdapter.create(ChenApiInterface.ApiManagerGetComments.class);
+    public static Observable<CommentBackData> GetComments(final String restaurant_id,final String cid,final String order) {
+        return Observable.create(new Observable.OnSubscribeFunc<CommentBackData>() {
+            @Override
+            public Subscription onSubscribe(Observer<? super CommentBackData> observer) {
+                try {
+                    observer.onNext(GetCommentsapiManager.GetComments(restaurant_id,cid,order));
                     observer.onCompleted();
                 } catch (Exception e) {
                     observer.onError(e);

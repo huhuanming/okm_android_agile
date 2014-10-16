@@ -7,6 +7,8 @@ public class RegisterBackData {
 
     public String name;
 
+    public String user_id;
+
     public String last_login_at;
 
     public Access_token access_token;
@@ -14,5 +16,6 @@ public class RegisterBackData {
     public static class Access_token{
         public String token;
         public String key;
+
     }
 }

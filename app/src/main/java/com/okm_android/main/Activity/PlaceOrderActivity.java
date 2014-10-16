@@ -1,6 +1,7 @@
 package com.okm_android.main.Activity;
 
 import android.app.ActionBar;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -11,6 +12,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.okm_android.main.R;
+import com.okm_android.main.Utils.ShareUtils;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -49,9 +51,17 @@ public class PlaceOrderActivity extends FragmentActivity {
                         tx.commit();
                         break;
                     case R.id.btn_order_detail:
-                        FragmentTransaction tx2 = getSupportFragmentManager().beginTransaction();
-                        tx2.replace(R.id.frame_order, Fragment.instantiate(PlaceOrderActivity.this, fragments[1]));
-                        tx2.commit();
+                        if(ShareUtils.getId(PlaceOrderActivity.this).equals(""))
+                        {
+                            Intent intent = new Intent();
+                            intent.setClass(PlaceOrderActivity.this,LoginRegisterActivity.class);
+                            startActivity(intent);
+                        }
+                        else {
+                            FragmentTransaction tx2 = getSupportFragmentManager().beginTransaction();
+                            tx2.replace(R.id.frame_order, Fragment.instantiate(PlaceOrderActivity.this, fragments[1]));
+                            tx2.commit();
+                        }
                         break;
                 }
             }

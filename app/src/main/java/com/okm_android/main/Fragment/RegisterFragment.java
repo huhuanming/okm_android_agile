@@ -201,7 +201,9 @@ public class RegisterFragment extends Fragment{
                     editor = mshared.edit();
                     editor.putString("token", registerBackData.access_token.token);
                     editor.putString("key", registerBackData.access_token.key);
+                    editor.putString("id", registerBackData.user_id);
                     editor.commit();
+                    getActivity().finish();
                     progressbar.setVisibility(View.GONE);
                 }
 

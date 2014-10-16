@@ -63,6 +63,8 @@ public class LoginFragment extends Fragment{
                         break;
                     case Constant.MSG_SUCCESS:
                         progressbar.setVisibility(View.VISIBLE);
+                        ToastUtils.setToast(getActivity(),"登录成功");
+                        getActivity().finish();
                         break;
                 }
             }
@@ -143,6 +145,7 @@ public class LoginFragment extends Fragment{
                     editor = mshared.edit();
                     editor.putString("token", registerBackData.access_token.token);
                     editor.putString("key", registerBackData.access_token.key);
+                    editor.putString("id", registerBackData.user_id);
                     editor.commit();
                     progressbar.setVisibility(View.GONE);
                 }
@@ -211,6 +214,7 @@ public class LoginFragment extends Fragment{
                     editor = mshared.edit();
                     editor.putString("token", registerBackData.access_token.token);
                     editor.putString("key", registerBackData.access_token.key);
+                    editor.putString("id", registerBackData.user_id);
                     editor.commit();
                     progressbar.setVisibility(View.GONE);
                 }

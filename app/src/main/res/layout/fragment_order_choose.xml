@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#f2f2f2"
     android:layout_marginTop="15dp">
 
     <com.okm_android.main.View.ListView.swipemenulistview.SwipeMenuListView
@@ -13,19 +14,20 @@
     </com.okm_android.main.View.ListView.swipemenulistview.SwipeMenuListView>
 
     <RelativeLayout
+        android:id="@+id/fragment_order_choose_allprice_layout"
         android:layout_width="fill_parent"
-        android:layout_height="50dp"
-        android:background="#49bdcc"
+        android:layout_height="67.5dp"
+        android:background="@drawable/background_style"
         android:clickable="true"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true">
 
         <TextView
+            android:id="@+id/fragment_order_choose_allprice_text"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:text="显示总价"
-            android:textColor="#FFFFFF"
-            android:textSize="25sp"
+            android:textColor="#e52e2e"
+            android:textSize="20.25sp"
             android:gravity="center"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true" />

@@ -88,11 +88,12 @@ public class FoodMenuAdapter extends BaseAdapter {
 //                convertView.setTag(holder2);
                 holder2.foodName.setText(listItems.get(position).food_name);
                 holder2.foodPrice.setText(listItems.get(position).food_price);
-                holder2.saleCount.setText("月售"+listItems.get(position).sold_number+"份");
+                holder2.saleCount.setText(listItems.get(position).sold_number);
                 if(listItems.get(position).count > 0)
                 {
                     holder2.subButton.setVisibility(View.VISIBLE);
                     holder2.oneCount.setVisibility(View.VISIBLE);
+                    holder2.addButton.setBackgroundResource(R.drawable.food_menu_founder_add_style);
                     holder2.Count.setText(listItems.get(position).count+"");
                 }
 //                holder2.addButton.setTag(position);
@@ -105,6 +106,7 @@ public class FoodMenuAdapter extends BaseAdapter {
                         {
                             holder2.subButton.setVisibility(View.VISIBLE);
                             holder2.oneCount.setVisibility(View.VISIBLE);
+                            holder2.addButton.setBackgroundResource(R.drawable.food_menu_flat_add_style);
                             listItems.get(position).isHave = true;
                         }
                         NotificationCenter.getInstance().postNotification("AddFoodPrice",listItems.get(position).food_price);
@@ -121,6 +123,7 @@ public class FoodMenuAdapter extends BaseAdapter {
                         {
                             holder2.subButton.setVisibility(View.INVISIBLE);
                             holder2.oneCount.setVisibility(View.INVISIBLE);
+                            holder2.addButton.setBackgroundResource(R.drawable.food_menu_founder_add_style);
                             listItems.get(position).isHave = false;
                         }
                         NotificationCenter.getInstance().postNotification("SubFoodPrice",listItems.get(position).food_price);

@@ -136,6 +136,12 @@ public class HomeFragment extends Fragment implements ViewPager.OnPageChangeList
                             adapter_shop.notifyDataSetChanged();
                         }
                         break;
+
+                    case Constant.MSG_GETMESSAGE:
+                        // 此方法在主线程中执行
+                        int newindex = viewPager.getCurrentItem() + 1;
+                        viewPager.setCurrentItem(newindex);
+                        break;
                 }
                 super.handleMessage(msg);
             }
@@ -269,13 +275,7 @@ public class HomeFragment extends Fragment implements ViewPager.OnPageChangeList
                 while (!isStop) {
                     //每个两秒钟发一条消息到主线程，更新viewpager界面
                     SystemClock.sleep(3000);
-                    getActivity().runOnUiThread(new Runnable() {
-                        public void run() {
-                            // 此方法在主线程中执行
-                            int newindex = viewPager.getCurrentItem() + 1;
-                            viewPager.setCurrentItem(newindex);
-                        }
-                    });
+                    handler.obtainMessage(Constant.MSG_GETMESSAGE).sendToTarget();
                 }
             }
         });

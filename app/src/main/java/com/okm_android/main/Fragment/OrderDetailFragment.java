@@ -1,7 +1,6 @@
 package com.okm_android.main.Fragment;
 
 import android.app.ActionBar;
-
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -11,18 +10,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.okm_android.main.Adapter.FoodMenuAdapter;
 import com.okm_android.main.ApiManager.MainApiManager;
 import com.okm_android.main.ApiManager.QinApiManager;
 import com.okm_android.main.Model.DefaultAddressData;
-import com.okm_android.main.Model.FoodDataResolve;
-import com.okm_android.main.Model.RestaurantMenu;
 import com.okm_android.main.R;
 import com.okm_android.main.Utils.Constant;
 import com.okm_android.main.Utils.ErrorUtils;
 import com.okm_android.main.Utils.ToastUtils;
-
-import java.util.List;
 
 import rx.android.concurrency.AndroidSchedulers;
 import rx.util.functions.Action1;

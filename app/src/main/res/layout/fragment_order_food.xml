@@ -29,7 +29,6 @@
             style="@style/RadioButton" />
 
     </info.hoang8f.android.segmented.SegmentedGroup>
-
     <FrameLayout
         android:id="@+id/frame_order"
         android:layout_width="fill_parent"

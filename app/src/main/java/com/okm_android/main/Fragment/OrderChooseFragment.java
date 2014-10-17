@@ -66,7 +66,7 @@ public class OrderChooseFragment extends Fragment{
                 deleteItem.setTitleSize(20);
                 // set item title font color
                 deleteItem.setTitleColor(Color.rgb(0xff, 0xff, 0xff));
-                // add to menu
+                // order_choose_founder_add to menu
                 menu.addMenuItem(deleteItem);
             }
         };
@@ -108,7 +108,7 @@ public class OrderChooseFragment extends Fragment{
                 list.add(foodlist.get(i));
             }
         }
-        allPriceText.setText(allPrice);
+        allPriceText.setText("总价: "+allPrice+"元");
     }
     private int dp2px(int dp) {
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp,

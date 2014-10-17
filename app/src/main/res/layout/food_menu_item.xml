@@ -8,7 +8,6 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text=" 显示餐品名称"
         android:textSize="18sp"
         android:textColor="#333333"
         android:layout_marginTop="10dp"
@@ -31,7 +30,6 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="显示单价"
         android:textColor="#e52e2e"
         android:textSize="13.5sp"
         android:gravity="center"
@@ -43,17 +41,39 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="显示月售多少份"
+        android:text="@string/month_sale"
         android:layout_marginLeft="20dp"
+        android:textColor="#666666"
+        android:textSize="13.5sp"
+        android:gravity="center"
+        android:id="@+id/month_sale"
+        android:layout_alignTop="@+id/food_price"
+        android:layout_toRightOf="@+id/food_price" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:textColor="#e52e2e"
+        android:layout_marginLeft="2dp"
         android:textSize="13.5sp"
         android:gravity="center"
         android:id="@+id/show_sale_count"
         android:layout_alignTop="@+id/food_price"
-        android:layout_toRightOf="@+id/food_price" />
+        android:layout_toRightOf="@+id/month_sale" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/much"
+        android:layout_marginLeft="2dp"
+        android:textColor="#666666"
+        android:textSize="13.5sp"
+        android:gravity="center"
+        android:layout_alignTop="@+id/food_price"
+        android:layout_toRightOf="@+id/show_sale_count" />
 
     <LinearLayout
-        android:layout_width="120dp"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
@@ -66,7 +86,7 @@
             android:clickable="true"
             android:layout_gravity="center"
             android:gravity="center"
-            android:background="#ffffff"
+            android:background="@drawable/food_menu_flat_subtract_style"
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
@@ -76,8 +96,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:background="@drawable/radius"
-                android:text="-"
                 android:textColor="#25ade8"
                 android:textSize="18dp"/>
         </RelativeLayout>
@@ -112,7 +130,8 @@
             android:clickable="true"
             android:layout_gravity="center"
             android:gravity="center"
-            android:background="#ffffff"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/food_menu_founder_add_style"
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true">
@@ -121,9 +140,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="+"
                 android:textColor="#25ade8"
-                android:background="@drawable/radius"
                 android:textSize="18dp"/>
         </RelativeLayout>
     </LinearLayout>

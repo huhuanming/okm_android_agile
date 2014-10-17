@@ -475,7 +475,7 @@ public class PinnedSectionListView extends ListView {
         view.getHitRect(mTouchRect);
 
         // by taping top or bottom padding, the list performs on click on a border item.
-        // we don't add top padding here to keep behavior consistent.
+        // we don't order_choose_founder_add top padding here to keep behavior consistent.
         mTouchRect.top += mTranslateY;
 
         mTouchRect.bottom += mTranslateY + getPaddingTop();

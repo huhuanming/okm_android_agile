@@ -8,22 +8,24 @@
     <TextView
         android:layout_marginLeft="20dp"
         android:id="@+id/food_name"
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="50dp"
         android:text="秘制叉烧饭"
         android:textSize="15sp"
         android:gravity="center"/>
 
-    <TextView
+    <ImageView
         android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:text="  ×  "
-        android:textSize="15sp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/order_choose_multiply"
+        android:layout_gravity="center"
         android:gravity="center"/>
 
     <TextView
         android:id="@+id/food_count"
-        android:layout_width="wrap_content"
+        android:layout_width="30dp"
         android:layout_height="50dp"
         android:text="10"
         android:textSize="15sp"
@@ -32,40 +34,35 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_marginLeft="10dp"
         android:orientation="horizontal"
         android:gravity="right">
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:text=" ￥ "
-            android:textSize="15sp"
-            android:gravity="center"/>
-
-        <TextView
             android:id="@+id/money"
-            android:layout_marginLeft="5dp"
-            android:layout_width="wrap_content"
+            android:layout_width="65dp"
             android:layout_height="50dp"
             android:text="385"
             android:textSize="15sp"
             android:gravity="center"/>
 
         <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:id="@+id/order_food_item_subtract"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:clickable="true"
             android:layout_marginLeft="10dp"
-            android:background="@drawable/bbuton_danger"
+            android:background="@drawable/order_choose_subtract_more_style"
             android:gravity="center"/>
 
         <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:id="@+id/order_food_item_add"
+            android:layout_width="wrap_content"
+            android:clickable="true"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:background="@drawable/bbuton_default"
+            android:background="@drawable/order_choose_add_style"
             android:layout_gravity="center"
             android:gravity="center"/>
     </LinearLayout>

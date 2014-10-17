@@ -60,7 +60,7 @@ public class TruckFragment extends Fragment {
                 openItem.setTitleSize(20);
                 // set item title font color
                 openItem.setTitleColor(Color.rgb(0xff, 0xff,0xff));
-                // add to menu
+                // order_choose_founder_add to menu
                 menu.addMenuItem(openItem);
 
                 // create "delete" item
@@ -76,7 +76,7 @@ public class TruckFragment extends Fragment {
                 deleteItem.setTitleSize(20);
                 // set item title font color
                 deleteItem.setTitleColor(Color.rgb(0xff, 0xff, 0xff));
-                // add to menu
+                // order_choose_founder_add to menu
                 menu.addMenuItem(deleteItem);
             }
         };

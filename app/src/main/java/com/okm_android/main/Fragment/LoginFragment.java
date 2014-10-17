@@ -148,6 +148,7 @@ public class LoginFragment extends Fragment{
                     editor.putString("id", registerBackData.user_id);
                     editor.commit();
                     progressbar.setVisibility(View.GONE);
+                    getActivity().finish();
                 }
 
                 @Override
@@ -217,6 +218,7 @@ public class LoginFragment extends Fragment{
                     editor.putString("id", registerBackData.user_id);
                     editor.commit();
                     progressbar.setVisibility(View.GONE);
+                    getActivity().finish();
                 }
 
                 @Override

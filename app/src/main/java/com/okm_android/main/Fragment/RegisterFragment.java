@@ -181,14 +181,17 @@ public class RegisterFragment extends Fragment{
         if(number.equals(""))
         {
             ToastUtils.setToast(getActivity(),"请输入电话号码");
+            progressbar.setVisibility(View.INVISIBLE);
         }
         else if(encryption_code.equals(""))
         {
             ToastUtils.setToast(getActivity(),"请输入验证码");
+            progressbar.setVisibility(View.INVISIBLE);
         }
         else if(password.equals(""))
         {
             ToastUtils.setToast(getActivity(),"请输入密码");
+            progressbar.setVisibility(View.INVISIBLE);
         }
         else{
             VerificationCode verificationCode = new VerificationCode(encryption_code);

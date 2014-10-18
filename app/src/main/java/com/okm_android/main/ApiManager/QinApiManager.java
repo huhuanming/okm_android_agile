@@ -1,6 +1,9 @@
 package com.okm_android.main.ApiManager;
 
+import com.okm_android.main.Model.AddressAddData;
+import com.okm_android.main.Model.AddressData;
 import com.okm_android.main.Model.DefaultAddressData;
+import com.okm_android.main.Model.RegisterBackData;
 import com.okm_android.main.Model.RestaurantBackData;
 import com.okm_android.main.Model.RestaurantMenu;
 
@@ -35,15 +38,47 @@ public class QinApiManager extends MainApiManager{
     }
 
     private static final QinApiInterface.ApiManagerDefaultAddress defaultAddress = restAdapter.create(QinApiInterface.ApiManagerDefaultAddress.class);
-    public static Observable<DefaultAddressData> defaultAddressData(final String user_id){
+    public static Observable<DefaultAddressData> defaultAddressData(final String user_id,final String access_token){
         return Observable.create(new Observable.OnSubscribeFunc<DefaultAddressData>(){
             public Subscription onSubscribe(Observer<? super DefaultAddressData> observer){
                 try{
-                    observer.onNext(defaultAddress.defaultAddressData(user_id));
+                    observer.onNext(defaultAddress.defaultAddressData(user_id,access_token));
                     observer.onCompleted();
                 }catch (Exception e){
                     observer.onError(e);
                 }
+                return Subscriptions.empty();
+            }
+        }).subscribeOn(Schedulers.threadPoolForIO());
+    }
+
+    private static final QinApiInterface.ApiManagerPustAddress AddAddress = restAdapter.create(QinApiInterface.ApiManagerPustAddress.class);
+    public static Observable<AddressAddData> addressAddData(final String user_id,final String access_token,final String shipping_user, final String shipping_address, final String phone_number) {
+        return Observable.create(new Observable.OnSubscribeFunc<AddressAddData>() {
+            @Override
+            public Subscription onSubscribe(Observer<? super AddressAddData> observer) {
+                try {
+                    observer.onNext(AddAddress.addressAddData(user_id,access_token , shipping_user, shipping_address, phone_number ));
+                    observer.onCompleted();
+                } catch (Exception e) {
+                    observer.onError(e);
+                }
+                return Subscriptions.empty();
+            }
+        }).subscribeOn(Schedulers.threadPoolForIO());
+    }
+    private static final QinApiInterface.ApiManagerAddAddress AddressData = restAdapter.create(QinApiInterface.ApiManagerAddAddress.class);
+    public static Observable<List<AddressData>> addressData(final String user_id,final String access_token) {
+        return Observable.create(new Observable.OnSubscribeFunc<List<AddressData>>() {
+            @Override
+            public Subscription onSubscribe(Observer<? super List<AddressData>> observer) {
+                try {
+                    observer.onNext(AddressData.AddressData(user_id,access_token));
+                    observer.onCompleted();
+                } catch (Exception e) {
+                    observer.onError(e);
+                }
+
                 return Subscriptions.empty();
             }
         }).subscribeOn(Schedulers.threadPoolForIO());

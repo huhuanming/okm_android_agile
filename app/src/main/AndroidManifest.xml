@@ -37,7 +37,7 @@
         android:theme="@style/MyTheme" >
         <meta-data
             android:name="com.amap.api.v2.apikey"
-            android:value="986619b8b6a5649d20bf944ba226d1ed" />
+            android:value="520b81d1e6f4e5cf32b7aceaf2062e54" />
         <activity
             android:name=".Activity.MenuActivity"
             android:icon="@drawable/lingjiaxiaochu"
@@ -56,6 +56,16 @@
             android:icon="@drawable/lingjiaxiaochu"
             />
 
+        <activity android:name=".Activity.OrderNoteReturn"
+            android:theme="@style/MyTheme"
+            android:label="@string/please_input_Note"
+            android:icon="@drawable/lingjiaxiaochu"
+            />
+        <activity android:name=".Activity.AddAddressActivity"
+            android:theme="@style/MyTheme"
+            android:label="@string/address"
+            android:icon="@drawable/lingjiaxiaochu"
+            />
         <activity android:name=".Activity.FoodMenuActivity"
             android:theme="@style/MyTheme"
             android:label="@string/lijiaxiaochu"

@@ -1,6 +1,7 @@
 package com.okm_android.main.Fragment;
 
 import android.app.ActionBar;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -8,15 +9,26 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
-
+import com.okm_android.main.Activity.AddAddressActivity;
+import com.okm_android.main.Activity.LoginRegisterActivity;
+import com.okm_android.main.Activity.OrderNoteReturn;
 import com.okm_android.main.ApiManager.MainApiManager;
 import com.okm_android.main.ApiManager.QinApiManager;
 import com.okm_android.main.Model.DefaultAddressData;
 import com.okm_android.main.R;
 import com.okm_android.main.Utils.Constant;
 import com.okm_android.main.Utils.ErrorUtils;
+import com.okm_android.main.Utils.ShareUtils;
 import com.okm_android.main.Utils.ToastUtils;
+import com.okm_android.main.Utils.TokenUtils.AccessToken;
+import com.okm_android.main.View.Dialog.TimePickerDialog.RadialPickerLayout;
+import com.okm_android.main.View.Dialog.TimePickerDialog.TimePickerDialog;
+import java.util.Calendar;
 
 import rx.android.concurrency.AndroidSchedulers;
 import rx.util.functions.Action1;
@@ -24,23 +36,34 @@ import rx.util.functions.Action1;
 /**
  * Created by QYM on 14-10-8.
  */
-public class OrderDetailFragment extends Fragment{
+public class OrderDetailFragment extends Fragment implements TimePickerDialog.OnTimeSetListener{
     private View parentView;
     Handler handler;
-    DefaultAddressData defaultAddress;
     TextView userName;
     TextView userNumber;
     TextView userAddress;
+    TextView showOrderNote;
     String user_id;
+    ImageView moreAddress;
+    ImageView moreNote;
+    TextView showTime;
+    CheckBox cbTicket1,cbTicket2,cbSendNow,cbPayOnline,cbPayface;
+    RelativeLayout sureToPlaceOrder,changeAddress;
+    ImageView moreTime;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         parentView = inflater.inflate(R.layout.fragment_order_detail, container, false);
         getActivity().invalidateOptionsMenu();
         getActivity().getActionBar().setDisplayShowTitleEnabled(true);
         getActivity().getActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
-        userName = (TextView) parentView.findViewById(R.id.address_name);
-        userNumber = (TextView) parentView.findViewById(R.id.address_number);
-        userAddress = (TextView) parentView.findViewById(R.id.address_address);
+        init();
+        user_id = ShareUtils.getId(getActivity());
+        if(user_id==null)
+        {
+            Intent intent = new Intent(getActivity(), LoginRegisterActivity.class);
+            startActivity(intent);
+        }
+        DefaultAddressData();
         handler = new Handler(){
 
             @Override
@@ -61,12 +84,144 @@ public class OrderDetailFragment extends Fragment{
             }
 
         };
+        //下单数据接口
+        sureToPlaceOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String shipping_user = userName.getText().toString();
+                String shipping_address = userAddress.getText().toString();
+                String phone_number = userNumber.getText().toString();
+                AccessToken accessToken = new AccessToken(ShareUtils.getToken(getActivity()),ShareUtils.getKey(getActivity()));
+            }
+        });
+        changeAddress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), AddAddressActivity.class);
+                startActivityForResult(intent,2);
+            }
+        });
+        moreAddress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), AddAddressActivity.class);
+                startActivityForResult(intent,2);
+            }
+        });
+        moreNote.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(),OrderNoteReturn.class);
+                startActivityForResult(intent,1);
+            }
+        });
+        cbPayface.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b){
+                    cbPayOnline.setChecked(false);
+                }else{
+                    cbPayOnline.setChecked(true);
+                }
+            }
+        });
+
+        cbPayOnline.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b){
+                    cbPayface.setChecked(false);
+                }else{
+                    cbPayface.setChecked(true);
+                }
+            }
+        });
+        cbPayface.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b){
+                    cbPayOnline.setChecked(false);
+                }else{
+                    cbPayOnline.setChecked(true);
+                }
+            }
+        });
+
+        cbTicket1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b){
+                    cbTicket2.setChecked(false);
+                }else{
+                    cbTicket2.setChecked(true);
+                }
+            }
+        });
+        cbTicket2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b){
+                    cbTicket1.setChecked(false);
+                }else{
+                    cbTicket1.setChecked(true);
+                }
+            }
+        });
+        final Calendar calendar = Calendar.getInstance();
+        final TimePickerDialog timePickerDialog = TimePickerDialog.newInstance(this, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), false, false);
+        cbSendNow.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b)
+                    showTime.setText(null);
+                else
+                    timePickerDialog.show(getFragmentManager(),"");
+            }
+        });
+
+        moreTime.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view){
+                timePickerDialog.show(getFragmentManager(),"");
+            }
+        });
         return parentView;
     }
 
+    private void init(){
+        userName = (TextView) parentView.findViewById(R.id.address_name);
+        userNumber = (TextView) parentView.findViewById(R.id.address_number);
+        userAddress = (TextView) parentView.findViewById(R.id.address_address);
+        moreAddress = (ImageView) parentView.findViewById(R.id.order_address_change);
+        moreNote = (ImageView) parentView.findViewById(R.id.order_note_change);
+        moreTime = (ImageView) parentView.findViewById(R.id.order_appoint_change);
+        showOrderNote = (TextView) parentView.findViewById(R.id.show_order_note);
+        showTime = (TextView) parentView.findViewById(R.id.show_time);
+        cbTicket1 = (CheckBox) parentView.findViewById(R.id.cb_ticket1);
+        cbTicket2 = (CheckBox) parentView.findViewById(R.id.cb_ticket2);
+        cbSendNow = (CheckBox) parentView.findViewById(R.id.cb_send_now);
+        cbPayOnline = (CheckBox) parentView.findViewById(R.id.cb_pay_online);
+        cbPayface = (CheckBox) parentView.findViewById(R.id.cb_pay_faces);
+        sureToPlaceOrder = (RelativeLayout) parentView.findViewById(R.id.sure_to_placeorder);
+        changeAddress = (RelativeLayout) parentView.findViewById(R.id.rl_changeaddress);
+    }
+    public void onActivityResult(int requestCode, int resultCode, Intent data){
+        super.onActivityResult(requestCode, resultCode, data);
+        switch(resultCode){
+            case 221:{
+                    userName.setText(data.getExtras().getString("name"));
+                    userAddress.setText(data.getExtras().getString("address"));
+                    userNumber.setText(data.getExtras().getString("number"));
+                }
+                break;
+            case 222:{
+                    showOrderNote.setText(data.getExtras().getString("note"));
+                }break;
+        }
+    }
     public void DefaultAddressData()
     {
-        getRestaurantDta(user_id, new MainApiManager.FialedInterface() {
+        AccessToken accessToken = new AccessToken(ShareUtils.getToken(getActivity()),ShareUtils.getKey(getActivity()));
+        getUserData(user_id,accessToken.accessToken(), new MainApiManager.FialedInterface() {
             @Override
             public void onSuccess(Object object) {
                 // 获取一个Message对象，设置what为1
@@ -97,9 +252,9 @@ public class OrderDetailFragment extends Fragment{
         });
     }
 
-    private void getRestaurantDta(String user_id, final MainApiManager.FialedInterface fialedInterface)
+    private void getUserData(String user_id,String access_token, final MainApiManager.FialedInterface fialedInterface)
     {
-        QinApiManager.defaultAddressData(user_id).observeOn(AndroidSchedulers.mainThread())
+        QinApiManager.defaultAddressData(user_id,access_token).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<DefaultAddressData>() {
                     @Override
                     public void call(DefaultAddressData defaultAddressData) {
@@ -125,5 +280,13 @@ public class OrderDetailFragment extends Fragment{
                         }
                     }
                 });
+    }
+
+    @Override
+    public void onTimeSet(RadialPickerLayout view, int hourOfDay, int minute) {
+        showTime.setText(hourOfDay+":"+minute);
+        if(showTime.getText()!=null){
+            cbSendNow.setChecked(false);
+        }
     }
 }

@@ -12,6 +12,7 @@
     <string name="login">登录</string>
     <string name="register">注册</string>
     <string name="phone_number">手机号</string>
+    <string name="phonenumber">手机号码</string>
     <string name="password">密码</string>
     <string name="quick_login">快捷登录</string>
     <string name="sina">新浪微博</string>
@@ -76,7 +77,10 @@
     <string name="much">份</string>
 
     <string name="sure_place_order">确定下单</string>
-
+    <string name="pay_online">支付宝</string>
+    <string name="pay_face">现金支付</string>
+    <string name="please_input_Note">请输入订单备注</string>
+    <string name="consignee">收货人</string>
     <string name="OK">确定</string>
     <string name="done_label">Done</string>
     <string name="day_picker_description">Month grid of days</string>

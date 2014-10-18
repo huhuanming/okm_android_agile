@@ -32,7 +32,7 @@
         android:textColor="#747675"
         android:textSize="16sp" />
 
-    <com.merchants.main.View.Button.BootstrapEditText
+    <com.okm_android.main.View.Button.BootstrapEditText
         android:id="@+id/txt_edit_one"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -58,7 +58,7 @@
         android:textColor="#747675"
         android:textSize="16sp" />
 
-    <com.merchants.main.View.Button.BootstrapEditText
+    <com.okm_android.main.View.Button.BootstrapEditText
         android:id="@+id/txt_edit_two"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"

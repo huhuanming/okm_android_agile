@@ -18,7 +18,7 @@
         android:id="@+id/segmented2"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_marginTop="20dp"
         android:orientation="horizontal"
         android:gravity="center">
 
@@ -38,6 +38,7 @@
             style="@style/RadioButton" />
 
     </info.hoang8f.android.segmented.SegmentedGroup>
+
     <FrameLayout
         android:id="@+id/frame_order"
         android:layout_width="fill_parent"

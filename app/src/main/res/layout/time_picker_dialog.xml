@@ -32,7 +32,7 @@
             android:layout_gravity="center" />
     </FrameLayout>
 
-    <com.merchants.main.View.Dialog.TimePickerDialog.RadialPickerLayout
+    <com.okm_android.main.View.Dialog.TimePickerDialog.RadialPickerLayout
         android:id="@+id/time_picker"
         android:layout_height="@dimen/picker_dimen"
         android:layout_width="wrap_content"

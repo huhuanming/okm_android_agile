@@ -3,15 +3,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#f2f2f2"
-    >
+    android:layout_marginTop="15dp">
 
     <com.okm_android.main.View.ListView.swipemenulistview.SwipeMenuListView
         android:id="@+id/order_choose_listview"
         android:layout_width="fill_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="67.5dp">
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="50dp">
 
     </com.okm_android.main.View.ListView.swipemenulistview.SwipeMenuListView>
+
     <RelativeLayout
         android:id="@+id/fragment_order_choose_allprice_layout"
         android:layout_width="fill_parent"
@@ -31,10 +32,5 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true" />
     </RelativeLayout>
-    <TextView
-        android:layout_above="@id/fragment_order_choose_allprice_layout"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#cccccc"
-        />
+
 </RelativeLayout>

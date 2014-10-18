@@ -79,4 +79,14 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="CheckBox" parent="@android:style/Widget.CompoundButton.CheckBox">
+
+        <item name="android:button">@drawable/checkbox_style</item>
+
+        <item name="android:paddingLeft">25.0dip</item>
+
+        <item name="android:maxHeight">10.0dip</item>
+
+    </style>
+
 </resources>

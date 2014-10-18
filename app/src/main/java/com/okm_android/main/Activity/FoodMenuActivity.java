@@ -16,6 +16,8 @@ import android.widget.RadioGroup;
 import com.okm_android.main.R;
 import com.okm_android.main.Utils.AddObserver.NotificationCenter;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
 import info.hoang8f.android.segmented.SegmentedGroup;
 
 /**
@@ -26,24 +28,25 @@ public class FoodMenuActivity extends FragmentActivity implements SwipeRefreshLa
             "com.okm_android.main.Fragment.FoodMenuFragment",
             "com.okm_android.main.Fragment.ShopDetailFragment"
     };
-    RadioButton foodMenu;
-    SegmentedGroup segmentedGroup;
-    RadioButton shopDetail;
+    private Fragment currentFragment;
+    private Fragment[] hidefragments = new Fragment[]{null,null};
+
     public String rid=null;
-    private SwipeRefreshLayout swipeRefreshLayout;
+    @InjectView(R.id.rbtn_food_menu)RadioButton foodMenu;
+    @InjectView(R.id.shop_message_segmented)SegmentedGroup segmentedGroup;
+    @InjectView(R.id.rbtn_shop_detail)RadioButton shopDetail;
+    @InjectView(R.id.swipe_container)SwipeRefreshLayout swipeRefreshLayout;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_shop_message);
+        ButterKnife.inject(this);
 
         Intent intent = this.getIntent();
         final Bundle bundle = intent.getExtras();
         rid=bundle.getString("rid");
         getIntent().putExtra("Restaurant_id", rid);
-        //ButterKnife.inject(this);
-        foodMenu=(RadioButton)findViewById(R.id.rbtn_food_menu);
-        segmentedGroup=(SegmentedGroup)findViewById(R.id.shop_message_segmented);
-        shopDetail=(RadioButton)findViewById(R.id.rbtn_shop_detail);
-        swipeRefreshLayout = (SwipeRefreshLayout)findViewById(R.id.swipe_container);
+
         swipeRefreshLayout.setOnRefreshListener(this);
         swipeRefreshLayout.setEnabled(false);
         swipeRefreshLayout.setRefreshing(false);
@@ -59,20 +62,39 @@ public class FoodMenuActivity extends FragmentActivity implements SwipeRefreshLa
         segmentedGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int checkedId) {
+                Fragment fragment = null;
                 switch (checkedId)
                 {
                     case R.id.rbtn_food_menu:
                         getIntent().putExtra("Restaurant_id", rid);
-                        FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
-                        tx.replace(R.id.shop_message_fragment, Fragment.instantiate(FoodMenuActivity.this, fragments[0]));
-                        tx.commit();
+                        if(hidefragments[0] == null)
+                        {
+                            fragment = Fragment.instantiate(FoodMenuActivity.this, fragments[0]);
+                            hidefragments[0] = fragment;
+                        }
+                        FragmentTransaction transactionone = getSupportFragmentManager().beginTransaction();
+                        if (!hidefragments[0].isAdded()) {    // 先判断是否被add过
+                            transactionone.hide(currentFragment).add(R.id.shop_message_fragment, hidefragments[0]).commit(); // 隐藏当前的fragment，add下一个到Activity中
+                        } else {
+                            transactionone.hide(currentFragment).show(hidefragments[0]).commit(); // 隐藏当前的fragment，显示下一个
+                        }
+                        currentFragment = hidefragments[0];
                         break;
                     case R.id.rbtn_shop_detail:
                         swipeRefreshLayout.setRefreshing(true);
                         getIntent().putExtra("Restaurant_id", rid);
-                        FragmentTransaction tx2 = getSupportFragmentManager().beginTransaction();
-                        tx2.replace(R.id.shop_message_fragment, Fragment.instantiate(FoodMenuActivity.this, fragments[1]));
-                        tx2.commit();
+                        if(hidefragments[1] == null)
+                        {
+                            fragment = Fragment.instantiate(FoodMenuActivity.this, fragments[1]);
+                            hidefragments[1] = fragment;
+                        }
+                        FragmentTransaction transactiontwo = getSupportFragmentManager().beginTransaction();
+                        if (!hidefragments[1].isAdded()) {    // 先判断是否被add过
+                            transactiontwo.hide(currentFragment).add(R.id.shop_message_fragment, hidefragments[1]).commit(); // 隐藏当前的fragment，add下一个到Activity中
+                        } else {
+                            transactiontwo.hide(currentFragment).show(hidefragments[1]).commit(); // 隐藏当前的fragment，显示下一个
+                        }
+                        currentFragment = hidefragments[1];
 
                         break;
                 }
@@ -80,9 +102,10 @@ public class FoodMenuActivity extends FragmentActivity implements SwipeRefreshLa
         });
 
         FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
-        tx.replace(R.id.shop_message_fragment, Fragment.instantiate(FoodMenuActivity.this, fragments[0]));
-        tx.commit();
-
+        Fragment fragment = Fragment.instantiate(FoodMenuActivity.this, fragments[0]);
+        tx.add(R.id.shop_message_fragment,fragment).commit();
+        currentFragment = fragment;
+        hidefragments[0] = fragment;
         NotificationCenter.getInstance().addObserver("sendRid", this, rid);
     }
     public boolean onOptionsItemSelected(MenuItem item)

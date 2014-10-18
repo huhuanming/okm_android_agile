@@ -73,6 +73,7 @@ public class FoodMenuFragment extends Fragment{
                 {
                     //获取成功
                     case Constant.MSG_SUCCESS:
+                        NotificationCenter.getInstance().postNotification("setSwiperefresh");
                         List<RestaurantMenu> list = (List<RestaurantMenu>) msg.obj;
                         if(list.size() > 0)
                         {
@@ -139,17 +140,20 @@ public class FoodMenuFragment extends Fragment{
             @Override
             public void onFailth(int code) {
                 ErrorUtils.setError(code, getActivity());
+                NotificationCenter.getInstance().postNotification("setSwiperefresh");
 //                progressbar.setVisibility(View.GONE);
             }
 
             @Override
             public void onOtherFaith() {
 //                progressbar.setVisibility(View.GONE);
+                NotificationCenter.getInstance().postNotification("setSwiperefresh");
                 ToastUtils.setToast(getActivity(), "发生错误");
             }
 
             @Override
             public void onNetworkError() {
+                NotificationCenter.getInstance().postNotification("setSwiperefresh");
 //                progressbar.setVisibility(View.GONE);
                 ToastUtils.setToast(getActivity(), "网络错误");
             }

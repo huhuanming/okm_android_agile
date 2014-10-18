@@ -26,6 +26,7 @@ public class FoodDataResolve {
                 food.food_name = restaurantMenus.get(i).foods.get(j).food_name;
                 food.food_price = restaurantMenus.get(i).foods.get(j).shop_price;
                 food.sold_number = restaurantMenus.get(i).foods.get(j).food_status.sold_number;
+                food.food_id = restaurantMenus.get(i).foods.get(j).fid;
                 food.count = 0;
                 foods.add(food);
                 typeName.add("");

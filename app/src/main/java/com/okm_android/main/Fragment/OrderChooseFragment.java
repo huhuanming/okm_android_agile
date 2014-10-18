@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,10 +14,13 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.activeandroid.ActiveAndroid;
+import com.activeandroid.query.Delete;
 import com.okm_android.main.Activity.LoginRegisterActivity;
 import com.okm_android.main.Adapter.InstantOrderAdapter;
 import com.okm_android.main.Model.FoodsData;
 import com.okm_android.main.R;
+import com.okm_android.main.Utils.AddObserver.NotificationCenter;
 import com.okm_android.main.Utils.ShareUtils;
 import com.okm_android.main.View.ListView.swipemenulistview.SwipeMenu;
 import com.okm_android.main.View.ListView.swipemenulistview.SwipeMenuCreator;
@@ -43,7 +47,8 @@ public class OrderChooseFragment extends Fragment{
         getActivity().getActionBar().setDisplayShowTitleEnabled(true);
         getActivity().getActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
         getActivity().invalidateOptionsMenu();
-
+        NotificationCenter.getInstance().addObserver("addAllPrice", this, "addAllPrice");
+        NotificationCenter.getInstance().addObserver("subAllPrice", this, "subAllPrice");
         init();
         initData();
         mListView = (SwipeMenuListView) parentView.findViewById(R.id.order_choose_listview);
@@ -90,7 +95,11 @@ public class OrderChooseFragment extends Fragment{
                 }
                 else
                 {
-
+                    NotificationCenter.getInstance().postNotification("goToDetailFragment");
+                    Fragment newFragment = new OrderDetailFragment();
+                    FragmentTransaction transaction =getFragmentManager().beginTransaction();
+                    transaction.replace(R.id.frame_order,newFragment);
+                    transaction.commit();
                 }
             }
         });
@@ -108,6 +117,30 @@ public class OrderChooseFragment extends Fragment{
                 list.add(foodlist.get(i));
             }
         }
+        allPriceText.setText("总价: "+allPrice+"元");
+        new Delete().from(FoodsData.class).execute();
+        //存数据库
+        ActiveAndroid.beginTransaction();
+        try {
+            int len = list.size();
+            for (int i = 0; i < len; i++) {
+                list.get(i).save();
+            }
+            ActiveAndroid.setTransactionSuccessful();
+        } finally {
+            ActiveAndroid.endTransaction();
+        }
+    }
+
+    public void addAllPrice(String price){
+        float totalPrice = Float.parseFloat(allPrice) + Float.parseFloat(price);
+        allPrice = totalPrice+"";
+        allPriceText.setText("总价: "+allPrice+"元");
+    }
+
+    public void subAllPrice(String price){
+        float totalPrice = Float.parseFloat(allPrice) - Float.parseFloat(price);
+        allPrice = totalPrice+"";
         allPriceText.setText("总价: "+allPrice+"元");
     }
     private int dp2px(int dp) {

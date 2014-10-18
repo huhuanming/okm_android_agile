@@ -8,8 +8,10 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.activeandroid.query.Update;
 import com.okm_android.main.Model.FoodsData;
 import com.okm_android.main.R;
+import com.okm_android.main.Utils.AddObserver.NotificationCenter;
 
 import java.util.ArrayList;
 
@@ -71,6 +73,8 @@ public class InstantOrderAdapter extends BaseAdapter {
             public void onClick(View view) {
                 listItems.get(position).count = listItems.get(position).count + 1;
                 holder.number.setText(listItems.get(position).count+"");
+                new Update(FoodsData.class).set("Count = ?",listItems.get(position).count+"")
+                        .where("Food_id = ?",listItems.get(position).food_id).execute();
                 float addmoney = listItems.get(position).count * Float.parseFloat(listItems.get(position).food_price);
                 holder.money.setText("￥ "+addmoney);
                 if(listItems.get(position).count >= 1)
@@ -78,6 +82,7 @@ public class InstantOrderAdapter extends BaseAdapter {
                     holder.subtract_img.setBackgroundResource(R.drawable.order_choose_founder_more_subtract);
                     holder.subtract_img.setEnabled(true);
                 }
+                NotificationCenter.getInstance().postNotification("addAllPrice",listItems.get(position).food_price);
             }
         });
 
@@ -88,11 +93,14 @@ public class InstantOrderAdapter extends BaseAdapter {
                 holder.number.setText(listItems.get(position).count+"");
                 float submoney = listItems.get(position).count * Float.parseFloat(listItems.get(position).food_price);
                 holder.money.setText("￥ "+submoney);
+                new Update(FoodsData.class).set("Count = ?",listItems.get(position).count+"")
+                        .where("Food_id = ?",listItems.get(position).food_id).execute();
                 if(listItems.get(position).count <= 1)
                 {
                     holder.subtract_img.setBackgroundResource(R.drawable.order_choose_founder_one_subtract);
                     holder.subtract_img.setEnabled(false);
                 }
+                NotificationCenter.getInstance().postNotification("subAllPrice",listItems.get(position).food_price);
             }
         });
 

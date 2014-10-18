@@ -60,6 +60,7 @@
 
                 <EditText
                     android:id="@+id/et_addnumber"
+                    android:inputType="number"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="44.25dp"
@@ -98,7 +99,11 @@
                     android:background="#ffffff"/>
 
             </LinearLayout>
-
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#e6e6e6">
+            </RelativeLayout>
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="45dp"
@@ -116,7 +121,6 @@
                     android:textSize="15.75sp"
                     android:layout_gravity="center"
                     android:gravity="center"/>
-
             </LinearLayout>
 
         </LinearLayout>

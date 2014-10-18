@@ -50,7 +50,8 @@ public class NotificationCenter {
         String methodName = observer.methodName;
         try {
             if (object == null) {
-                Method method = observerObject.getClass().getMethod(methodName,  null);
+                Method method = observerObject.getClass().getMethod(methodName,
+                        null);
                 method.invoke(observerObject);
             }else{
                 Method method = observerObject.getClass().getMethod(methodName,  object.getClass());

@@ -37,7 +37,7 @@
         android:theme="@style/MyTheme" >
         <meta-data
             android:name="com.amap.api.v2.apikey"
-            android:value="520b81d1e6f4e5cf32b7aceaf2062e54" />
+            android:value="986619b8b6a5649d20bf944ba226d1ed" />
         <activity
             android:name=".Activity.MenuActivity"
             android:icon="@drawable/lingjiaxiaochu"

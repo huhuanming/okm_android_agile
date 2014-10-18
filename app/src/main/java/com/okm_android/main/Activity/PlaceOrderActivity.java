@@ -44,7 +44,7 @@ public class PlaceOrderActivity extends FragmentActivity implements SwipeRefresh
 
         swipeRefreshLayout.setOnRefreshListener(this);
         swipeRefreshLayout.setEnabled(false);
-        swipeRefreshLayout.setRefreshing(true);
+        swipeRefreshLayout.setRefreshing(false);
         //加载颜色是循环播放的，只要没有完成刷新就会一直循环，color1>color2>color3>color4
         swipeRefreshLayout.setColorScheme(android.R.color.holo_blue_bright,
                 android.R.color.holo_blue_light,
@@ -52,11 +52,13 @@ public class PlaceOrderActivity extends FragmentActivity implements SwipeRefresh
 
         NotificationCenter.getInstance().addObserver("goToDetailFragment", this, "goToDetailFragment");
         NotificationCenter.getInstance().addObserver("setPlaceOrderSwipeFlase", this, "setPlaceOrderSwipeFlase");
+        NotificationCenter.getInstance().addObserver("setPlaceOrderSwipeTrue", this, "setPlaceOrderSwipeTrue");
 
         segmentedGroup.setTintColor(getResources().getColor(R.color.bbutton_info_edge), Color.WHITE);
         Bundle bundle = new Bundle();
         bundle.putSerializable("data",getIntent().getExtras().getSerializable("data"));
         bundle.putSerializable("allprice",getIntent().getExtras().getString("allprice"));
+        bundle.putSerializable("Restaurant_id",getIntent().getExtras().getString("Restaurant_id"));
         getIntent().putExtras(bundle);
         segmentedGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -65,6 +67,7 @@ public class PlaceOrderActivity extends FragmentActivity implements SwipeRefresh
                 switch (checkedId) {
 
                     case R.id.btn_order_choose:
+
                         if(hidefragments[0] == null)
                         {
                             fragment = Fragment.instantiate(PlaceOrderActivity.this, fragments[0]);
@@ -79,6 +82,7 @@ public class PlaceOrderActivity extends FragmentActivity implements SwipeRefresh
                         currentFragment = hidefragments[0];
                         break;
                     case R.id.btn_order_detail:
+                        swipeRefreshLayout.setRefreshing(true);
                         if(ShareUtils.getId(PlaceOrderActivity.this).equals(""))
                         {
                             Intent intent = new Intent();
@@ -117,6 +121,9 @@ public class PlaceOrderActivity extends FragmentActivity implements SwipeRefresh
 
     public void setPlaceOrderSwipeFlase(){
         swipeRefreshLayout.setRefreshing(false);
+    }
+    public void setPlaceOrderSwipeTrue(){
+        swipeRefreshLayout.setRefreshing(true);
     }
     public boolean onOptionsItemSelected(MenuItem item)
     {

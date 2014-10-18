@@ -3,38 +3,27 @@ package com.okm_android.main.Activity;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.RelativeLayout;
 
-import com.okm_android.main.ApiManager.ChenApiManager;
-import com.okm_android.main.ApiManager.MainApiManager;
-import com.okm_android.main.ApiManager.QinApiManager;
-import com.okm_android.main.Model.AddressAddData;
-import com.okm_android.main.Model.RegisterBackData;
 import com.okm_android.main.R;
-import com.okm_android.main.Utils.ToastUtils;
-
-import rx.android.concurrency.AndroidSchedulers;
-import rx.util.functions.Action1;
+import com.okm_android.main.View.Button.BootstrapButton;
 
 /**
  * Created by qym on 14-10-17.
  */
 public class OrderNoteReturn extends Activity{
-    EditText noteWrite;
-    RelativeLayout toSure;
+    private EditText noteWrite;
+    private BootstrapButton toSure;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.order_note_write);
         ActionBar actionBar = this.getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         noteWrite = (EditText) findViewById(R.id.et_order_note);
-        toSure = (RelativeLayout) findViewById(R.id.btn_sure);
+        toSure = (BootstrapButton) findViewById(R.id.btn_sure);
         toSure.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

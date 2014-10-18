@@ -401,24 +401,18 @@
                 android:background="#e6e6e6" >
             </RelativeLayout>
 
-            <RelativeLayout
+            <com.okm_android.main.View.Button.BootstrapButton
+                xmlns:bootstrapbutton="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/sure_to_placeorder"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/button_order_detail_style"
-                android:layout_marginTop="11.5dp"
+                android:layout_width="fill_parent"
+                android:layout_height="55dp"
                 android:clickable="true"
-                android:gravity="center"
                 android:layout_marginBottom="11.5dp"
-                android:layout_gravity="center">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/sure_place_order"
-                    android:textColor="#ffffff"
-                    android:textSize="20.25dp"/>
-            </RelativeLayout>
+                android:layout_marginTop="11.5dp"
+                android:text="@string/sure_place_order"
+                bootstrapbutton:bb_roundedCorners="true"
+                bootstrapbutton:bb_text_gravity="center"
+                bootstrapbutton:bb_type="info"/>
         </LinearLayout>
 
     </ScrollView>

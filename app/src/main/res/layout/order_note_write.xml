@@ -23,21 +23,18 @@
         android:gravity="left|top"
         android:layout_marginTop="11.5dp"/>
     </RelativeLayout>
-    <RelativeLayout
-        android:id="@+id/btn_sure"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/button_order_detail_style"
-        android:layout_marginTop="11.5dp"
-        android:clickable="true"
-        android:gravity="center"
-        android:layout_gravity="center">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/OK"
-            android:textColor="#ffffff"
-            android:textSize="20.25dp"/>
-    </RelativeLayout>
+    <com.okm_android.main.View.Button.BootstrapButton
+        xmlns:bootstrapbutton="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/btn_sure"
+        android:layout_width="fill_parent"
+        android:layout_height="55dp"
+        android:clickable="true"
+        android:layout_marginBottom="11.5dp"
+        android:layout_marginRight="11.5dp"
+        android:layout_marginLeft="11.5dp"
+        android:text="@string/OK"
+        bootstrapbutton:bb_roundedCorners="true"
+        bootstrapbutton:bb_text_gravity="center"
+        bootstrapbutton:bb_type="info"/>
 </LinearLayout>

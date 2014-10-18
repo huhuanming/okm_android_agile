@@ -26,6 +26,7 @@ import com.okm_android.main.Utils.ErrorUtils;
 import com.okm_android.main.Utils.ShareUtils;
 import com.okm_android.main.Utils.ToastUtils;
 import com.okm_android.main.Utils.TokenUtils.AccessToken;
+import com.okm_android.main.View.Button.BootstrapButton;
 import com.okm_android.main.View.Dialog.TimePickerDialog.RadialPickerLayout;
 import com.okm_android.main.View.Dialog.TimePickerDialog.TimePickerDialog;
 import java.util.Calendar;
@@ -38,18 +39,19 @@ import rx.util.functions.Action1;
  */
 public class OrderDetailFragment extends Fragment implements TimePickerDialog.OnTimeSetListener{
     private View parentView;
-    Handler handler;
-    TextView userName;
-    TextView userNumber;
-    TextView userAddress;
-    TextView showOrderNote;
-    String user_id;
-    ImageView moreAddress;
-    ImageView moreNote;
-    TextView showTime;
-    CheckBox cbTicket1,cbTicket2,cbSendNow,cbPayOnline,cbPayface;
-    RelativeLayout sureToPlaceOrder,changeAddress;
-    ImageView moreTime;
+    private Handler handler;
+    private TextView userName;
+    private TextView userNumber;
+    private TextView userAddress;
+    private TextView showOrderNote;
+    private String user_id;
+    private ImageView moreAddress;
+    private ImageView moreNote;
+    private TextView showTime;
+    private CheckBox cbTicket1,cbTicket2,cbSendNow,cbPayOnline,cbPayface;
+    private RelativeLayout changeAddress;
+    private BootstrapButton sureToPlaceOrder;
+    private ImageView moreTime;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         parentView = inflater.inflate(R.layout.fragment_order_detail, container, false);
@@ -201,7 +203,7 @@ public class OrderDetailFragment extends Fragment implements TimePickerDialog.On
         cbSendNow = (CheckBox) parentView.findViewById(R.id.cb_send_now);
         cbPayOnline = (CheckBox) parentView.findViewById(R.id.cb_pay_online);
         cbPayface = (CheckBox) parentView.findViewById(R.id.cb_pay_faces);
-        sureToPlaceOrder = (RelativeLayout) parentView.findViewById(R.id.sure_to_placeorder);
+        sureToPlaceOrder = (BootstrapButton) parentView.findViewById(R.id.sure_to_placeorder);
         changeAddress = (RelativeLayout) parentView.findViewById(R.id.rl_changeaddress);
     }
     public void onActivityResult(int requestCode, int resultCode, Intent data){

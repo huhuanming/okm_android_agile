@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="11.5dp"
+        android:background="@drawable/edittext_background">
+
+    <EditText
+        android:id="@+id/et_order_note"
+        android:layout_width="fill_parent"
+        android:layout_height="200dp"
+        android:layout_marginLeft="10.5dp"
+        android:layout_marginRight="10.5dp"
+        android:background="#ffffff"
+        android:layout_marginBottom="2dp"
+        android:gravity="left|top"
+        android:layout_marginTop="11.5dp"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/btn_sure"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_order_detail_style"
+        android:layout_marginTop="11.5dp"
+        android:clickable="true"
+        android:gravity="center"
+        android:layout_gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/OK"
+            android:textColor="#ffffff"
+            android:textSize="20.25dp"/>
+    </RelativeLayout>
+</LinearLayout>

@@ -1,5 +1,6 @@
 package com.okm_android.main.ApiManager;
 
+import com.okm_android.main.Model.AddressAddData;
 import com.okm_android.main.Model.DefaultAddressData;
 import com.okm_android.main.Model.RestaurantMenu;
 import com.okm_android.main.Model.UploadBackData;
@@ -7,6 +8,8 @@ import com.okm_android.main.Model.UploadBackData;
 import java.util.List;
 
 import retrofit.http.GET;
+import retrofit.http.POST;
+import retrofit.http.PUT;
 import retrofit.http.Path;
 import retrofit.http.Query;
 
@@ -20,6 +23,10 @@ public class QinApiInterface {
     }
     public interface ApiManagerDefaultAddress{
         @GET("/users/{user_id}/addresses/default_address")
-        DefaultAddressData defaultAddressData(@Path("user_id") String user_id);
+        DefaultAddressData defaultAddressData(@Path("user_id") String user_id,@Query("access_token")String access_token);
+    }
+    public interface ApiManagerPustAddress{
+        @POST("/users/{user_id}/addresses")
+        AddressAddData addressAddData(@Path("user_id")String user_id,@Query("access_token") String access_token,@Query("shipping_user") String shipping_user,@Query("shipping_address") String shipping_address,@Query("phone_number")String phone_number);
     }
 }

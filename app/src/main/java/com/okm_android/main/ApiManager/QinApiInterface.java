@@ -1,6 +1,7 @@
 package com.okm_android.main.ApiManager;
 
 import com.okm_android.main.Model.AddressAddData;
+import com.okm_android.main.Model.AddressData;
 import com.okm_android.main.Model.DefaultAddressData;
 import com.okm_android.main.Model.RestaurantMenu;
 import com.okm_android.main.Model.UploadBackData;
@@ -28,5 +29,9 @@ public class QinApiInterface {
     public interface ApiManagerPustAddress{
         @POST("/users/{user_id}/addresses")
         AddressAddData addressAddData(@Path("user_id")String user_id,@Query("access_token") String access_token,@Query("shipping_user") String shipping_user,@Query("shipping_address") String shipping_address,@Query("phone_number")String phone_number);
+    }
+    public interface ApiManagerAddAddress{
+        @GET("/users/{user_id}/addresses")
+        List<AddressData> AddressData(@Path("user_id")String user_id,@Query("access_token")String access_token);
     }
 }

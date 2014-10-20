@@ -77,6 +77,14 @@ public class OrderChooseFragment extends Fragment{
         };
         // set creator
         mListView.setMenuCreator(creator);
+        mListView.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
+            @Override
+            public void onMenuItemClick(int position, SwipeMenu menu, int index) {
+                new Delete().from(FoodsData.class).where("Food_id = ?",list.get(position).food_id).execute();
+                list.remove(position);
+                mAdapter.notifyDataSetChanged();
+            }
+        });
         return parentView;
     }
 

@@ -3,27 +3,23 @@ package com.okm_android.main.Activity;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.EditText;
 
 import com.okm_android.main.ApiManager.MainApiManager;
 import com.okm_android.main.ApiManager.QinApiManager;
 import com.okm_android.main.Model.AddressAddData;
-import com.okm_android.main.Model.RegisterBackData;
 import com.okm_android.main.R;
 import com.okm_android.main.Utils.ErrorUtils;
 import com.okm_android.main.Utils.ShareUtils;
 import com.okm_android.main.Utils.ToastUtils;
 import com.okm_android.main.Utils.TokenUtils.AccessToken;
 
-import fr.castorflex.android.smoothprogressbar.SmoothProgressBar;
 import rx.android.concurrency.AndroidSchedulers;
 import rx.util.functions.Action1;
 

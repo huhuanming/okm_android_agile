@@ -1,5 +1,6 @@
 package com.okm_android.main.Fragment;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
@@ -70,6 +71,12 @@ public class RegisterFragment extends Fragment{
                     case Constant.MSG_FINISH:
                         get_verification_code.setEnabled(true);
                         get_verification_code.setText("获取验证码");
+                        break;
+                    case Constant.MSG_GETMESSAGE:
+                        ToastUtils.setToast(getActivity(), "注册成功");
+                        progressbar.setVisibility(View.GONE);
+                        getActivity().setResult(500,new Intent());
+                        getActivity().finish();
                         break;
                 }
                 super.handleMessage(msg);
@@ -198,7 +205,7 @@ public class RegisterFragment extends Fragment{
             createUser(number, EncodeUtils.MD5(EncodeUtils.MD5(password)), verificationCode.encryptionCode(), new MainApiManager.FialedInterface() {
                 @Override
                 public void onSuccess(Object object) {
-                    ToastUtils.setToast(getActivity(), "注册成功");
+
                     RegisterBackData registerBackData = (RegisterBackData) object;
                     mshared = getActivity().getSharedPreferences("usermessage", 0);
                     editor = mshared.edit();
@@ -206,8 +213,7 @@ public class RegisterFragment extends Fragment{
                     editor.putString("key", registerBackData.access_token.key);
                     editor.putString("id", registerBackData.user_id);
                     editor.commit();
-                    getActivity().finish();
-                    progressbar.setVisibility(View.GONE);
+
                 }
 
                 @Override

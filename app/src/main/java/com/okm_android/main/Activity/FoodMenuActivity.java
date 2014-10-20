@@ -81,7 +81,7 @@ public class FoodMenuActivity extends FragmentActivity implements SwipeRefreshLa
                         currentFragment = hidefragments[0];
                         break;
                     case R.id.rbtn_shop_detail:
-                        swipeRefreshLayout.setRefreshing(true);
+
                         getIntent().putExtra("Restaurant_id", rid);
                         if(hidefragments[1] == null)
                         {
@@ -90,6 +90,7 @@ public class FoodMenuActivity extends FragmentActivity implements SwipeRefreshLa
                         }
                         FragmentTransaction transactiontwo = getSupportFragmentManager().beginTransaction();
                         if (!hidefragments[1].isAdded()) {    // 先判断是否被add过
+                            swipeRefreshLayout.setRefreshing(true);
                             transactiontwo.hide(currentFragment).add(R.id.shop_message_fragment, hidefragments[1]).commit(); // 隐藏当前的fragment，add下一个到Activity中
                         } else {
                             transactiontwo.hide(currentFragment).show(hidefragments[1]).commit(); // 隐藏当前的fragment，显示下一个

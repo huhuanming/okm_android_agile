@@ -16,4 +16,10 @@
         android:icon="@drawable/shake"
         android:showAsAction="always"
         />
+    <item
+        android:id="@+id/menu_add_address"
+        android:orderInCategory="1"
+        android:icon="@drawable/add_address_icon"
+        android:showAsAction="always"
+        />
 </menu>

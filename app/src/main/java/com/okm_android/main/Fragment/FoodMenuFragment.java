@@ -100,6 +100,7 @@ public class FoodMenuFragment extends Fragment{
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("data", foodDataResolve.getFoods());
                 bundle.putString("allprice",allFoodPrice.getText().toString());
+                bundle.putString("Restaurant_id",rid);
                 intent.putExtras(bundle);
                 startActivity(intent);
             }

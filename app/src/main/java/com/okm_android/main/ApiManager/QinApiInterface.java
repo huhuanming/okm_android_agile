@@ -24,7 +24,7 @@ public class QinApiInterface {
         List<RestaurantMenu> RestaurantFood(@Path("restaurant_id") String restaurant_id);
     }
     public interface ApiManagerDefaultAddress{
-        @GET("/users/{user_id}/addresses")
+        @GET("/users/{user_id}/addresses/default_address")
         DefaultAddressData defaultAddressData(@Path("user_id") String user_id,@Query("access_token")String access_token);
     }
     public interface ApiManagerPustAddress{

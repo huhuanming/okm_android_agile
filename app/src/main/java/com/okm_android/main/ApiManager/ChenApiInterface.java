@@ -50,7 +50,7 @@ public class ChenApiInterface {
     }
 
     public interface ApiManagerRestaurantsOrders {
-        @POST("/{restaurant_id}/orders")
+        @POST("/restaurants/{restaurant_id}/orders")
         RestaurantOrderBackData RestaurantsOrders(@Path("restaurant_id") String restaurant_id, @Query("access_token") String access_token,
                                                   @Query("foods") String foods, @Query("ship_type") String ship_type,
                                                   @Query("order_type") String order_type, @Query("shipping_user") String shipping_user,

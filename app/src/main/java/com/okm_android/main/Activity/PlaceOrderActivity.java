@@ -53,6 +53,7 @@ public class PlaceOrderActivity extends FragmentActivity implements SwipeRefresh
         NotificationCenter.getInstance().addObserver("goToDetailFragment", this, "goToDetailFragment");
         NotificationCenter.getInstance().addObserver("setPlaceOrderSwipeFlase", this, "setPlaceOrderSwipeFlase");
         NotificationCenter.getInstance().addObserver("setPlaceOrderSwipeTrue", this, "setPlaceOrderSwipeTrue");
+        NotificationCenter.getInstance().addObserver("switchFragment", this, "switchFragment");
 
         segmentedGroup.setTintColor(getResources().getColor(R.color.bbutton_info_edge), Color.WHITE);
         Bundle bundle = new Bundle();
@@ -89,20 +90,7 @@ public class PlaceOrderActivity extends FragmentActivity implements SwipeRefresh
                             startActivityForResult(intent, 201);
                         }
                         else {
-
-                            if(hidefragments[1] == null)
-                            {
-                                fragment = Fragment.instantiate(PlaceOrderActivity.this, fragments[1]);
-                                hidefragments[1] = fragment;
-                            }
-                            FragmentTransaction transactiontwo = getSupportFragmentManager().beginTransaction();
-                            if (!hidefragments[1].isAdded()) {    // 先判断是否被add过
-                                swipeRefreshLayout.setRefreshing(true);
-                                transactiontwo.hide(currentFragment).add(R.id.frame_order, hidefragments[1]).commit(); // 隐藏当前的fragment，add下一个到Activity中
-                            } else {
-                                transactiontwo.hide(currentFragment).show(hidefragments[1]).commit(); // 隐藏当前的fragment，显示下一个
-                            }
-                            currentFragment = hidefragments[1];
+                            switchFragment();
                         }
                         break;
                 }
@@ -110,13 +98,35 @@ public class PlaceOrderActivity extends FragmentActivity implements SwipeRefresh
         });
 
         FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
-        Fragment fragment = Fragment.instantiate(PlaceOrderActivity.this, fragments[0]);
-        tx.add(R.id.frame_order,fragment).commit();
-        currentFragment = fragment;
-        hidefragments[0] = fragment;
+        Fragment fragmentone = Fragment.instantiate(PlaceOrderActivity.this, fragments[0]);
+        Fragment fragmenttwo = Fragment.instantiate(PlaceOrderActivity.this, fragments[1]);
+        tx.add(R.id.frame_order,fragmenttwo);
+        tx.hide(fragmenttwo).add(R.id.frame_order,fragmentone).commit();
+
+        currentFragment = fragmentone;
+        hidefragments[0] = fragmentone;
+        hidefragments[1] = fragmenttwo;
     }
     public void goToDetailFragment(){
         orderDetail.setChecked(true);
+    }
+
+    public void switchFragment(){
+        Fragment fragment = null;
+
+        if(hidefragments[1] == null)
+        {
+            fragment = Fragment.instantiate(PlaceOrderActivity.this, fragments[1]);
+            hidefragments[1] = fragment;
+        }
+        FragmentTransaction transactiontwo = getSupportFragmentManager().beginTransaction();
+        if (!hidefragments[1].isAdded()) {    // 先判断是否被add过
+            swipeRefreshLayout.setRefreshing(true);
+            transactiontwo.hide(currentFragment).add(R.id.frame_order, hidefragments[1]).commit(); // 隐藏当前的fragment，add下一个到Activity中
+        } else {
+            transactiontwo.hide(currentFragment).show(hidefragments[1]).commit(); // 隐藏当前的fragment，显示下一个
+        }
+        currentFragment = hidefragments[1];
     }
 
     public void setPlaceOrderSwipeFlase(){

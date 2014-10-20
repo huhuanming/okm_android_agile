@@ -6,7 +6,6 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -104,10 +103,11 @@ public class OrderChooseFragment extends Fragment{
                 else
                 {
                     NotificationCenter.getInstance().postNotification("goToDetailFragment");
-                    Fragment newFragment = new OrderDetailFragment();
-                    FragmentTransaction transaction =getFragmentManager().beginTransaction();
-                    transaction.replace(R.id.frame_order,newFragment);
-                    transaction.commit();
+                    NotificationCenter.getInstance().postNotification("switchFragment");
+//                    Fragment newFragment = new OrderDetailFragment();
+//                    FragmentTransaction transaction =getFragmentManager().beginTransaction();
+//                    transaction.replace(R.id.frame_order,newFragment);
+//                    transaction.commit();
                 }
             }
         });

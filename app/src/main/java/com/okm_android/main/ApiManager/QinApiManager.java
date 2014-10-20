@@ -6,6 +6,7 @@ import com.okm_android.main.Model.DefaultAddressData;
 import com.okm_android.main.Model.RegisterBackData;
 import com.okm_android.main.Model.RestaurantBackData;
 import com.okm_android.main.Model.RestaurantMenu;
+import com.okm_android.main.Model.UploadBackData;
 
 import java.util.List;
 
@@ -79,6 +80,37 @@ public class QinApiManager extends MainApiManager{
                     observer.onError(e);
                 }
 
+                return Subscriptions.empty();
+            }
+        }).subscribeOn(Schedulers.threadPoolForIO());
+    }
+    private static final QinApiInterface.ApiManagerDeleteAddress UploadBackData = restAdapter.create(QinApiInterface.ApiManagerDeleteAddress.class);
+    public static Observable<UploadBackData> uploadBackData(final String user_id,final String address_id,final String access_token) {
+        return Observable.create(new Observable.OnSubscribeFunc<UploadBackData>() {
+            @Override
+            public Subscription onSubscribe(Observer<? super UploadBackData> observer) {
+                try {
+                    observer.onNext(UploadBackData.uploadBackData(user_id,address_id,access_token));
+                    observer.onCompleted();
+                } catch (Exception e) {
+                    observer.onError(e);
+                }
+                return Subscriptions.empty();
+            }
+        }).subscribeOn(Schedulers.threadPoolForIO());
+    }
+
+    private static final QinApiInterface.ApiManagerSetDefaultAddress UploadBackDataDef = restAdapter.create(QinApiInterface.ApiManagerSetDefaultAddress.class);
+    public static Observable<UploadBackData> uploadBackDataDef(final String user_id,final String address_id,final String access_token) {
+        return Observable.create(new Observable.OnSubscribeFunc<UploadBackData>() {
+            @Override
+            public Subscription onSubscribe(Observer<? super UploadBackData> observer) {
+                try {
+                    observer.onNext(UploadBackDataDef.uploadBackDataDef(user_id,address_id,access_token));
+                    observer.onCompleted();
+                } catch (Exception e) {
+                    observer.onError(e);
+                }
                 return Subscriptions.empty();
             }
         }).subscribeOn(Schedulers.threadPoolForIO());

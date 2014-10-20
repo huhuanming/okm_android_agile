@@ -8,4 +8,5 @@ public class AddressData {
     public String shipping_address;
     public String phone_number;
     public String is_default;
+    public String address_id;
 }

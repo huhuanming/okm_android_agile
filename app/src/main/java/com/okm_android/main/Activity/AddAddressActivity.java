@@ -17,6 +17,7 @@ import com.okm_android.main.ApiManager.QinApiManager;
 import com.okm_android.main.Model.AddressAddData;
 import com.okm_android.main.Model.RegisterBackData;
 import com.okm_android.main.R;
+import com.okm_android.main.Utils.AddObserver.NotificationCenter;
 import com.okm_android.main.Utils.ErrorUtils;
 import com.okm_android.main.Utils.ShareUtils;
 import com.okm_android.main.Utils.ToastUtils;
@@ -111,6 +112,7 @@ public class AddAddressActivity extends Activity implements SwipeRefreshLayout.O
                     @Override
                     public void onSuccess(Object object) {
                         ToastUtils.setToast(AddAddressActivity.this, "地址添加成功");
+                        NotificationCenter.getInstance().postNotification("ReFlashAddress");
                        // AddAddressActivity.this.finish();
                     }
 

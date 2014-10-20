@@ -18,9 +18,12 @@ import com.okm_android.main.Adapter.FoodMenuAdapter;
 import com.okm_android.main.ApiManager.MainApiManager;
 import com.okm_android.main.ApiManager.QinApiManager;
 import com.okm_android.main.Model.AddressData;
+import com.okm_android.main.Model.DefaultAddressData;
 import com.okm_android.main.Model.FoodDataResolve;
 import com.okm_android.main.Model.RestaurantMenu;
+import com.okm_android.main.Model.UploadBackData;
 import com.okm_android.main.R;
+import com.okm_android.main.Utils.AddObserver.NotificationCenter;
 import com.okm_android.main.Utils.Constant;
 import com.okm_android.main.Utils.ErrorUtils;
 import com.okm_android.main.Utils.ShareUtils;
@@ -52,6 +55,7 @@ public class TruckFragment extends Fragment implements SwipeRefreshLayout.OnRefr
     Handler handler;
     String user_id;
     private List<AddressData> addressDatas = new ArrayList<AddressData>();
+    List<Map<String,String>> listItem;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
@@ -75,7 +79,8 @@ public class TruckFragment extends Fragment implements SwipeRefreshLayout.OnRefr
                 android.R.color.holo_blue_light,
                 android.R.color.white, android.R.color.holo_blue_bright);
         user_id = ShareUtils.getId(getActivity());
-        restaurantData();
+        AddressData();
+        NotificationCenter.getInstance().addObserver("ReFlashAddress",this,"ReFlashAddress");
         SwipeMenuCreator creator = new SwipeMenuCreator() {
 
             @Override
@@ -112,12 +117,12 @@ public class TruckFragment extends Fragment implements SwipeRefreshLayout.OnRefr
                     case Constant.MSG_SUCCESS:
                         swipeRefreshLayout.setRefreshing(false);
                         List<AddressData> list = (List<AddressData>) msg.obj;
-                        List<Map<String,String>> listItem=new ArrayList<Map<String, String>>();
                         Map<String,String> map;
                         if(list.size() > 0)
                         {
                             addressDatas.clear();
                             addressDatas.addAll(list);
+                            listItem = new ArrayList<Map<String, String>>();
                             for(int i=0;i<addressDatas.size();i++){
                                 if(addressDatas.get(i).is_default.toString().equals("1"))
                                 {
@@ -130,6 +135,7 @@ public class TruckFragment extends Fragment implements SwipeRefreshLayout.OnRefr
                                     map.put("name",addressDatas.get(i).shipping_user);
                                     map.put("address",addressDatas.get(i).shipping_address);
                                     map.put("number",addressDatas.get(i).phone_number);
+                                    map.put("address_id",addressDatas.get(i).address_id);
                                     listItem.add(map);
                                 }
                             }
@@ -143,32 +149,100 @@ public class TruckFragment extends Fragment implements SwipeRefreshLayout.OnRefr
             }
 
         };
+
+        mListView.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
+            @Override
+            public void onMenuItemClick(int position, SwipeMenu menu, int index) {
+                switch (index) {
+                    case 0:// default
+                    {
+                        String address_id = listItem.get(position).get("address_id");
+                        SetDefaultAddressData(address_id);
+                    }
+                    break;
+                    case 1:// delete
+                    {
+                        String address_id = listItem.get(position).get("address_id");
+                        DeleteAddressData(address_id);
+                    }break;
+                }
+            }
+        });
         return parentView;
-    }/*
-    private List<Map<Strig, String>> get_search()   //从服务器里加载数据
-    {
-        //ContentResolver resolver=mContext.getContentResolver();
-        List<Map<String,String>> list=new ArrayList<Map<String, String>>();
-        Map<String,String> map;
-        for(int i=0;i<4;i++)
-        {
-            map=new HashMap<String, String>();
-            map.put("name", "秦源懋");
-            map.put("number","18200272893");
-            map.put("address", "西南交大");
-            list.add(map);
-        }
-        return list;
-    }*/
+    }
+
     private int dp2px(int dp) {
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp,
                 getResources().getDisplayMetrics());
     }
 
-    public void restaurantData()
+    public void ReFlashAddress()
+    {
+        AddressData();
+    }
+    public void DeleteAddressData(String address_id)
     {
         AccessToken accessToken = new AccessToken(ShareUtils.getToken(getActivity()),ShareUtils.getKey(getActivity()));
-        getRestaurantDta(user_id,accessToken.accessToken(), new MainApiManager.FialedInterface() {
+        deleteAddressDta(user_id, address_id, accessToken.accessToken(), new MainApiManager.FialedInterface() {
+            @Override
+            public void onSuccess(Object object) {
+                ToastUtils.setToast(getActivity(), "删除成功");
+                AddressData();
+            }
+
+            @Override
+            public void onFailth(int code) {
+                ErrorUtils.setError(code, getActivity());
+//                progressbar.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onOtherFaith() {
+//                progressbar.setVisibility(View.GONE);
+                ToastUtils.setToast(getActivity(), "发生错误");
+            }
+
+            @Override
+            public void onNetworkError() {
+//                progressbar.setVisibility(View.GONE);
+                ToastUtils.setToast(getActivity(), "网络错误");
+            }
+        });
+    }
+
+    public void SetDefaultAddressData(String address_id)
+    {
+        AccessToken accessToken = new AccessToken(ShareUtils.getToken(getActivity()),ShareUtils.getKey(getActivity()));
+        DefalutAddressDta(user_id, address_id, accessToken.accessToken(), new MainApiManager.FialedInterface() {
+            @Override
+            public void onSuccess(Object object) {
+                ToastUtils.setToast(getActivity(), "设置成功");
+                AddressData();
+            }
+
+            @Override
+            public void onFailth(int code) {
+                ErrorUtils.setError(code, getActivity());
+//                progressbar.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onOtherFaith() {
+//                progressbar.setVisibility(View.GONE);
+                ToastUtils.setToast(getActivity(), "发生错误");
+            }
+
+            @Override
+            public void onNetworkError() {
+//                progressbar.setVisibility(View.GONE);
+                ToastUtils.setToast(getActivity(), "网络错误");
+            }
+        });
+    }
+    public void AddressData()
+    {
+        AccessToken accessToken = new AccessToken(ShareUtils.getToken(getActivity()),ShareUtils.getKey(getActivity()));
+        getAddressDta(user_id, accessToken.accessToken(), new MainApiManager.FialedInterface() {
             @Override
             public void onSuccess(Object object) {
                 // 获取一个Message对象，设置what为1
@@ -199,7 +273,7 @@ public class TruckFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         });
     }
 
-    private void getRestaurantDta(String user_id,String access_token, final MainApiManager.FialedInterface fialedInterface)
+    private void getAddressDta(String user_id,String access_token, final MainApiManager.FialedInterface fialedInterface)
     {
         QinApiManager.addressData(user_id,access_token).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<List<AddressData>>() {
@@ -229,6 +303,64 @@ public class TruckFragment extends Fragment implements SwipeRefreshLayout.OnRefr
                 });
     }
 
+    private void deleteAddressDta(String user_id,String address_id,String access_token, final MainApiManager.FialedInterface fialedInterface)
+    {
+        QinApiManager.uploadBackData(user_id, address_id,access_token).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<UploadBackData>() {
+                    @Override
+                    public void call(UploadBackData uploadBackData) {
+                        fialedInterface.onSuccess(uploadBackData);
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+
+                        if(throwable.getClass().getName().toString().indexOf("RetrofitError") != -1) {
+                            retrofit.RetrofitError e = (retrofit.RetrofitError) throwable;
+                            if(e.isNetworkError())
+                            {
+                                fialedInterface.onNetworkError();
+
+                            }
+                            else {
+                                fialedInterface.onFailth(e.getResponse().getStatus());
+                            }
+                        }
+                        else{
+                            fialedInterface.onOtherFaith();
+                        }
+                    }
+                });
+    }
+    private void DefalutAddressDta(String user_id,String address_id,String access_token, final MainApiManager.FialedInterface fialedInterface)
+    {
+        QinApiManager.uploadBackDataDef(user_id, address_id, access_token).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<UploadBackData>() {
+                    @Override
+                    public void call(UploadBackData uploadBackData) {
+                        fialedInterface.onSuccess(uploadBackData);
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+
+                        if(throwable.getClass().getName().toString().indexOf("RetrofitError") != -1) {
+                            retrofit.RetrofitError e = (retrofit.RetrofitError) throwable;
+                            if(e.isNetworkError())
+                            {
+                                fialedInterface.onNetworkError();
+
+                            }
+                            else {
+                                fialedInterface.onFailth(e.getResponse().getStatus());
+                            }
+                        }
+                        else{
+                            fialedInterface.onOtherFaith();
+                        }
+                    }
+                });
+    }
     @Override
     public void onRefresh() {
         swipeRefreshLayout.setRefreshing(false);

@@ -99,13 +99,10 @@ public class PlaceOrderActivity extends FragmentActivity implements SwipeRefresh
 
         FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
         Fragment fragmentone = Fragment.instantiate(PlaceOrderActivity.this, fragments[0]);
-        Fragment fragmenttwo = Fragment.instantiate(PlaceOrderActivity.this, fragments[1]);
-        tx.add(R.id.frame_order,fragmenttwo);
-        tx.hide(fragmenttwo).add(R.id.frame_order,fragmentone).commit();
+        tx.add(R.id.frame_order,fragmentone).commit();
 
         currentFragment = fragmentone;
         hidefragments[0] = fragmentone;
-        hidefragments[1] = fragmenttwo;
     }
     public void goToDetailFragment(){
         orderDetail.setChecked(true);

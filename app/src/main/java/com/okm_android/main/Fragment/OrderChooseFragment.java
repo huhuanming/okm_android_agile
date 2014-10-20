@@ -103,7 +103,7 @@ public class OrderChooseFragment extends Fragment{
                 else
                 {
                     NotificationCenter.getInstance().postNotification("goToDetailFragment");
-                    NotificationCenter.getInstance().postNotification("switchFragment");
+//                    NotificationCenter.getInstance().postNotification("switchFragment");
 //                    Fragment newFragment = new OrderDetailFragment();
 //                    FragmentTransaction transaction =getFragmentManager().beginTransaction();
 //                    transaction.replace(R.id.frame_order,newFragment);

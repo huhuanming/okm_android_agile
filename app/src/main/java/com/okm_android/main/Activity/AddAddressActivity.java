@@ -26,8 +26,8 @@ import rx.util.functions.Action1;
  * Created by qym on 14-10-17.
  */
 public class AddAddressActivity extends Activity implements SwipeRefreshLayout.OnRefreshListener{
-    private EditText addName,addAddress,addNumber;
-    private String user_id;
+    EditText addName,addAddress,addNumber;
+    String user_id;
     private SwipeRefreshLayout swipeRefreshLayout;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,13 +40,6 @@ public class AddAddressActivity extends Activity implements SwipeRefreshLayout.O
         addAddress = (EditText) findViewById(R.id.et_addaddress);
 
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
-        swipeRefreshLayout.setOnRefreshListener(this);
-        swipeRefreshLayout.setEnabled(false);
-        swipeRefreshLayout.setRefreshing(false);
-        //加载颜色是循环播放的，只要没有完成刷新就会一直循环，color1>color2>color3>color4
-        swipeRefreshLayout.setColorScheme(android.R.color.holo_blue_bright,
-                android.R.color.holo_blue_light,
-                android.R.color.white, android.R.color.holo_blue_bright);
 
         user_id = ShareUtils.getId(this);
     }
@@ -62,7 +55,19 @@ public class AddAddressActivity extends Activity implements SwipeRefreshLayout.O
             case R.id.menu_ok:
             {
                 PustAddress();
-
+                Intent intent = new Intent();
+                Bundle bundle = new Bundle();
+                if(addName.getText().toString().equals("")||addAddress.getText().toString().equals("")||addNumber.getText().toString().equals("")){
+                    return false;
+                }
+                else {
+                    bundle.putString("name", addName.getText().toString());
+                    bundle.putString("address", addAddress.getText().toString());
+                    bundle.putString("number", addNumber.getText().toString());
+                    intent.putExtras(bundle);
+                    setResult(221, intent);
+                }
+                finish();
             }break;
         }
         return super.onOptionsItemSelected(item);
@@ -91,20 +96,17 @@ public class AddAddressActivity extends Activity implements SwipeRefreshLayout.O
                 ToastUtils.setToast(this, "请输入联系方式");
             } else {
                 AccessToken accessToken = new AccessToken(ShareUtils.getToken(AddAddressActivity.this),ShareUtils.getKey(AddAddressActivity.this));
+                swipeRefreshLayout.setOnRefreshListener(this);
+                swipeRefreshLayout.setEnabled(false);
                 swipeRefreshLayout.setRefreshing(true);
+                //加载颜色是循环播放的，只要没有完成刷新就会一直循环，color1>color2>color3>color4
+                swipeRefreshLayout.setColorScheme(android.R.color.holo_blue_bright,
+                        android.R.color.holo_blue_light,
+                        android.R.color.white, android.R.color.holo_blue_bright);
                 addAddress(user_id,accessToken.accessToken(),shipping_user, shipping_address, phone_number, new MainApiManager.FialedInterface() {
                     @Override
                     public void onSuccess(Object object) {
-
                         ToastUtils.setToast(AddAddressActivity.this, "地址添加成功");
-                        Intent intent = new Intent();
-                        Bundle bundle = new Bundle();
-                        bundle.putString("name", addName.getText().toString());
-                        bundle.putString("address", addAddress.getText().toString());
-                        bundle.putString("number", addNumber.getText().toString());
-                        intent.putExtras(bundle);
-                        setResult(221, intent);
-                        finish();
                        // AddAddressActivity.this.finish();
                     }
 

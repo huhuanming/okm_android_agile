@@ -8,6 +8,7 @@ import com.okm_android.main.Model.UploadBackData;
 
 import java.util.List;
 
+import retrofit.http.DELETE;
 import retrofit.http.GET;
 import retrofit.http.POST;
 import retrofit.http.PUT;
@@ -23,7 +24,7 @@ public class QinApiInterface {
         List<RestaurantMenu> RestaurantFood(@Path("restaurant_id") String restaurant_id);
     }
     public interface ApiManagerDefaultAddress{
-        @GET("/users/{user_id}/addresses/default_address")
+        @GET("/users/{user_id}/addresses")
         DefaultAddressData defaultAddressData(@Path("user_id") String user_id,@Query("access_token")String access_token);
     }
     public interface ApiManagerPustAddress{
@@ -33,5 +34,13 @@ public class QinApiInterface {
     public interface ApiManagerAddAddress{
         @GET("/users/{user_id}/addresses")
         List<AddressData> AddressData(@Path("user_id")String user_id,@Query("access_token")String access_token);
+    }
+    public interface ApiManagerDeleteAddress{
+        @DELETE("/users/{user_id}/addresses/{address_id}")
+        UploadBackData uploadBackData(@Path("user_id")String user_id,@Path("address_id")String address_id,@Query("access_token")String access_token);
+    }
+    public interface ApiManagerSetDefaultAddress{
+        @PUT("/users/{user_id}/addresses/{address_id}/is_default")
+        UploadBackData uploadBackDataDef(@Path("user_id")String user_id,@Path("address_id")String address_id,@Query("access_token")String access_token);
     }
 }

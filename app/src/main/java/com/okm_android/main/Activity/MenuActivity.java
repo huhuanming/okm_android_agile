@@ -316,6 +316,12 @@ public class MenuActivity extends FragmentActivity implements AMapLocationListen
                 menuActionbarItemClick.onClick(R.id.menu_shake);
             }
             break;
+
+            case R.id.menu_add_address:{
+                Intent intent = new Intent(this, AddAddressActivity.class);
+                startActivity(intent);
+            }
+            break;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -325,6 +331,8 @@ public class MenuActivity extends FragmentActivity implements AMapLocationListen
         getMenuInflater().inflate(R.menu.menumanagement_right, menu);
         MenuItem searchMenuItem = menu.getItem(0);
         MenuItem shackMenuItem = menu.getItem(1);
+        MenuItem addAddressItem = menu.getItem(2);
+        addAddressItem.setVisible(false);
         searchMenuItem.setVisible(false);
         shackMenuItem.setVisible(false);
         switch (fragmentPositon){
@@ -334,6 +342,7 @@ public class MenuActivity extends FragmentActivity implements AMapLocationListen
                 setActionbarSpinner();
                 searchMenuItem.setVisible(true);
                 shackMenuItem.setVisible(true);
+                addAddressItem.setVisible(false);
                 adapter.notifyDataSetChanged();
             }
             break;
@@ -361,6 +370,7 @@ public class MenuActivity extends FragmentActivity implements AMapLocationListen
                 getActionBar().setTitle("送货地址");
                 shackMenuItem.setVisible(false);
                 searchMenuItem.setVisible(false);
+                addAddressItem.setVisible(true);
                 adapter.notifyDataSetChanged();
             }
             break;

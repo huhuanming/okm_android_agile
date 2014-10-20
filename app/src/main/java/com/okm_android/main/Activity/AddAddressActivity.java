@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -33,19 +34,24 @@ public class AddAddressActivity extends Activity implements SwipeRefreshLayout.O
     EditText addName,addAddress,addNumber;
     String user_id;
     private SwipeRefreshLayout swipeRefreshLayout;
-
+    private int flagAdd=1;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_address);
         ActionBar actionBar = this.getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
+        Intent intent = this.getIntent();
+        intent.getIntExtra("SetAddOrChange",flagAdd);
+        Log.e("flag=",flagAdd+"");
         addName = (EditText) findViewById(R.id.et_addname);
         addNumber = (EditText) findViewById(R.id.et_addnumber);
         addAddress = (EditText) findViewById(R.id.et_addaddress);
-
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
-
         user_id = ShareUtils.getId(this);
+        if(flagAdd==1) // 加载从上一界面传来的数据
+        {
+
+        }
     }
     public boolean onOptionsItemSelected(MenuItem item)
     {
@@ -58,20 +64,26 @@ public class AddAddressActivity extends Activity implements SwipeRefreshLayout.O
                 break;
             case R.id.menu_ok:
             {
-                PustAddress();
-                Intent intent = new Intent();
-                Bundle bundle = new Bundle();
-                if(addName.getText().toString().equals("")||addAddress.getText().toString().equals("")||addNumber.getText().toString().equals("")){
-                    return false;
+                if(flagAdd==0) //添加地址数据到数据库
+                {
+                    PustAddress();
+                    Intent intent = new Intent();
+                    Bundle bundle = new Bundle();
+                    if(addName.getText().toString().equals("")||addAddress.getText().toString().equals("")||addNumber.getText().toString().equals("")){
+                        return false;
+                    }
+                    else {
+                        bundle.putString("name", addName.getText().toString());
+                        bundle.putString("address", addAddress.getText().toString());
+                        bundle.putString("number", addNumber.getText().toString());
+                        intent.putExtras(bundle);
+                        setResult(221, intent);
+                    }
+                    finish();
                 }
-                else {
-                    bundle.putString("name", addName.getText().toString());
-                    bundle.putString("address", addAddress.getText().toString());
-                    bundle.putString("number", addNumber.getText().toString());
-                    intent.putExtras(bundle);
-                    setResult(221, intent);
+                else{  //修改地址到数据库
+
                 }
-                finish();
             }break;
         }
         return super.onOptionsItemSelected(item);

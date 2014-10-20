@@ -1,5 +1,6 @@
 package com.okm_android.main.Fragment;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
@@ -62,8 +63,9 @@ public class LoginFragment extends Fragment{
                         ToastUtils.setToast(getActivity(),"登录失败");
                         break;
                     case Constant.MSG_SUCCESS:
-                        progressbar.setVisibility(View.VISIBLE);
+                        progressbar.setVisibility(View.GONE);
                         ToastUtils.setToast(getActivity(),"登录成功");
+                        getActivity().setResult(500,new Intent());
                         getActivity().finish();
                         break;
                 }
@@ -89,7 +91,7 @@ public class LoginFragment extends Fragment{
                 sina[0].setPlatformActionListener(new PlatformActionListener() {
                     @Override
                     public void onComplete(Platform platform, int i, HashMap<String, Object> stringObjectHashMap) {
-                        handler.obtainMessage(Constant.MSG_SUCCESS).sendToTarget();
+//                        handler.obtainMessage(Constant.MSG_SUCCESS).sendToTarget();
                         login(platform.getDb().getUserId(),platform.getDb().getToken());
                     }
 
@@ -139,7 +141,7 @@ public class LoginFragment extends Fragment{
             userLogin(username, EncodeUtils.MD5(EncodeUtils.MD5(password)), new MainApiManager.FialedInterface() {
                 @Override
                 public void onSuccess(Object object) {
-                    ToastUtils.setToast(getActivity(), "登录成功");
+
                     RegisterBackData registerBackData = (RegisterBackData) object;
                     mshared = getActivity().getSharedPreferences("usermessage", 0);
                     editor = mshared.edit();
@@ -147,8 +149,8 @@ public class LoginFragment extends Fragment{
                     editor.putString("key", registerBackData.access_token.key);
                     editor.putString("id", registerBackData.user_id);
                     editor.commit();
-                    progressbar.setVisibility(View.GONE);
-                    getActivity().finish();
+                    handler.obtainMessage(Constant.MSG_SUCCESS).sendToTarget();
+
                 }
 
                 @Override
@@ -217,8 +219,8 @@ public class LoginFragment extends Fragment{
                     editor.putString("key", registerBackData.access_token.key);
                     editor.putString("id", registerBackData.user_id);
                     editor.commit();
-                    progressbar.setVisibility(View.GONE);
-                    getActivity().finish();
+                    handler.obtainMessage(Constant.MSG_SUCCESS).sendToTarget();
+
                 }
 
                 @Override

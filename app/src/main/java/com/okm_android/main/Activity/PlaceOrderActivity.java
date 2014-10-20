@@ -67,7 +67,6 @@ public class PlaceOrderActivity extends FragmentActivity implements SwipeRefresh
                 switch (checkedId) {
 
                     case R.id.btn_order_choose:
-
                         if(hidefragments[0] == null)
                         {
                             fragment = Fragment.instantiate(PlaceOrderActivity.this, fragments[0]);
@@ -82,12 +81,12 @@ public class PlaceOrderActivity extends FragmentActivity implements SwipeRefresh
                         currentFragment = hidefragments[0];
                         break;
                     case R.id.btn_order_detail:
-                        swipeRefreshLayout.setRefreshing(true);
+
                         if(ShareUtils.getId(PlaceOrderActivity.this).equals(""))
                         {
                             Intent intent = new Intent();
                             intent.setClass(PlaceOrderActivity.this,LoginRegisterActivity.class);
-                            startActivity(intent);
+                            startActivityForResult(intent, 201);
                         }
                         else {
 
@@ -98,6 +97,7 @@ public class PlaceOrderActivity extends FragmentActivity implements SwipeRefresh
                             }
                             FragmentTransaction transactiontwo = getSupportFragmentManager().beginTransaction();
                             if (!hidefragments[1].isAdded()) {    // 先判断是否被add过
+                                swipeRefreshLayout.setRefreshing(true);
                                 transactiontwo.hide(currentFragment).add(R.id.frame_order, hidefragments[1]).commit(); // 隐藏当前的fragment，add下一个到Activity中
                             } else {
                                 transactiontwo.hide(currentFragment).show(hidefragments[1]).commit(); // 隐藏当前的fragment，显示下一个
@@ -140,5 +140,16 @@ public class PlaceOrderActivity extends FragmentActivity implements SwipeRefresh
     @Override
     public void onRefresh() {
         swipeRefreshLayout.setRefreshing(false);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (resultCode)
+        {
+            case 500:
+                orderChoose.setChecked(true);
+                break;
+        }
     }
 }

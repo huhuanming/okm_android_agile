@@ -100,7 +100,10 @@ public class OrderDetailFragment extends Fragment implements TimePickerDialog.On
                             Intent intent = new Intent(getActivity(), AddAddressActivity.class);
                             startActivityForResult(intent,2);
                         }
-
+                        break;
+                    case Constant.MSG_GETMESSAGE:
+                        ToastUtils.setToast(getActivity(),"下单成功");
+                        getActivity().finish();
                         break;
                 }
                 super.handleMessage(msg);
@@ -322,6 +325,7 @@ public class OrderDetailFragment extends Fragment implements TimePickerDialog.On
 
     public void PostOrder()
     {
+        NotificationCenter.getInstance().postNotification("setPlaceOrderSwipeTrue");
         String jsonString = JsonUtils.setOrderJson(list);
         String shipping_user = userName.getText().toString();
         String shipping_address = userAddress.getText().toString();
@@ -335,7 +339,7 @@ public class OrderDetailFragment extends Fragment implements TimePickerDialog.On
                 // 获取一个Message对象，设置what为1
                 Message msg = Message.obtain();
                 msg.obj = object;
-                msg.what = Constant.MSG_SUCCESS;
+                msg.what = Constant.MSG_GETMESSAGE;
                 // 发送这个消息到消息队列中
                 handler.sendMessage(msg);
             }

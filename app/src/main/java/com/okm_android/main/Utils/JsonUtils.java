@@ -20,6 +20,7 @@ public class JsonUtils {
                 jsonString = jsonString + ",";
             }
         }
+        jsonString = jsonString + "]";
         return jsonString;
     }
 }

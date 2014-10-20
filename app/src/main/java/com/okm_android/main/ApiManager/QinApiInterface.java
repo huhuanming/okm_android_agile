@@ -43,4 +43,8 @@ public class QinApiInterface {
         @PUT("/users/{user_id}/addresses/{address_id}/is_default")
         UploadBackData uploadBackDataDef(@Path("user_id")String user_id,@Path("address_id")String address_id,@Query("access_token")String access_token);
     }
+    public interface ApiManagerEditAddress{
+        @PUT("/users/{user_id}/addresses/{address_id}")
+        UploadBackData uploadBackDataEdit(@Path("user_id")String user_id,@Path("address_id")String address_id,@Query("access_token")String access_token,@Query("shipping_user") String shipping_user,@Query("shipping_address") String shipping_address,@Query("phone_number")String phone_number);
+    }
 }

@@ -105,6 +105,7 @@
                 android:background="#e6e6e6">
             </RelativeLayout>
             <LinearLayout
+                android:id="@+id/ll_delete"
                 android:layout_width="fill_parent"
                 android:layout_height="45dp"
                 android:orientation="horizontal"

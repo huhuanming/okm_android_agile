@@ -1,5 +1,6 @@
 package com.okm_android.main.Fragment;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -11,8 +12,10 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.TextView;
 
+import com.okm_android.main.Activity.AddAddressActivity;
 import com.okm_android.main.Adapter.AddressAdapter;
 import com.okm_android.main.Adapter.FoodMenuAdapter;
 import com.okm_android.main.ApiManager.MainApiManager;
@@ -147,9 +150,22 @@ public class TruckFragment extends Fragment implements SwipeRefreshLayout.OnRefr
                 }
                 super.handleMessage(msg);
             }
-
         };
 
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                ArrayList<String> addressData = new ArrayList<String>();
+                addressData.add(listItem.get(position).get("name"));
+                addressData.add(listItem.get(position).get("number"));
+                addressData.add(listItem.get(position).get("address"));
+                addressData.add(listItem.get(position).get("address_id"));
+                Intent intent = new Intent(getActivity(), AddAddressActivity.class);
+                intent.putStringArrayListExtra("addressData",addressData);
+                intent.putExtra("SetAddOrChange",1);
+                startActivity(intent);
+            }
+        });
         mListView.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
             @Override
             public void onMenuItemClick(int position, SwipeMenu menu, int index) {

@@ -115,4 +115,20 @@ public class QinApiManager extends MainApiManager{
             }
         }).subscribeOn(Schedulers.threadPoolForIO());
     }
+
+    private static final QinApiInterface.ApiManagerEditAddress UploadBackDataEdit = restAdapter.create(QinApiInterface.ApiManagerEditAddress.class);
+    public static Observable<UploadBackData> uploadBackDataEdit(final String user_id,final String address_id,final String access_token,final String shipping_user, final String shipping_address, final String phone_number) {
+        return Observable.create(new Observable.OnSubscribeFunc<UploadBackData>() {
+            @Override
+            public Subscription onSubscribe(Observer<? super UploadBackData> observer) {
+                try {
+                    observer.onNext(UploadBackDataEdit.uploadBackDataEdit(user_id,address_id,access_token, shipping_user, shipping_address, phone_number));
+                    observer.onCompleted();
+                } catch (Exception e) {
+                    observer.onError(e);
+                }
+                return Subscriptions.empty();
+            }
+        }).subscribeOn(Schedulers.threadPoolForIO());
+    }
 }

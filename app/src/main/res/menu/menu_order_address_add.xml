@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+
+
+    <item
+        android:id="@+id/menu_order_address_add"
+        android:orderInCategory="1"
+        android:icon="@drawable/add_address_menu"
+        android:showAsAction="always"
+        />
+</menu>

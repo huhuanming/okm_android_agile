@@ -56,12 +56,17 @@
             android:icon="@drawable/lingjiaxiaochu"
             />
 
+        <activity android:name=".Activity.AddAddressActivity"
+            android:theme="@style/MyTheme"
+            android:label="@string/please_choose_address"
+            android:icon="@drawable/lingjiaxiaochu"
+            />
         <activity android:name=".Activity.OrderNoteReturn"
             android:theme="@style/MyTheme"
             android:label="@string/please_input_Note"
             android:icon="@drawable/lingjiaxiaochu"
             />
-        <activity android:name=".Activity.AddAddressActivity"
+        <activity android:name=".Activity.OrderAddressActivity"
             android:theme="@style/MyTheme"
             android:label="@string/address"
             android:icon="@drawable/lingjiaxiaochu"

@@ -7,7 +7,7 @@ import retrofit.RestAdapter;
  */
 public class MainApiManager {
 
-    public static String path = "http://10.0.0.5:9000/v1";
+    public static String path = "http://back-end.sohuapps.com/v1";
     public static final RestAdapter restAdapter = new RestAdapter.Builder()
             .setServer(path)
             .build();

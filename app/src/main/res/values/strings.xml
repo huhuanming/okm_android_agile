@@ -75,7 +75,7 @@
     <string name="shop_announce">店家公告</string>
     <string name="month_sale">月售</string>
     <string name="much">份</string>
-
+    <string name="please_choose_address">请选择收货地址</string>
     <string name="sure_place_order">确定下单</string>
     <string name="pay_online">支付宝</string>
     <string name="pay_face">现金支付</string>

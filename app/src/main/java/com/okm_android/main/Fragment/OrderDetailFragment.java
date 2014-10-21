@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.activeandroid.query.Select;
 import com.okm_android.main.Activity.AddAddressActivity;
 import com.okm_android.main.Activity.LoginRegisterActivity;
+import com.okm_android.main.Activity.OrderAddressActivity;
 import com.okm_android.main.Activity.OrderNoteReturn;
 import com.okm_android.main.ApiManager.ChenApiManager;
 import com.okm_android.main.ApiManager.MainApiManager;
@@ -127,14 +128,15 @@ public class OrderDetailFragment extends Fragment implements TimePickerDialog.On
         changeAddress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), AddAddressActivity.class);
+                Intent intent = new Intent(getActivity(), OrderAddressActivity.class);
                 startActivityForResult(intent,2);
             }
         });
+
         moreAddress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), AddAddressActivity.class);
+                Intent intent = new Intent(getActivity(), OrderAddressActivity.class);
                 startActivityForResult(intent,2);
             }
         });

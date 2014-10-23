@@ -6,6 +6,7 @@ import com.okm_android.main.Model.DefaultAddressData;
 import com.okm_android.main.Model.RegisterBackData;
 import com.okm_android.main.Model.RestaurantBackData;
 import com.okm_android.main.Model.RestaurantMenu;
+import com.okm_android.main.Model.SearchBackData;
 import com.okm_android.main.Model.UploadBackData;
 
 import java.util.List;
@@ -127,6 +128,22 @@ public class QinApiManager extends MainApiManager{
                 } catch (Exception e) {
                     observer.onError(e);
                 }
+                return Subscriptions.empty();
+            }
+        }).subscribeOn(Schedulers.threadPoolForIO());
+    }
+    private static final QinApiInterface.ApiManagerSearchFood SearchBack = restAdapter.create(QinApiInterface.ApiManagerSearchFood.class);
+    public static Observable<List<SearchBackData>> searchBackData(final String longitude,final String latitude,final String food_name) {
+        return Observable.create(new Observable.OnSubscribeFunc<List<SearchBackData>>() {
+            @Override
+            public Subscription onSubscribe(Observer<? super List<SearchBackData>> observer) {
+                try {
+                    observer.onNext(SearchBack.searchBackData(longitude,latitude,food_name));
+                    observer.onCompleted();
+                } catch (Exception e) {
+                    observer.onError(e);
+                }
+
                 return Subscriptions.empty();
             }
         }).subscribeOn(Schedulers.threadPoolForIO());

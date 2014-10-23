@@ -4,6 +4,7 @@ import com.okm_android.main.Model.AddressAddData;
 import com.okm_android.main.Model.AddressData;
 import com.okm_android.main.Model.DefaultAddressData;
 import com.okm_android.main.Model.RestaurantMenu;
+import com.okm_android.main.Model.SearchBackData;
 import com.okm_android.main.Model.UploadBackData;
 
 import java.util.List;
@@ -46,5 +47,9 @@ public class QinApiInterface {
     public interface ApiManagerEditAddress{
         @PUT("/users/{user_id}/addresses/{address_id}")
         UploadBackData uploadBackDataEdit(@Path("user_id")String user_id,@Path("address_id")String address_id,@Query("access_token")String access_token,@Query("shipping_user") String shipping_user,@Query("shipping_address") String shipping_address,@Query("phone_number")String phone_number);
+    }
+    public interface ApiManagerSearchFood{
+        @GET("/restaurants/search_food")
+        List<SearchBackData> searchBackData(@Query("longitude")String longitude,@Query("latitude")String latitude,@Query("food_name")String food_name);
     }
 }

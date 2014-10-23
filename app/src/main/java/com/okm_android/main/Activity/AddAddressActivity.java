@@ -87,7 +87,6 @@ public class AddAddressActivity extends Activity implements SwipeRefreshLayout.O
                 if(flagAdd==0) //添加地址数据到数据库
                 {
                     PustAddress();
-
                     finish();
                 }
                 else{  //修改地址到数据库
@@ -128,6 +127,7 @@ public class AddAddressActivity extends Activity implements SwipeRefreshLayout.O
                     public void onSuccess(Object object) {
                         ToastUtils.setToast(AddAddressActivity.this, "地址添加成功");
                         NotificationCenter.getInstance().postNotification("OrderAddressFlash");
+                        NotificationCenter.getInstance().postNotification("ReFlashAddress");
                        // AddAddressActivity.this.finish();
                     }
 

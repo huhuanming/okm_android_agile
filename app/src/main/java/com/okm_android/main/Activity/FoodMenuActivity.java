@@ -49,7 +49,7 @@ public class FoodMenuActivity extends FragmentActivity implements SwipeRefreshLa
 
         swipeRefreshLayout.setOnRefreshListener(this);
         swipeRefreshLayout.setEnabled(false);
-        swipeRefreshLayout.setRefreshing(false);
+        swipeRefreshLayout.setRefreshing(true);
         //加载颜色是循环播放的，只要没有完成刷新就会一直循环，color1>color2>color3>color4
         swipeRefreshLayout.setColorScheme(android.R.color.holo_blue_bright,
                 android.R.color.holo_blue_light,

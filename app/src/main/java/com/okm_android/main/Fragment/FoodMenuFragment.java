@@ -173,7 +173,7 @@ public class FoodMenuFragment extends Fragment{
                     @Override
                     public void call(Throwable throwable) {
 
-                        if(throwable.getClass().getName().toString().indexOf("RetrofitError") != -1) {
+                        if(throwable != null && throwable.getClass().getName().toString().indexOf("RetrofitError") != -1) {
                             retrofit.RetrofitError e = (retrofit.RetrofitError) throwable;
                             if(e.isNetworkError())
                             {

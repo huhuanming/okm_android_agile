@@ -4,9 +4,13 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -14,19 +18,40 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SearchView;
 
+import com.okm_android.main.Adapter.AddressAdapter;
 import com.okm_android.main.Adapter.SearchAdapter;
+import com.okm_android.main.ApiManager.MainApiManager;
+import com.okm_android.main.ApiManager.QinApiManager;
+import com.okm_android.main.Model.AddressData;
+import com.okm_android.main.Model.SearchBackData;
 import com.okm_android.main.R;
+import com.okm_android.main.Utils.Constant;
+import com.okm_android.main.Utils.ErrorUtils;
+import com.okm_android.main.Utils.ShareUtils;
 import com.okm_android.main.Utils.ToastUtils;
+import com.okm_android.main.Utils.TokenUtils.AccessToken;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import rx.android.concurrency.AndroidSchedulers;
+import rx.util.functions.Action1;
 
 /**
  * Created by chen on 14-9-28.
  */
 public class SearchActivity extends Activity {
-
+    double geoLat = 0.0;
+    double geoLng = 0.0;
     private SearchAdapter adapter;
+    private Handler handler;
+    private List<SearchBackData> searchBackDatas = new ArrayList<SearchBackData>();
+    private List<Map<String,String>> listItem;
+    private SearchAdapter mAdapter;
     @InjectView(R.id.search_listview)ListView listView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,9 +61,39 @@ public class SearchActivity extends Activity {
         //显示actionbar上面的返回键
         ActionBar actionBar = this.getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-
-        adapter = new SearchAdapter(this);
+        Intent intent=getIntent();
+        geoLat=intent.getDoubleExtra("Lat",geoLat);
+        geoLng=intent.getDoubleExtra("Lng", geoLng);
         listView.setAdapter(adapter);
+        handler = new Handler(){
+
+            @Override
+            public void handleMessage(Message msg) {
+                // TODO Auto-generated method stub
+
+                switch(msg.what)
+                {
+                    //获取成功
+                    case Constant.MSG_SUCCESS: {
+                        List<SearchBackData> list = (List<SearchBackData>) msg.obj;
+                        if (list.size() > 0) {
+                            Log.d("",list.size()+"");
+                            searchBackDatas.clear();
+                            searchBackDatas.addAll(list);
+                            mAdapter = new SearchAdapter(SearchActivity.this, list);
+                            listView.setAdapter(mAdapter);
+                            mAdapter.notifyDataSetChanged();
+                        }
+                        else{
+
+                            ToastUtils.setToast(SearchActivity.this,"sorry，没有找到你想要的T_T");
+                        }
+                    }
+                        break;
+                }
+                super.handleMessage(msg);
+            }
+        };
     }
 
     @Override
@@ -69,12 +124,12 @@ public class SearchActivity extends Activity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
-                ToastUtils.setToast(SearchActivity.this,editText.getText().toString());
+                SearchData(editText.getText().toString());
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
-
+                SearchData(editText.getText().toString());
             }
         });
         return true;
@@ -92,5 +147,67 @@ public class SearchActivity extends Activity {
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+    public void SearchData(String searchFoodName)
+    {
+        getSearchDta(geoLng+"", geoLat+"", searchFoodName, new MainApiManager.FialedInterface() {
+            @Override
+            public void onSuccess(Object object) {
+                // 获取一个Message对象，设置what为1
+                Message msg = Message.obtain();
+                msg.obj = object;
+                msg.what = Constant.MSG_SUCCESS;
+                // 发送这个消息到消息队列中
+                handler.sendMessage(msg);
+            }
+
+            @Override
+            public void onFailth(int code) {
+                ErrorUtils.setError(code, SearchActivity.this);
+//                progressbar.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onOtherFaith() {
+//                progressbar.setVisibility(View.GONE);
+                ToastUtils.setToast(SearchActivity.this, "发生错误");
+            }
+
+            @Override
+            public void onNetworkError() {
+//                progressbar.setVisibility(View.GONE);
+                ToastUtils.setToast(SearchActivity.this, "网络错误");
+            }
+        });
+    }
+
+    private void getSearchDta(String longitude,String latitude,String food_name, final MainApiManager.FialedInterface fialedInterface)
+    {
+        QinApiManager.searchBackData(longitude, latitude, food_name).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<List<SearchBackData>>() {
+                    @Override
+                    public void call(List<SearchBackData> searchBackDatas) {
+                        fialedInterface.onSuccess(searchBackDatas);
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+
+                        if(throwable.getClass().getName().toString().indexOf("RetrofitError") != -1) {
+                            retrofit.RetrofitError e = (retrofit.RetrofitError) throwable;
+                            if(e.isNetworkError())
+                            {
+                                fialedInterface.onNetworkError();
+
+                            }
+                            else {
+                                fialedInterface.onFailth(e.getResponse().getStatus());
+                            }
+                        }
+                        else{
+                            fialedInterface.onOtherFaith();
+                        }
+                    }
+                });
     }
 }

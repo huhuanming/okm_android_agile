@@ -25,6 +25,7 @@
         android:orientation="vertical"
         >
         <TextView
+            android:id="@+id/food_name"
             android:textSize="16sp"
             android:textColor="#656565"
             android:layout_width="wrap_content"
@@ -32,6 +33,7 @@
             android:text="牛肉面 (12)"
             />
         <TextView
+            android:id="@+id/restaurant_name"
             android:textSize="12.5sp"
             android:layout_marginTop="4dp"
             android:textColor="#989898"

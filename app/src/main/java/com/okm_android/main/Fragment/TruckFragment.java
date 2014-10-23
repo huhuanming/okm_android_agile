@@ -50,13 +50,12 @@ import rx.util.functions.Action1;
  */
 public class TruckFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener{
     private View parentView;
-    private List<Map<String,String>> mAppList;
     private AddressAdapter mAdapter;
     private SwipeMenuListView mListView;
     private TextView name,number,address;
     private SwipeRefreshLayout swipeRefreshLayout;
-    Handler handler;
-    String user_id;
+    private Handler handler;
+    private String user_id;
     private List<AddressData> addressDatas = new ArrayList<AddressData>();
     List<Map<String,String>> listItem;
     @Override

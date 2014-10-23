@@ -10,7 +10,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -18,21 +17,16 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SearchView;
 
-import com.okm_android.main.Adapter.AddressAdapter;
 import com.okm_android.main.Adapter.SearchAdapter;
 import com.okm_android.main.ApiManager.MainApiManager;
 import com.okm_android.main.ApiManager.QinApiManager;
-import com.okm_android.main.Model.AddressData;
 import com.okm_android.main.Model.SearchBackData;
 import com.okm_android.main.R;
 import com.okm_android.main.Utils.Constant;
 import com.okm_android.main.Utils.ErrorUtils;
-import com.okm_android.main.Utils.ShareUtils;
 import com.okm_android.main.Utils.ToastUtils;
-import com.okm_android.main.Utils.TokenUtils.AccessToken;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -77,7 +71,6 @@ public class SearchActivity extends Activity {
                     case Constant.MSG_SUCCESS: {
                         List<SearchBackData> list = (List<SearchBackData>) msg.obj;
                         if (list.size() > 0) {
-                            Log.d("",list.size()+"");
                             searchBackDatas.clear();
                             searchBackDatas.addAll(list);
                             mAdapter = new SearchAdapter(SearchActivity.this, list);
@@ -192,21 +185,7 @@ public class SearchActivity extends Activity {
                 }, new Action1<Throwable>() {
                     @Override
                     public void call(Throwable throwable) {
-
-                        if(throwable.getClass().getName().toString().indexOf("RetrofitError") != -1) {
-                            retrofit.RetrofitError e = (retrofit.RetrofitError) throwable;
-                            if(e.isNetworkError())
-                            {
-                                fialedInterface.onNetworkError();
-
-                            }
-                            else {
-                                fialedInterface.onFailth(e.getResponse().getStatus());
-                            }
-                        }
-                        else{
-                            fialedInterface.onOtherFaith();
-                        }
+                        ErrorUtils.SetThrowable(throwable,fialedInterface);
                     }
                 });
     }

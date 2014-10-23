@@ -17,13 +17,9 @@ import android.widget.TextView;
 
 import com.okm_android.main.Activity.AddAddressActivity;
 import com.okm_android.main.Adapter.AddressAdapter;
-import com.okm_android.main.Adapter.FoodMenuAdapter;
 import com.okm_android.main.ApiManager.MainApiManager;
 import com.okm_android.main.ApiManager.QinApiManager;
 import com.okm_android.main.Model.AddressData;
-import com.okm_android.main.Model.DefaultAddressData;
-import com.okm_android.main.Model.FoodDataResolve;
-import com.okm_android.main.Model.RestaurantMenu;
 import com.okm_android.main.Model.UploadBackData;
 import com.okm_android.main.R;
 import com.okm_android.main.Utils.AddObserver.NotificationCenter;
@@ -50,13 +46,12 @@ import rx.util.functions.Action1;
  */
 public class TruckFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener{
     private View parentView;
-    private List<Map<String,String>> mAppList;
     private AddressAdapter mAdapter;
     private SwipeMenuListView mListView;
     private TextView name,number,address;
     private SwipeRefreshLayout swipeRefreshLayout;
-    Handler handler;
-    String user_id;
+    private Handler handler;
+    private String user_id;
     private List<AddressData> addressDatas = new ArrayList<AddressData>();
     List<Map<String,String>> listItem;
     @Override
@@ -300,21 +295,7 @@ public class TruckFragment extends Fragment implements SwipeRefreshLayout.OnRefr
                 }, new Action1<Throwable>() {
                     @Override
                     public void call(Throwable throwable) {
-
-                        if(throwable.getClass().getName().toString().indexOf("RetrofitError") != -1) {
-                            retrofit.RetrofitError e = (retrofit.RetrofitError) throwable;
-                            if(e.isNetworkError())
-                            {
-                                fialedInterface.onNetworkError();
-
-                            }
-                            else {
-                                fialedInterface.onFailth(e.getResponse().getStatus());
-                            }
-                        }
-                        else{
-                            fialedInterface.onOtherFaith();
-                        }
+                        ErrorUtils.SetThrowable(throwable,fialedInterface);
                     }
                 });
     }
@@ -330,21 +311,7 @@ public class TruckFragment extends Fragment implements SwipeRefreshLayout.OnRefr
                 }, new Action1<Throwable>() {
                     @Override
                     public void call(Throwable throwable) {
-
-                        if(throwable.getClass().getName().toString().indexOf("RetrofitError") != -1) {
-                            retrofit.RetrofitError e = (retrofit.RetrofitError) throwable;
-                            if(e.isNetworkError())
-                            {
-                                fialedInterface.onNetworkError();
-
-                            }
-                            else {
-                                fialedInterface.onFailth(e.getResponse().getStatus());
-                            }
-                        }
-                        else{
-                            fialedInterface.onOtherFaith();
-                        }
+                        ErrorUtils.SetThrowable(throwable,fialedInterface);
                     }
                 });
     }
@@ -359,21 +326,7 @@ public class TruckFragment extends Fragment implements SwipeRefreshLayout.OnRefr
                 }, new Action1<Throwable>() {
                     @Override
                     public void call(Throwable throwable) {
-
-                        if(throwable.getClass().getName().toString().indexOf("RetrofitError") != -1) {
-                            retrofit.RetrofitError e = (retrofit.RetrofitError) throwable;
-                            if(e.isNetworkError())
-                            {
-                                fialedInterface.onNetworkError();
-
-                            }
-                            else {
-                                fialedInterface.onFailth(e.getResponse().getStatus());
-                            }
-                        }
-                        else{
-                            fialedInterface.onOtherFaith();
-                        }
+                        ErrorUtils.SetThrowable(throwable,fialedInterface);
                     }
                 });
     }

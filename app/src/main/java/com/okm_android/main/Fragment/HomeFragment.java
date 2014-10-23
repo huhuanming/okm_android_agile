@@ -58,7 +58,8 @@ public class HomeFragment extends Fragment implements ViewPager.OnPageChangeList
 //            "揭秘北京电影如何升级", "乐视网TV版大派送", "热血屌丝的反杀" };
     private ViewPager viewPager;
     private boolean isStop = false;  //是否停止子线程  不会停止
-
+    double geoLat = 0.0;
+    double geoLng = 0.0;
     private String[] sorting = {"默认排序", "距离排序", "价格排序"};
     private String[] shop = {"全部商家"};
     private List<String> shoplist = new ArrayList<String>();
@@ -98,7 +99,7 @@ public class HomeFragment extends Fragment implements ViewPager.OnPageChangeList
         listview.setAdapter(adapter);
 
         NotificationCenter.getInstance().addObserver("restaurant", this, "restaurantData");
-
+        NotificationCenter.getInstance().addObserver("GetPosition",this,"GetPosition");
         init();
         initSpinner();
         restaurantType();
@@ -178,7 +179,11 @@ public class HomeFragment extends Fragment implements ViewPager.OnPageChangeList
 
         return parentView;
     }
-
+    public void GetPosition(HashMap<String,String> map)
+    {
+        geoLat=Double.valueOf(map.get("geoLat").toString());
+        geoLng=Double.valueOf(map.get("geoLng").toString());
+    }
     private void initSpinner() {
         spinner_shop = (Spinner) parentView.findViewById(R.id.spinner_shop);
         spinner_sorting = (Spinner) parentView.findViewById(R.id.spinner_sorting);
@@ -333,18 +338,7 @@ public class HomeFragment extends Fragment implements ViewPager.OnPageChangeList
                 }, new Action1<Throwable>() {
                     @Override
                     public void call(Throwable throwable) {
-
-                        if (throwable.getClass().getName().toString().indexOf("RetrofitError") != -1) {
-                            retrofit.RetrofitError e = (retrofit.RetrofitError) throwable;
-                            if (e.isNetworkError()) {
-                                fialedInterface.onNetworkError();
-
-                            } else {
-                                fialedInterface.onFailth(e.getResponse().getStatus());
-                            }
-                        } else {
-                            fialedInterface.onOtherFaith();
-                        }
+                        ErrorUtils.SetThrowable(throwable,fialedInterface);
                     }
                 });
     }
@@ -389,18 +383,7 @@ public class HomeFragment extends Fragment implements ViewPager.OnPageChangeList
                 }, new Action1<Throwable>() {
                     @Override
                     public void call(Throwable throwable) {
-
-                        if (throwable.getClass().getName().toString().indexOf("RetrofitError") != -1) {
-                            retrofit.RetrofitError e = (retrofit.RetrofitError) throwable;
-                            if (e.isNetworkError()) {
-                                fialedInterface.onNetworkError();
-
-                            } else {
-                                fialedInterface.onFailth(e.getResponse().getStatus());
-                            }
-                        } else {
-                            fialedInterface.onOtherFaith();
-                        }
+                        ErrorUtils.SetThrowable(throwable,fialedInterface);
                     }
                 });
     }
@@ -503,6 +486,8 @@ public class HomeFragment extends Fragment implements ViewPager.OnPageChangeList
         switch (id) {
             case R.id.menu_search: {
                 Intent intent = new Intent();
+                intent.putExtra("Lat",geoLat);
+                intent.putExtra("Lng",geoLng);
                 intent.setClass(getActivity(), SearchActivity.class);
                 startActivity(intent);
             }

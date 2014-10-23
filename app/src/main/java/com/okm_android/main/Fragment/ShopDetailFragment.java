@@ -150,18 +150,7 @@ public class ShopDetailFragment extends Fragment{
                 }, new Action1<Throwable>() {
                     @Override
                     public void call(Throwable throwable) {
-
-                        if (throwable.getClass().getName().toString().indexOf("RetrofitError") != -1) {
-                            retrofit.RetrofitError e = (retrofit.RetrofitError) throwable;
-                            if (e.isNetworkError()) {
-                                fialedInterface.onNetworkError();
-
-                            } else {
-                                fialedInterface.onFailth(e.getResponse().getStatus());
-                            }
-                        } else {
-                            fialedInterface.onOtherFaith();
-                        }
+                        ErrorUtils.SetThrowable(throwable,fialedInterface);
                     }
                 });
     }

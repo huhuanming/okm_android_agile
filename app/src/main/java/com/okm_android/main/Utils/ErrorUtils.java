@@ -2,6 +2,8 @@ package com.okm_android.main.Utils;
 
 import android.content.Context;
 
+import com.okm_android.main.ApiManager.MainApiManager;
+
 /**
  * Created by chen on 14-9-29.
  */
@@ -30,6 +32,23 @@ public class ErrorUtils {
 
                 ToastUtils.setToast(context, "网络错误，请重试!");
                 break;
+        }
+    }
+
+    public static void SetThrowable(Throwable throwable, final MainApiManager.FialedInterface fialedInterface){
+        if(throwable != null && throwable.getClass().getName().toString().indexOf("RetrofitError") != -1) {
+            retrofit.RetrofitError e = (retrofit.RetrofitError) throwable;
+            if(e.isNetworkError())
+            {
+                fialedInterface.onNetworkError();
+
+            }
+            else {
+                fialedInterface.onFailth(e.getResponse().getStatus());
+            }
+        }
+        else{
+            fialedInterface.onOtherFaith();
         }
     }
 }

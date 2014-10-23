@@ -217,8 +217,8 @@ public class MenuActivity extends FragmentActivity implements AMapLocationListen
                 map.put("geoLng",geoLng+"");
                 map.put("type","1");
                 NotificationCenter.getInstance().postNotification("restaurant",map);
+                NotificationCenter.getInstance().postNotification("GetPosition",map);
                 break;
-
         }
 
         setActionbarSpinner();
@@ -267,6 +267,7 @@ public class MenuActivity extends FragmentActivity implements AMapLocationListen
             map.put("geoLng",geoLng+"");
             map.put("type","0");
             NotificationCenter.getInstance().postNotification("restaurant",map);
+            NotificationCenter.getInstance().postNotification("GetPosition",map);
             navigationAdapter.notifyDataSetChanged();
             //移除定位请求
             mLocationManagerProxy.removeUpdates(this);

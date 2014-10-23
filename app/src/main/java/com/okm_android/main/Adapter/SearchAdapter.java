@@ -8,9 +8,13 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.okm_android.main.Model.SearchBackData;
 import com.okm_android.main.R;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by chen on 14-9-29.
@@ -21,23 +25,24 @@ public class SearchAdapter extends BaseAdapter {
     private Context context;
     private ArrayList<String> menuEntries;
     private ArrayList<Integer> menuImage;
-
-    public SearchAdapter(Context context)
+    private List<SearchBackData> list;
+    public SearchAdapter(Context context,List<SearchBackData> list)
     {
         this.context = context;
+        this.list=list;
     }
 
 
     @Override
     public int getViewTypeCount() {
         //包含有两个视图，所以返回值为2
-        return 1;
+        return 2;
     }
 
     @Override
     public int getCount() {
         // TODO Auto-generated method stub
-        return 5;
+        return list.size();
     }
 
     @Override
@@ -60,9 +65,12 @@ public class SearchAdapter extends BaseAdapter {
         {
             convertView = LayoutInflater.from(context).inflate(R.layout.activity_search_item, null);
             holder = new ViewHolder();
-//            holder.textView = (TextView) convertView
+            holder.food_name=(TextView)convertView.findViewById(R.id.food_name);
+            holder.restaurant_name=(TextView)convertView.findViewById(R.id.restaurant_name);
+//
+//           holder.textView = (TextView) convertView
 //                    .findViewById(R.id.activity_menu_text);
-//            holder.img = (ImageView)convertView.findViewById(R.id.activity_menu_img);
+ //           holder.img = (ImageView)convertView.findViewById(R.id.activity_menu_img);
             convertView.setTag(holder);
         }
         else
@@ -72,12 +80,15 @@ public class SearchAdapter extends BaseAdapter {
 
 //        holder.textView.setText(menuEntries.get(position));
 //        holder.img.setImageResource(menuImage.get(position));
+        holder.restaurant_name.setText(list.get(position).restaurant_name);
+        holder.food_name.setText(list.get(position).food_name);
 
         return convertView;
     }
 
     class ViewHolder {
-        TextView textView;
+        TextView food_name;
+        TextView restaurant_name;
         ImageView img;
     }
 }

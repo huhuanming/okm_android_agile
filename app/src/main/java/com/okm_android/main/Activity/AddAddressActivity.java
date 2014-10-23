@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -44,7 +43,6 @@ public class AddAddressActivity extends Activity implements SwipeRefreshLayout.O
         actionBar.setDisplayHomeAsUpEnabled(true);
         Intent intent = this.getIntent();
         flagAdd=intent.getIntExtra("SetAddOrChange",flagAdd);
-        Log.e("flag=", flagAdd + "");
         addName = (EditText) findViewById(R.id.et_addname);
         addNumber = (EditText) findViewById(R.id.et_addnumber);
         addAddress = (EditText) findViewById(R.id.et_addaddress);
@@ -58,12 +56,12 @@ public class AddAddressActivity extends Activity implements SwipeRefreshLayout.O
                 android.R.color.holo_blue_light,
                 android.R.color.white, android.R.color.holo_blue_bright);
         user_id = ShareUtils.getId(this);
-        if(flagAdd==1) // 加载从上一界面传来的数据
+        if(flagAdd == 1) // 加载从上一界面传来的数据
         {
             addName.setText(intent.getStringArrayListExtra("addressData").get(0).toString());
             addNumber.setText(intent.getStringArrayListExtra("addressData").get(1).toString());
             addAddress.setText(intent.getStringArrayListExtra("addressData").get(2).toString());
-            address_id=intent.getStringArrayListExtra("addressData").get(3).toString();
+            address_id = intent.getStringArrayListExtra("addressData").get(3).toString();
             delLayout.setVisibility(View.VISIBLE);
         }
         delLayout.setOnClickListener(new View.OnClickListener() {
@@ -87,7 +85,6 @@ public class AddAddressActivity extends Activity implements SwipeRefreshLayout.O
                 if(flagAdd==0) //添加地址数据到数据库
                 {
                     PustAddress();
-
                     finish();
                 }
                 else{  //修改地址到数据库
@@ -128,6 +125,7 @@ public class AddAddressActivity extends Activity implements SwipeRefreshLayout.O
                     public void onSuccess(Object object) {
                         ToastUtils.setToast(AddAddressActivity.this, "地址添加成功");
                         NotificationCenter.getInstance().postNotification("OrderAddressFlash");
+                        NotificationCenter.getInstance().postNotification("ReFlashAddress");
                        // AddAddressActivity.this.finish();
                     }
 
@@ -160,20 +158,7 @@ public class AddAddressActivity extends Activity implements SwipeRefreshLayout.O
                 }, new Action1<Throwable>() {
                     @Override
                     public void call(Throwable throwable) {
-                        if(throwable.getClass().getName().toString().indexOf("RetrofitError") != -1) {
-                            retrofit.RetrofitError e = (retrofit.RetrofitError) throwable;
-                            if(e.isNetworkError())
-                            {
-                                fialedInterface.onNetworkError();
-
-                            }
-                            else {
-                                fialedInterface.onFailth(e.getResponse().getStatus());
-                            }
-                        }
-                        else{
-                            fialedInterface.onOtherFaith();
-                        }
+                        ErrorUtils.SetThrowable(throwable,fialedInterface);
                     }
                 });
     }
@@ -234,21 +219,7 @@ public class AddAddressActivity extends Activity implements SwipeRefreshLayout.O
                 }, new Action1<Throwable>() {
                     @Override
                     public void call(Throwable throwable) {
-
-                        if(throwable.getClass().getName().toString().indexOf("RetrofitError") != -1) {
-                            retrofit.RetrofitError e = (retrofit.RetrofitError) throwable;
-                            if(e.isNetworkError())
-                            {
-                                fialedInterface.onNetworkError();
-
-                            }
-                            else {
-                                fialedInterface.onFailth(e.getResponse().getStatus());
-                            }
-                        }
-                        else{
-                            fialedInterface.onOtherFaith();
-                        }
+                        ErrorUtils.SetThrowable(throwable, fialedInterface);
                     }
                 });
     }
@@ -293,21 +264,7 @@ public class AddAddressActivity extends Activity implements SwipeRefreshLayout.O
                 }, new Action1<Throwable>() {
                     @Override
                     public void call(Throwable throwable) {
-
-                        if(throwable.getClass().getName().toString().indexOf("RetrofitError") != -1) {
-                            retrofit.RetrofitError e = (retrofit.RetrofitError) throwable;
-                            if(e.isNetworkError())
-                            {
-                                fialedInterface.onNetworkError();
-
-                            }
-                            else {
-                                fialedInterface.onFailth(e.getResponse().getStatus());
-                            }
-                        }
-                        else{
-                            fialedInterface.onOtherFaith();
-                        }
+                        ErrorUtils.SetThrowable(throwable,fialedInterface);
                     }
                 });
     }

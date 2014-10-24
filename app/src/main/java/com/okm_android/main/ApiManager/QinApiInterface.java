@@ -6,6 +6,7 @@ import com.okm_android.main.Model.DefaultAddressData;
 import com.okm_android.main.Model.RestaurantMenu;
 import com.okm_android.main.Model.SearchBackData;
 import com.okm_android.main.Model.UploadBackData;
+import com.okm_android.main.Model.WatchOrderData;
 
 import java.util.List;
 
@@ -51,5 +52,9 @@ public class QinApiInterface {
     public interface ApiManagerSearchFood{
         @GET("/restaurants/search_food")
         List<SearchBackData> searchBackData(@Query("longitude")String longitude,@Query("latitude")String latitude,@Query("food_name")String food_name);
+    }
+    public interface ApiManagerGetOrder{
+        @GET("/users/{user_id}/orders")
+        List<WatchOrderData> watchOrderData(@Path("user_id")String user_id,@Query("access_token")String access_token,@Query("is_finished")String is_finished);
     }
 }

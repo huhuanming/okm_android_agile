@@ -8,6 +8,7 @@ import com.okm_android.main.Model.RestaurantBackData;
 import com.okm_android.main.Model.RestaurantMenu;
 import com.okm_android.main.Model.SearchBackData;
 import com.okm_android.main.Model.UploadBackData;
+import com.okm_android.main.Model.WatchOrderData;
 
 import java.util.List;
 
@@ -144,6 +145,21 @@ public class QinApiManager extends MainApiManager{
                     observer.onError(e);
                 }
 
+                return Subscriptions.empty();
+            }
+        }).subscribeOn(Schedulers.threadPoolForIO());
+    }
+    private static final QinApiInterface.ApiManagerGetOrder GetOrder = restAdapter.create(QinApiInterface.ApiManagerGetOrder.class);
+    public static Observable<List<WatchOrderData>> watchOrderData(final String user_id,final String access_token,final String is_finished) {
+        return Observable.create(new Observable.OnSubscribeFunc<List<WatchOrderData>>() {
+            @Override
+            public Subscription onSubscribe(Observer<? super List<WatchOrderData>> observer) {
+                try {
+                    observer.onNext(GetOrder.watchOrderData(user_id,access_token,is_finished));
+                    observer.onCompleted();
+                } catch (Exception e) {
+                    observer.onError(e);
+                }
                 return Subscriptions.empty();
             }
         }).subscribeOn(Schedulers.threadPoolForIO());

@@ -88,6 +88,7 @@ public class PlaceOrderActivity extends FragmentActivity implements SwipeRefresh
                             Intent intent = new Intent();
                             intent.setClass(PlaceOrderActivity.this,LoginRegisterActivity.class);
                             startActivityForResult(intent, 201);
+                            overridePendingTransition(R.anim.bottom_in, R.anim.bottom_exit);
                         }
                         else {
                             switchFragment();

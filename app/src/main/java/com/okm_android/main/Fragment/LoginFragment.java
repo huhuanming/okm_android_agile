@@ -67,6 +67,7 @@ public class LoginFragment extends Fragment{
                         ToastUtils.setToast(getActivity(),"登录成功");
                         getActivity().setResult(500,new Intent());
                         getActivity().finish();
+                        getActivity().overridePendingTransition(0, R.anim.bottom_out);
                         break;
                 }
             }

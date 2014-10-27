@@ -1,11 +1,13 @@
 package com.okm_android.main.Activity;
 
 import android.app.ActionBar;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -78,9 +80,23 @@ public class LoginRegisterActivity extends FragmentActivity {
         {
             //监听返回键
             case android.R.id.home:
+                setResult(500,new Intent());
                 LoginRegisterActivity.this.finish();
+                overridePendingTransition(0, R.anim.bottom_out);
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        // TODO Auto-generated method stub
+        if(keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0)
+        {
+            setResult(500,new Intent());
+            LoginRegisterActivity.this.finish();
+            overridePendingTransition(0, R.anim.bottom_out);
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

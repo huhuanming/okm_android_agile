@@ -77,6 +77,7 @@ public class RegisterFragment extends Fragment{
                         progressbar.setVisibility(View.GONE);
                         getActivity().setResult(500,new Intent());
                         getActivity().finish();
+                        getActivity().overridePendingTransition(0, R.anim.bottom_out);
                         break;
                 }
                 super.handleMessage(msg);

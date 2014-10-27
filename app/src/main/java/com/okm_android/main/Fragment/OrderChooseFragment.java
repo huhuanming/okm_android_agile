@@ -99,6 +99,7 @@ public class OrderChooseFragment extends Fragment{
                     Intent intent = new Intent();
                     intent.setClass(getActivity(), LoginRegisterActivity.class);
                     startActivity(intent);
+                    getActivity().overridePendingTransition(R.anim.bottom_in, R.anim.bottom_exit);
                 }
                 else
                 {

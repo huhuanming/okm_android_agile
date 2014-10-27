@@ -29,6 +29,8 @@ import com.okm_android.main.Utils.AddObserver.NotificationCenter;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import cn.jpush.android.api.JPushInterface;
+
 public class MenuActivity extends FragmentActivity implements AMapLocationListener {
 
     //    final String[] menuEntries = {"店铺管理","数据报表","订单管理","菜单管理","关于我们"};
@@ -285,7 +287,16 @@ public class MenuActivity extends FragmentActivity implements AMapLocationListen
         // 销毁定位
         mLocationManagerProxy.destroy();
 
+        JPushInterface.onPause(this);
+
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        JPushInterface.onResume(this);
+    }
+
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         return super.onPrepareOptionsMenu(menu);

@@ -235,11 +235,9 @@
                 <category android:name="com.okm_android.main" />
             </intent-filter>
         </receiver>
-
-
         <!-- Required  . Enable it you can get statistics data with channel -->
         <meta-data android:name="JPUSH_CHANNEL" android:value="developer-default"/>
-        <meta-data android:name="JPUSH_APPKEY" android:value="b89976da389a244be40e0d55" /> <!--  </>值来自开发者平台取得的AppKey-->
+        <meta-data android:name="JPUSH_APPKEY" android:value="61ccd10e36a9dfd8bf7dda75" /> <!--  </>值来自开发者平台取得的AppKey-->
         <!-- 激光推送 Required SDK核心功能-->
     </application>
 

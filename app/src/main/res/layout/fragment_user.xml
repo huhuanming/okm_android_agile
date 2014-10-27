@@ -112,7 +112,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/change_password"
+                    android:text="@string/binding_phone"
                     android:textSize="18sp"
                     android:layout_marginLeft="20dp"
                     android:layout_centerVertical="true"
@@ -294,9 +294,40 @@
             <TextView
                 android:layout_width="fill_parent"
                 android:layout_height="1dp"
-                android:layout_marginBottom="20dp"
                 android:background="#EBEBEB"
                 />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:id="@+id/fragment_user_login_above_text"
+                android:layout_marginTop="20dp"
+                android:background="#EBEBEB"
+                />
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="55dp"
+                android:id="@+id/fragment_user_login_exit"
+                android:clickable="true"
+                android:background="@drawable/background_style"
+                >
+                <TextView
+
+                    android:layout_width="fill_parent"
+                    android:layout_height="55dp"
+                    android:textSize="17sp"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_centerInParent="true"
+                    android:textColor="#e64939"
+                    android:text="@string/log_out"/>
+            </RelativeLayout>
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:id="@+id/fragment_user_login_below_text"
+                android:layout_marginBottom="30dp"
+                android:background="#EBEBEB"/>
             </LinearLayout>
         </ScrollView>
 </LinearLayout>

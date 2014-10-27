@@ -130,7 +130,6 @@ public class FoodMenuAdapter extends BaseAdapter {
                         NotificationCenter.getInstance().postNotification("SubFoodCount");
                     }
                 });
-
             }break;
         }
         return convertView;

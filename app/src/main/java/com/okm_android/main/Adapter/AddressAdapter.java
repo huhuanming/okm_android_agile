@@ -42,16 +42,17 @@ public class AddressAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         final ViewHolder holder;
-        /*if (convertView == null) {*/
+        if (convertView == null) {
             convertView = layoutInflater.inflate(R.layout.address_item, null);
             holder = new ViewHolder();
             holder.name = (TextView) convertView.findViewById(R.id.address_name);
             holder.number = (TextView) convertView.findViewById(R.id.address_number);
             holder.address = (TextView) convertView.findViewById(R.id.address_address);
-        /*}
+            convertView.setTag(holder);
+        }
         else {
             holder = (ViewHolder) convertView.getTag();
-        }*/
+        }
         //从list对象中为子组件赋值
         holder.name.setText(listItems.get(position).get("name").toString());
         holder.number.setText(listItems.get(position).get("number").toString());

@@ -50,10 +50,19 @@
     <string name="binding_phone">已绑定手机号</string>
     <string name="binding_email">已绑定邮箱</string>
     <string name="binding">账号绑定</string>
-    
+
+    <string name="time_to_send">及时送</string>
+    <string name="order_need">订单需求:</string>
+    <string name="appointment_to_send">预约送</string>
+    <string name="order_list">订单列表:</string>
+    <string name="pay_treasure">支付宝</string>
+    <string name="provide_the_invoice">需要提供收银小票</string>
+    <string name="commercial_invoice">需要提供商用小票</string>
     <string name="sorting_time">按时间排序</string>
     <string name="sorting_score">按评分排序</string>
-    
+    <string name="send">发送</string>
+    <string name="title">标题</string>
+    <string name="comment">评论</string>
     <string name="order_on">进行中的订单</string>
     <string name="order_finish">已完成的订单</string>
     <string name="small_ticket">收银小票</string>
@@ -75,7 +84,7 @@
     <string name="shop_announce">店家公告</string>
     <string name="month_sale">月售</string>
     <string name="much">份</string>
-    <string name="please_choose_address">请选择收货地址</string>
+    <string name="please_choose_address">请修改收货地址</string>
     <string name="sure_place_order">确定下单</string>
     <string name="pay_online">支付宝</string>
     <string name="pay_face">现金支付</string>

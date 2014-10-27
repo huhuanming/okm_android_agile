@@ -89,4 +89,13 @@
 
     </style>
 
+    <style name="CheckBoxStar" parent="@android:style/Widget.CompoundButton.CheckBox">
+
+        <item name="android:button">@drawable/comment_star</item>
+
+        <item name="android:paddingLeft">25.0dip</item>
+
+        <item name="android:maxHeight">10.0dip</item>
+
+    </style>
 </resources>

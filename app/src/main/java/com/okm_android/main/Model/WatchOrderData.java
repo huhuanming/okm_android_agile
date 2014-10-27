@@ -10,6 +10,7 @@ public class WatchOrderData {
     public String updated_at;
     public Restaurant restaurant;
     public class Restaurant{
+        public String rid;
         public String restaurant_name;
         public String phone_number;
     }

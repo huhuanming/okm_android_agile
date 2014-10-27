@@ -3,6 +3,7 @@ package com.okm_android.main.ApiManager;
 import com.okm_android.main.Model.AddressAddData;
 import com.okm_android.main.Model.AddressData;
 import com.okm_android.main.Model.DefaultAddressData;
+import com.okm_android.main.Model.RestaurantComment;
 import com.okm_android.main.Model.RestaurantMenu;
 import com.okm_android.main.Model.SearchBackData;
 import com.okm_android.main.Model.UploadBackData;
@@ -56,5 +57,13 @@ public class QinApiInterface {
     public interface ApiManagerGetOrder{
         @GET("/users/{user_id}/orders")
         List<WatchOrderData> watchOrderData(@Path("user_id")String user_id,@Query("access_token")String access_token,@Query("is_finished")String is_finished);
+    }
+    public interface ApiManagerUpdateComment{
+        @POST("/restaurants/{restaurant_id}/comments")
+        UploadBackData uploadBackDataComment(@Path("restaurant_id")String restaurant_id,@Query("access_token")String access_token,@Query("title")String title,@Query("comment")String comment,@Query("point")String point);
+    }
+    public interface ApiManagerGetComment{
+        @GET("/restaurants/{restaurant_id}/comments")
+        List<RestaurantComment> restaurantCommentData(@Path("restaurant_id")String restaurant_id,@Query("cid")String cid,@Query("count")String count,@Query("order")String order);
     }
 }

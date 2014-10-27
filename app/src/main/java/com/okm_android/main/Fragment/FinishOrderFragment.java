@@ -1,5 +1,6 @@
 package com.okm_android.main.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -7,13 +8,13 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.okm_android.main.Adapter.AddressAdapter;
+import com.okm_android.main.Activity.AddCommentActivity;
 import com.okm_android.main.Adapter.OrderTestAdapter;
 import com.okm_android.main.ApiManager.MainApiManager;
 import com.okm_android.main.ApiManager.QinApiManager;
-import com.okm_android.main.Model.AddressData;
 import com.okm_android.main.Model.WatchOrderData;
 import com.okm_android.main.R;
 import com.okm_android.main.Utils.Constant;
@@ -22,10 +23,7 @@ import com.okm_android.main.Utils.ShareUtils;
 import com.okm_android.main.Utils.ToastUtils;
 import com.okm_android.main.Utils.TokenUtils.AccessToken;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import rx.android.concurrency.AndroidSchedulers;
 import rx.util.functions.Action1;
@@ -39,6 +37,7 @@ public class FinishOrderFragment extends Fragment{
     private OrderTestAdapter adapter;
     private String user_id;
     private Handler handler;
+    private List<WatchOrderData> list;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         parentView = inflater.inflate(R.layout.fragment_finish_order,container,false);
@@ -55,7 +54,7 @@ public class FinishOrderFragment extends Fragment{
                 {
                     //获取成功
                     case Constant.MSG_SUCCESS:
-                        List<WatchOrderData> list = (List<WatchOrderData>) msg.obj;
+                        list = (List<WatchOrderData>) msg.obj;
                         if(list.size()==0)
                         {
                             ToastUtils.setToast(getActivity(),"还没有完成的订单哦～");
@@ -68,6 +67,14 @@ public class FinishOrderFragment extends Fragment{
                 super.handleMessage(msg);
             }
         };
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                Intent intent = new Intent(getActivity(), AddCommentActivity.class);
+                intent.putExtra("r_id",list.get(position).restaurant.rid);
+                startActivity(intent);
+            }
+        });
         return parentView;
     }
 

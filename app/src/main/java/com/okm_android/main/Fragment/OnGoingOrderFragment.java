@@ -1,5 +1,6 @@
 package com.okm_android.main.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -8,8 +9,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.okm_android.main.Activity.OrderManagementDetails;
 import com.okm_android.main.Adapter.AddressAdapter;
 import com.okm_android.main.Adapter.OrderTestAdapter;
 import com.okm_android.main.ApiManager.MainApiManager;
@@ -41,8 +44,9 @@ public class OnGoingOrderFragment extends Fragment {
     private OrderTestAdapter adapter;
     private String user_id;
     private Handler handler;
+    private List<WatchOrderData> list;
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         parentView = inflater.inflate(R.layout.fragment_ongoing_order,container,false);
         init();
         user_id=ShareUtils.getId(getActivity());
@@ -57,7 +61,7 @@ public class OnGoingOrderFragment extends Fragment {
                 {
                     //获取成功
                     case Constant.MSG_SUCCESS:
-                        List<WatchOrderData> list = (List<WatchOrderData>) msg.obj;
+                        list = (List<WatchOrderData>) msg.obj;
                         if(list.size()==0)
                         {
                             ToastUtils.setToast(getActivity(),"还没有订单哦，快去下单吧～");
@@ -70,6 +74,19 @@ public class OnGoingOrderFragment extends Fragment {
                 super.handleMessage(msg);
             }
         };
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                Intent intent=new Intent(getActivity(), OrderManagementDetails.class);
+                intent.putExtra("order_id", list.get(position).oid);
+                intent.putExtra("shipping_user",list.get(position).order_info.shipping_user);
+                intent.putExtra("phone_number",list.get(position).order_info.phone_number);
+                intent.putExtra("shipping_address",list.get(position).order_info.shipping_address);
+                intent.putExtra("updated_at",list.get(position).updated_at);
+                intent.putExtra("shipping_at",list.get(position).created_at);
+                startActivity(intent);
+            }
+        });
         return parentView;
     }
 

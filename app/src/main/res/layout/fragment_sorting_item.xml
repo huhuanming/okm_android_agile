@@ -14,6 +14,7 @@
         android:layout_height="wrap_content"
         >
         <TextView
+            android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="非常的好吃"
@@ -23,6 +24,7 @@
             android:layout_centerVertical="true"
             />
         <TextView
+            android:id="@+id/time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="2014.10.10"
@@ -33,6 +35,7 @@
             />
     </RelativeLayout>
     <TextView
+        android:id="@+id/tv_comment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -58,29 +61,34 @@
             android:orientation="horizontal"
             >
             <ImageView
+                android:id="@+id/image1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/star_on"
                 />
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_height="wrap_content"
-                android:background="@drawable/star_on"
-                />
-            <ImageView
+                android:id="@+id/image2"
                 android:layout_width="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/star_on"
                 />
             <ImageView
+                android:id="@+id/image3"
+                android:layout_width="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/star_on"
+                />
+            <ImageView
+                android:id="@+id/image4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/star_on"
                 android:layout_marginLeft="5dp"
                 />
             <ImageView
+                android:id="@+id/image5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
@@ -88,6 +96,7 @@
                 />
         </LinearLayout>
         <TextView
+            android:id="@+id/comment_name"
             android:layout_centerVertical="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

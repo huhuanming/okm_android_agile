@@ -42,12 +42,12 @@ public class OrderFragment extends Fragment {
             public void onCheckedChanged(RadioGroup radioGroup, int checkedId) {
                 switch (checkedId)
                 {
-                    case R.id.sorting_time_segmentbutton:
+                    case R.id.order_segmentbutton:
                         FragmentTransaction tx = getActivity().getSupportFragmentManager().beginTransaction();
                         tx.replace(R.id.order_fragment, Fragment.instantiate(getActivity(), fragments[0]));
                         tx.commit();
                         break;
-                    case R.id.sorting_score_segmentbutton:
+                    case R.id.order_finish_segmentbutton:
                         FragmentTransaction tx2 = getActivity().getSupportFragmentManager().beginTransaction();
                         tx2.replace(R.id.order_fragment, Fragment.instantiate(getActivity(), fragments[1]));
                         tx2.commit();

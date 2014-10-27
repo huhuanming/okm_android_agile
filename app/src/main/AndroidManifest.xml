@@ -74,6 +74,11 @@
             android:icon="@drawable/lingjiaxiaochu"
             />
 
+        <activity android:name=".Activity.AddCommentActivity"
+            android:label="@string/back"
+            android:icon="@drawable/lingjiaxiaochu"
+            android:theme="@style/MyTheme"
+            />
         <activity android:name=".Activity.AddAddressActivity"
             android:theme="@style/MyTheme"
             android:label="@string/please_choose_address"

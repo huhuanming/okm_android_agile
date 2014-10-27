@@ -84,8 +84,7 @@ public class ShopDetailFragment extends Fragment{
             public void onClick(View view) {
                 Intent intent = new Intent();
                 intent.setClass(getActivity(), SortingActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putString("Restaurant_id",rid);
+                intent.putExtra("restaurant_id",rid);
                 startActivity(intent);
             }
         });

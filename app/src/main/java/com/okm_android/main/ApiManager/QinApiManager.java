@@ -3,11 +3,11 @@ package com.okm_android.main.ApiManager;
 import com.okm_android.main.Model.AddressAddData;
 import com.okm_android.main.Model.AddressData;
 import com.okm_android.main.Model.DefaultAddressData;
-import com.okm_android.main.Model.RegisterBackData;
-import com.okm_android.main.Model.RestaurantBackData;
+import com.okm_android.main.Model.RestaurantComment;
 import com.okm_android.main.Model.RestaurantMenu;
 import com.okm_android.main.Model.SearchBackData;
 import com.okm_android.main.Model.UploadBackData;
+import com.okm_android.main.Model.WatchOrderData;
 
 import java.util.List;
 
@@ -144,6 +144,51 @@ public class QinApiManager extends MainApiManager{
                     observer.onError(e);
                 }
 
+                return Subscriptions.empty();
+            }
+        }).subscribeOn(Schedulers.threadPoolForIO());
+    }
+    private static final QinApiInterface.ApiManagerGetOrder GetOrder = restAdapter.create(QinApiInterface.ApiManagerGetOrder.class);
+    public static Observable<List<WatchOrderData>> watchOrderData(final String user_id,final String access_token,final String is_finished) {
+        return Observable.create(new Observable.OnSubscribeFunc<List<WatchOrderData>>() {
+            @Override
+            public Subscription onSubscribe(Observer<? super List<WatchOrderData>> observer) {
+                try {
+                    observer.onNext(GetOrder.watchOrderData(user_id,access_token,is_finished));
+                    observer.onCompleted();
+                } catch (Exception e) {
+                    observer.onError(e);
+                }
+                return Subscriptions.empty();
+            }
+        }).subscribeOn(Schedulers.threadPoolForIO());
+    }
+    private static final QinApiInterface.ApiManagerUpdateComment UploadBackDataComment = restAdapter.create(QinApiInterface.ApiManagerUpdateComment.class);
+    public static Observable<UploadBackData> uploadBackDataComment(final String restaurant_id,final String access_token,final String title, final String comment, final String point) {
+        return Observable.create(new Observable.OnSubscribeFunc<UploadBackData>() {
+            @Override
+            public Subscription onSubscribe(Observer<? super UploadBackData> observer) {
+                try {
+                    observer.onNext(UploadBackDataComment.uploadBackDataComment(restaurant_id,access_token, title, comment, point));
+                    observer.onCompleted();
+                } catch (Exception e) {
+                    observer.onError(e);
+                }
+                return Subscriptions.empty();
+            }
+        }).subscribeOn(Schedulers.threadPoolForIO());
+    }
+    private static final QinApiInterface.ApiManagerGetComment GetComment = restAdapter.create(QinApiInterface.ApiManagerGetComment.class);
+    public static Observable<List<RestaurantComment>> getComment(final String restaurant_id,final String cid,final String count,final String order) {
+        return Observable.create(new Observable.OnSubscribeFunc<List<RestaurantComment>>() {
+            @Override
+            public Subscription onSubscribe(Observer<? super List<RestaurantComment>> observer) {
+                try {
+                    observer.onNext(GetComment.restaurantCommentData(restaurant_id,cid,count,order));
+                    observer.onCompleted();
+                } catch (Exception e) {
+                    observer.onError(e);
+                }
                 return Subscriptions.empty();
             }
         }).subscribeOn(Schedulers.threadPoolForIO());

@@ -75,7 +75,7 @@ public class DateUtils {
 
     public static String getMonthTime(String utctime)
     {
-        return formatDataTime(timestampToLocalDate(utctime));
+        return formatDataTime(timestampToLocalDateWithMillisecond(utctime));
     }
 
     public static String formatDataTime(Date date){

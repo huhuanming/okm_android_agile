@@ -1,6 +1,7 @@
 package com.okm_android.main.Activity;
 
 import android.app.ActionBar;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -20,6 +21,7 @@ import info.hoang8f.android.segmented.SegmentedGroup;
  */
 public class SortingActivity extends FragmentActivity {
 
+    private String restaurant_id;
     final String[] fragments = {
             "com.okm_android.main.Fragment.TimeSortingFragment",
             "com.okm_android.main.Fragment.ScoreSortingFragment"
@@ -30,6 +32,9 @@ public class SortingActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sorting);
+        Intent intent = this.getIntent();
+        restaurant_id=intent.getStringExtra("restaurant_id");
+        getIntent().putExtra("Restaurant_id", restaurant_id);
         ButterKnife.inject(this);
 
         //显示actionbar上面的返回键
@@ -43,11 +48,13 @@ public class SortingActivity extends FragmentActivity {
                 switch (checkedId)
                 {
                     case R.id.sorting_time_segmentbutton:
+                        getIntent().putExtra("Restaurant_id", restaurant_id);
                         FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
                         tx.replace(R.id.sorting_fragment, Fragment.instantiate(SortingActivity.this, fragments[0]));
                         tx.commit();
                         break;
                     case R.id.sorting_score_segmentbutton:
+                        getIntent().putExtra("Restaurant_id", restaurant_id);
                         FragmentTransaction tx2 = getSupportFragmentManager().beginTransaction();
                         tx2.replace(R.id.sorting_fragment, Fragment.instantiate(SortingActivity.this, fragments[1]));
                         tx2.commit();
@@ -55,7 +62,6 @@ public class SortingActivity extends FragmentActivity {
                 }
             }
         });
-
         FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
         tx.replace(R.id.sorting_fragment, Fragment.instantiate(SortingActivity.this, fragments[0]));
         tx.commit();

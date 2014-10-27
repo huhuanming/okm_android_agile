@@ -80,6 +80,7 @@ public class OrderChooseFragment extends Fragment{
             @Override
             public void onMenuItemClick(int position, SwipeMenu menu, int index) {
                 new Delete().from(FoodsData.class).where("Food_id = ?",list.get(position).food_id).execute();
+                subAllPrice(list.get(position).count * Float.parseFloat(list.get(position).food_price)+"");
                 list.remove(position);
                 mAdapter.notifyDataSetChanged();
             }

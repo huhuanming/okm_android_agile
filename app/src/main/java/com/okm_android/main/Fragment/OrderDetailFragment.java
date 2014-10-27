@@ -179,7 +179,7 @@ public class OrderDetailFragment extends Fragment implements TimePickerDialog.On
             }
         });
 
-        cbTicket1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        /*cbTicket1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if(b){
@@ -198,7 +198,7 @@ public class OrderDetailFragment extends Fragment implements TimePickerDialog.On
                     cbTicket1.setChecked(true);
                 }
             }
-        });
+        });*/
         final Calendar calendar = Calendar.getInstance();
         final TimePickerDialog timePickerDialog = TimePickerDialog.newInstance(this, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), false, false);
         cbSendNow.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

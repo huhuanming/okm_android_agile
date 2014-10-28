@@ -32,8 +32,9 @@ dependencies {
     compile 'de.hdodenhof:circleimageview:1.2.0'
     compile 'info.hoang8f:android-segmented:1.0.2'
     compile 'com.jakewharton:butterknife:5.1.2'
-    compile 'com.squareup.retrofit:retrofit:1.2.2'
-    compile 'com.netflix.rxjava:rxjava-android:0.14.6'
-    compile 'com.squareup.okhttp:okhttp:1.2.1'
+    compile 'com.squareup.retrofit:retrofit:1.7.1'
+    compile 'com.netflix.rxjava:rxjava-android:0.20.6'
+    compile 'com.squareup.okhttp:okhttp:2.0.0'
+    compile 'com.squareup.okhttp:okhttp-urlconnection:2.0.0'
     compile 'com.github.castorflex.smoothprogressbar:library:0.2.0'
 }

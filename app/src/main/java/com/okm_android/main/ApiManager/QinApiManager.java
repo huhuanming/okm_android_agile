@@ -13,8 +13,9 @@ import java.util.List;
 
 import rx.Observable;
 import rx.Observer;
+import rx.Subscriber;
 import rx.Subscription;
-import rx.concurrency.Schedulers;
+import rx.schedulers.Schedulers;
 import rx.subscriptions.Subscriptions;
 
 /**
@@ -24,19 +25,17 @@ public class QinApiManager extends MainApiManager{
 
     private static final QinApiInterface.ApiManagerVerificationCode VerificationCodeapiManager = restAdapter.create(QinApiInterface.ApiManagerVerificationCode.class);
     public static Observable<List<RestaurantMenu>> RestaurantFood(final String restaurant_id) {
-        return Observable.create(new Observable.OnSubscribeFunc<List<RestaurantMenu>>() {
+        return Observable.create(new Observable.OnSubscribe<List<RestaurantMenu>>() {
             @Override
-            public Subscription onSubscribe(Observer<? super List<RestaurantMenu>> observer) {
+            public void call(Subscriber<? super List<RestaurantMenu>> subscriber) {
                 try {
-                    observer.onNext(VerificationCodeapiManager.RestaurantFood(restaurant_id));
-                    observer.onCompleted();
+                    subscriber.onNext(VerificationCodeapiManager.RestaurantFood(restaurant_id));
+                    subscriber.onCompleted();
                 } catch (Exception e) {
-                    observer.onError(e);
+                    subscriber.onError(e);
                 }
-
-                return Subscriptions.empty();
             }
-        }).subscribeOn(Schedulers.threadPoolForIO());
+        }).subscribeOn(Schedulers.io());
     }
 
     private static final QinApiInterface.ApiManagerDefaultAddress defaultAddress = restAdapter.create(QinApiInterface.ApiManagerDefaultAddress.class);
@@ -51,7 +50,7 @@ public class QinApiManager extends MainApiManager{
                 }
                 return Subscriptions.empty();
             }
-        }).subscribeOn(Schedulers.threadPoolForIO());
+        }).subscribeOn(Schedulers.io());
     }
 
     private static final QinApiInterface.ApiManagerPustAddress AddAddress = restAdapter.create(QinApiInterface.ApiManagerPustAddress.class);
@@ -67,7 +66,7 @@ public class QinApiManager extends MainApiManager{
                 }
                 return Subscriptions.empty();
             }
-        }).subscribeOn(Schedulers.threadPoolForIO());
+        }).subscribeOn(Schedulers.io());
     }
     private static final QinApiInterface.ApiManagerAddAddress AddressData = restAdapter.create(QinApiInterface.ApiManagerAddAddress.class);
     public static Observable<List<AddressData>> addressData(final String user_id,final String access_token) {
@@ -83,7 +82,7 @@ public class QinApiManager extends MainApiManager{
 
                 return Subscriptions.empty();
             }
-        }).subscribeOn(Schedulers.threadPoolForIO());
+        }).subscribeOn(Schedulers.io());
     }
     private static final QinApiInterface.ApiManagerDeleteAddress UploadBackData = restAdapter.create(QinApiInterface.ApiManagerDeleteAddress.class);
     public static Observable<UploadBackData> uploadBackData(final String user_id,final String address_id,final String access_token) {
@@ -98,7 +97,7 @@ public class QinApiManager extends MainApiManager{
                 }
                 return Subscriptions.empty();
             }
-        }).subscribeOn(Schedulers.threadPoolForIO());
+        }).subscribeOn(Schedulers.io());
     }
 
     private static final QinApiInterface.ApiManagerSetDefaultAddress UploadBackDataDef = restAdapter.create(QinApiInterface.ApiManagerSetDefaultAddress.class);
@@ -114,7 +113,7 @@ public class QinApiManager extends MainApiManager{
                 }
                 return Subscriptions.empty();
             }
-        }).subscribeOn(Schedulers.threadPoolForIO());
+        }).subscribeOn(Schedulers.io());
     }
 
     private static final QinApiInterface.ApiManagerEditAddress UploadBackDataEdit = restAdapter.create(QinApiInterface.ApiManagerEditAddress.class);
@@ -130,7 +129,7 @@ public class QinApiManager extends MainApiManager{
                 }
                 return Subscriptions.empty();
             }
-        }).subscribeOn(Schedulers.threadPoolForIO());
+        }).subscribeOn(Schedulers.io());
     }
     private static final QinApiInterface.ApiManagerSearchFood SearchBack = restAdapter.create(QinApiInterface.ApiManagerSearchFood.class);
     public static Observable<List<SearchBackData>> searchBackData(final String longitude,final String latitude,final String food_name) {
@@ -146,7 +145,7 @@ public class QinApiManager extends MainApiManager{
 
                 return Subscriptions.empty();
             }
-        }).subscribeOn(Schedulers.threadPoolForIO());
+        }).subscribeOn(Schedulers.io());
     }
     private static final QinApiInterface.ApiManagerGetOrder GetOrder = restAdapter.create(QinApiInterface.ApiManagerGetOrder.class);
     public static Observable<List<WatchOrderData>> watchOrderData(final String user_id,final String access_token,final String is_finished) {
@@ -161,7 +160,7 @@ public class QinApiManager extends MainApiManager{
                 }
                 return Subscriptions.empty();
             }
-        }).subscribeOn(Schedulers.threadPoolForIO());
+        }).subscribeOn(Schedulers.io());
     }
     private static final QinApiInterface.ApiManagerUpdateComment UploadBackDataComment = restAdapter.create(QinApiInterface.ApiManagerUpdateComment.class);
     public static Observable<UploadBackData> uploadBackDataComment(final String restaurant_id,final String access_token,final String title, final String comment, final String point) {
@@ -176,7 +175,7 @@ public class QinApiManager extends MainApiManager{
                 }
                 return Subscriptions.empty();
             }
-        }).subscribeOn(Schedulers.threadPoolForIO());
+        }).subscribeOn(Schedulers.io());
     }
     private static final QinApiInterface.ApiManagerGetComment GetComment = restAdapter.create(QinApiInterface.ApiManagerGetComment.class);
     public static Observable<List<RestaurantComment>> getComment(final String restaurant_id,final String cid,final String count,final String order) {
@@ -191,6 +190,6 @@ public class QinApiManager extends MainApiManager{
                 }
                 return Subscriptions.empty();
             }
-        }).subscribeOn(Schedulers.threadPoolForIO());
+        }).subscribeOn(Schedulers.io());
     }
 }

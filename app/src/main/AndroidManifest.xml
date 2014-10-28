@@ -138,6 +138,12 @@
             android:icon="@drawable/lingjiaxiaochu"
             />
 
+        <activity android:name=".Activity.ShakeDetailActivity"
+            android:theme="@style/MyTheme"
+            android:label="@string/lijiaxiaochu"
+            android:icon="@drawable/lingjiaxiaochu"
+            />
+
         <activity
             android:theme="@style/MyTheme"
             android:name=".Activity.SortingActivity"

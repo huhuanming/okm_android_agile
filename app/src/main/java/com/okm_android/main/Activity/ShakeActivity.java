@@ -17,7 +17,6 @@ import android.widget.TextView;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.okm_android.main.R;
-import com.okm_android.main.Utils.ToastUtils;
 
 import butterknife.InjectView;
 
@@ -124,7 +123,7 @@ public class ShakeActivity extends Activity {
             super.handleMessage(msg);
             switch (msg.what) {
                 case SENSOR_SHAKE:
-                    ToastUtils.setToast(ShakeActivity.this,"ddddd");
+
                     break;
             }
         }

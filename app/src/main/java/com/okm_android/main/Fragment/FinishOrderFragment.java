@@ -26,7 +26,7 @@ import com.okm_android.main.Utils.TokenUtils.AccessToken;
 import java.util.List;
 
 import rx.android.concurrency.AndroidSchedulers;
-import rx.util.functions.Action1;
+import rx.functions.Action1;
 
 /**
  * Created by chen on 14-10-7.

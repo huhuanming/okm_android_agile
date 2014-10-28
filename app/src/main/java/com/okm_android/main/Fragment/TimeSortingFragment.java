@@ -9,26 +9,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-import com.okm_android.main.Adapter.AddressAdapter;
 import com.okm_android.main.Adapter.SortingAdapter;
 import com.okm_android.main.ApiManager.MainApiManager;
 import com.okm_android.main.ApiManager.QinApiManager;
-import com.okm_android.main.Model.AddressData;
 import com.okm_android.main.Model.RestaurantComment;
 import com.okm_android.main.R;
 import com.okm_android.main.Utils.Constant;
 import com.okm_android.main.Utils.ErrorUtils;
-import com.okm_android.main.Utils.ShareUtils;
 import com.okm_android.main.Utils.ToastUtils;
-import com.okm_android.main.Utils.TokenUtils.AccessToken;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import rx.android.concurrency.AndroidSchedulers;
-import rx.util.functions.Action1;
+import rx.functions.Action1;
 
 /**
  * Created by chen on 14-10-7.

@@ -33,7 +33,7 @@ import java.util.Map;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import rx.android.concurrency.AndroidSchedulers;
-import rx.util.functions.Action1;
+import rx.functions.Action1;
 
 /**
  * Created by chen on 14-9-28.

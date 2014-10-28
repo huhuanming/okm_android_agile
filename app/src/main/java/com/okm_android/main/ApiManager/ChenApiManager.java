@@ -13,8 +13,9 @@ import java.util.List;
 
 import rx.Observable;
 import rx.Observer;
+import rx.Subscriber;
 import rx.Subscription;
-import rx.concurrency.Schedulers;
+import rx.schedulers.Schedulers;
 import rx.subscriptions.Subscriptions;
 
 /**
@@ -24,53 +25,47 @@ public class ChenApiManager extends MainApiManager{
 
     private static final ChenApiInterface.ApiManagerVerificationCode VerificationCodeapiManager = restAdapter.create(ChenApiInterface.ApiManagerVerificationCode.class);
     public static Observable<UploadBackData> getMenuUploadBackData(final String phone_number) {
-        return Observable.create(new Observable.OnSubscribeFunc<UploadBackData>() {
+        return Observable.create(new Observable.OnSubscribe<UploadBackData>() {
             @Override
-            public Subscription onSubscribe(Observer<? super UploadBackData> observer) {
+            public void call(Subscriber<? super UploadBackData> subscriber) {
                 try {
-                    observer.onNext(VerificationCodeapiManager.getVerificationCode(phone_number));
-                    observer.onCompleted();
+                    subscriber.onNext(VerificationCodeapiManager.getVerificationCode(phone_number));
+                    subscriber.onCompleted();
                 } catch (Exception e) {
-                    observer.onError(e);
+                    subscriber.onError(e);
                 }
-
-                return Subscriptions.empty();
             }
-        }).subscribeOn(Schedulers.threadPoolForIO());
+        }).subscribeOn(Schedulers.io());
     }
 
     private static final ChenApiInterface.ApiManagerCreateUser CreateUserapiManager = restAdapter.create(ChenApiInterface.ApiManagerCreateUser.class);
     public static Observable<RegisterBackData> createUser(final String phone_number, final String password, final String encryption_code) {
-        return Observable.create(new Observable.OnSubscribeFunc<RegisterBackData>() {
+        return Observable.create(new Observable.OnSubscribe<RegisterBackData>() {
             @Override
-            public Subscription onSubscribe(Observer<? super RegisterBackData> observer) {
+            public void call(Subscriber<? super RegisterBackData> subscriber) {
                 try {
-                    observer.onNext(CreateUserapiManager.createUser(phone_number, password, encryption_code));
-                    observer.onCompleted();
+                    subscriber.onNext(CreateUserapiManager.createUser(phone_number, password, encryption_code));
+                    subscriber.onCompleted();
                 } catch (Exception e) {
-                    observer.onError(e);
+                    subscriber.onError(e);
                 }
-
-                return Subscriptions.empty();
             }
-        }).subscribeOn(Schedulers.threadPoolForIO());
+        }).subscribeOn(Schedulers.io());
     }
 
     private static final ChenApiInterface.ApiManagerLogin LoginapiManager = restAdapter.create(ChenApiInterface.ApiManagerLogin.class);
     public static Observable<RegisterBackData> Login(final String phone_number, final String password) {
-        return Observable.create(new Observable.OnSubscribeFunc<RegisterBackData>() {
+        return Observable.create(new Observable.OnSubscribe<RegisterBackData>() {
             @Override
-            public Subscription onSubscribe(Observer<? super RegisterBackData> observer) {
+            public void call(Subscriber<? super RegisterBackData> subscriber) {
                 try {
-                    observer.onNext(LoginapiManager.login(phone_number, password));
-                    observer.onCompleted();
+                    subscriber.onNext(LoginapiManager.login(phone_number, password));
+                    subscriber.onCompleted();
                 } catch (Exception e) {
-                    observer.onError(e);
+                    subscriber.onError(e);
                 }
-
-                return Subscriptions.empty();
             }
-        }).subscribeOn(Schedulers.threadPoolForIO());
+        }).subscribeOn(Schedulers.newThread());
     }
 
     private static final ChenApiInterface.ApiManagerLoginByOauth LoginByOauthapiManager = restAdapter.create(ChenApiInterface.ApiManagerLoginByOauth.class);
@@ -87,24 +82,22 @@ public class ChenApiManager extends MainApiManager{
 
                 return Subscriptions.empty();
             }
-        }).subscribeOn(Schedulers.threadPoolForIO());
+        }).subscribeOn(Schedulers.io());
     }
 
     private static final ChenApiInterface.ApiManagerRestaurantsList RestaurantsListapiManager = restAdapter.create(ChenApiInterface.ApiManagerRestaurantsList.class);
     public static Observable<List<RestaurantBackData>> RestaurantsList(final String latitude, final String longitude, final String page) {
-        return Observable.create(new Observable.OnSubscribeFunc<List<RestaurantBackData>>() {
+        return Observable.create(new Observable.OnSubscribe<List<RestaurantBackData>>() {
             @Override
-            public Subscription onSubscribe(Observer<? super List<RestaurantBackData>> observer) {
+            public void call(Subscriber<? super List<RestaurantBackData>> subscriber) {
                 try {
-                    observer.onNext(RestaurantsListapiManager.RestaurantsList(latitude, longitude,page));
-                    observer.onCompleted();
+                    subscriber.onNext(RestaurantsListapiManager.RestaurantsList(latitude, longitude,page));
+                    subscriber.onCompleted();
                 } catch (Exception e) {
-                    observer.onError(e);
+                    subscriber.onError(e);
                 }
-
-                return Subscriptions.empty();
             }
-        }).subscribeOn(Schedulers.threadPoolForIO());
+        }).subscribeOn(Schedulers.newThread());
     }
 
     private static final ChenApiInterface.ApiManagerRestaurantsTypes RestaurantsTypesapiManager = restAdapter.create(ChenApiInterface.ApiManagerRestaurantsTypes.class);
@@ -121,7 +114,7 @@ public class ChenApiManager extends MainApiManager{
 
                 return Subscriptions.empty();
             }
-        }).subscribeOn(Schedulers.threadPoolForIO());
+        }).subscribeOn(Schedulers.io());
     }
 
     private static final ChenApiInterface.ApiManagerRestaurantsOrders RestaurantsOrdersapiManager = restAdapter.create(ChenApiInterface.ApiManagerRestaurantsOrders.class);
@@ -140,7 +133,7 @@ public class ChenApiManager extends MainApiManager{
 
                 return Subscriptions.empty();
             }
-        }).subscribeOn(Schedulers.threadPoolForIO());
+        }).subscribeOn(Schedulers.io());
     }
 
     private static final ChenApiInterface.ApiManagerRestaurantDetails RestaurantsDetailsapiManager = restAdapter.create(ChenApiInterface.ApiManagerRestaurantDetails.class);
@@ -157,7 +150,7 @@ public class ChenApiManager extends MainApiManager{
 
                 return Subscriptions.empty();
             }
-        }).subscribeOn(Schedulers.threadPoolForIO());
+        }).subscribeOn(Schedulers.io());
     }
 
     private static final ChenApiInterface.ApiManagerGetComments GetCommentsapiManager = restAdapter.create(ChenApiInterface.ApiManagerGetComments.class);
@@ -174,6 +167,6 @@ public class ChenApiManager extends MainApiManager{
 
                 return Subscriptions.empty();
             }
-        }).subscribeOn(Schedulers.threadPoolForIO());
+        }).subscribeOn(Schedulers.io());
     }
 }

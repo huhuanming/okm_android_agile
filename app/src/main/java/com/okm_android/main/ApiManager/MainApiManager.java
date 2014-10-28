@@ -9,7 +9,7 @@ public class MainApiManager {
 
     public static String path = "http://back-end.sohuapps.com/v1";
     public static final RestAdapter restAdapter = new RestAdapter.Builder()
-            .setServer(path)
+            .setEndpoint(path)
             .build();
 
 

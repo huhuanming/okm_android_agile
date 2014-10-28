@@ -39,7 +39,7 @@ import java.util.List;
 import java.util.Map;
 
 import rx.android.concurrency.AndroidSchedulers;
-import rx.util.functions.Action1;
+import rx.functions.Action1;
 
 /**
  * Created by chen on 14-9-22.

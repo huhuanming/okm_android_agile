@@ -29,7 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import rx.android.concurrency.AndroidSchedulers;
-import rx.util.functions.Action1;
+import rx.functions.Action1;
 
 /**
  * Created by QYM on 14-10-9.
@@ -127,7 +127,7 @@ public class FoodMenuFragment extends Fragment{
 
     public void restaurantData()
     {
-        getRestaurantDta(rid, new MainApiManager.FialedInterface() {
+        getRestaurantData(rid, new MainApiManager.FialedInterface() {
             @Override
             public void onSuccess(Object object) {
                 // 获取一个Message对象，设置what为1
@@ -161,7 +161,7 @@ public class FoodMenuFragment extends Fragment{
         });
     }
 
-    private void getRestaurantDta(String restaurant_id, final MainApiManager.FialedInterface fialedInterface)
+    private void getRestaurantData(String restaurant_id, final MainApiManager.FialedInterface fialedInterface)
     {
         QinApiManager.RestaurantFood(restaurant_id).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<List<RestaurantMenu>>() {

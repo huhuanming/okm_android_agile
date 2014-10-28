@@ -22,7 +22,7 @@ import com.okm_android.main.Utils.ErrorUtils;
 import com.okm_android.main.Utils.ToastUtils;
 
 import rx.android.concurrency.AndroidSchedulers;
-import rx.util.functions.Action1;
+import rx.functions.Action1;
 
 /**
  * Created by QYM on 14-10-9.

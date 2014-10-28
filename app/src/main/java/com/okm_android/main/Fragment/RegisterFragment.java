@@ -30,7 +30,7 @@ import java.util.TimerTask;
 
 import fr.castorflex.android.smoothprogressbar.SmoothProgressBar;
 import rx.android.concurrency.AndroidSchedulers;
-import rx.util.functions.Action1;
+import rx.functions.Action1;
 
 /**
  * Created by chen on 14-9-23.
@@ -200,7 +200,6 @@ public class RegisterFragment extends Fragment{
                     editor.putString("key", registerBackData.access_token.key);
                     editor.putString("id", registerBackData.user_id);
                     editor.commit();
-
                 }
 
                 @Override

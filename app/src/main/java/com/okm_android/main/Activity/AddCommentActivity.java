@@ -21,7 +21,7 @@ import com.okm_android.main.Utils.ToastUtils;
 import com.okm_android.main.Utils.TokenUtils.AccessToken;
 
 import rx.android.concurrency.AndroidSchedulers;
-import rx.util.functions.Action1;
+import rx.functions.Action1;
 
 /**
  * Created by qym on 14-10-24.

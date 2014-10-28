@@ -1,4 +1,5 @@
 package com.okm_android.main.Fragment;
+
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -20,7 +21,7 @@ import com.okm_android.main.Utils.ToastUtils;
 import java.util.List;
 
 import rx.android.concurrency.AndroidSchedulers;
-import rx.util.functions.Action1;
+import rx.functions.Action1;
 
 /**
  * Created by chen on 14-10-7.

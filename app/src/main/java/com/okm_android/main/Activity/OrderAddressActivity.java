@@ -48,7 +48,7 @@ public class OrderAddressActivity extends Activity implements SwipeRefreshLayout
     Handler handler;
     String user_id;
     private List<AddressData> addressDatas = new ArrayList<AddressData>();
-    List<Map<String,String>> listItem;
+    List<AddressData> listItem;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_address);
@@ -61,7 +61,7 @@ public class OrderAddressActivity extends Activity implements SwipeRefreshLayout
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
         swipeRefreshLayout.setOnRefreshListener(this);
         swipeRefreshLayout.setEnabled(false);
-        swipeRefreshLayout.setRefreshing(true);
+        swipeRefreshLayout.setRefreshing(false);
         //加载颜色是循环播放的，只要没有完成刷新就会一直循环，color1>color2>color3>color4
         swipeRefreshLayout.setColorScheme(android.R.color.holo_blue_bright,
                 android.R.color.holo_blue_light,
@@ -81,21 +81,10 @@ public class OrderAddressActivity extends Activity implements SwipeRefreshLayout
                     case Constant.MSG_SUCCESS:
                         swipeRefreshLayout.setRefreshing(false);
                         List<AddressData> list = (List<AddressData>) msg.obj;
-                        Map<String,String> map;
+                        listItem=list;
                         if(list.size() > 0)
                         {
-                            addressDatas.clear();
-                            addressDatas.addAll(list);
-                            listItem = new ArrayList<Map<String, String>>();
-                            for(int i=0;i<addressDatas.size();i++){
-                                    map = new HashMap<String, String>();
-                                    map.put("name",addressDatas.get(i).shipping_user);
-                                    map.put("address",addressDatas.get(i).shipping_address);
-                                    map.put("number",addressDatas.get(i).phone_number);
-                                    map.put("address_id",addressDatas.get(i).address_id);
-                                    listItem.add(map);
-                            }
-                            mAdapter = new AddressAdapter(OrderAddressActivity.this,listItem);
+                            mAdapter = new AddressAdapter(OrderAddressActivity.this,list);
                             mListView.setAdapter(mAdapter);
                             mAdapter.notifyDataSetChanged();
                         }
@@ -109,9 +98,9 @@ public class OrderAddressActivity extends Activity implements SwipeRefreshLayout
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 Intent intent = new Intent();
                 Bundle bundle = new Bundle();
-                bundle.putString("name",listItem.get(position).get("name"));
-                bundle.putString("address",listItem.get(position).get("number"));
-                bundle.putString("number",listItem.get(position).get("address"));
+                bundle.putString("name",listItem.get(position).shipping_user);
+                bundle.putString("address",listItem.get(position).phone_number);
+                bundle.putString("number",listItem.get(position).shipping_address);
                 intent.putExtras(bundle);
                 setResult(221, intent);
                 finish();
@@ -148,6 +137,8 @@ public class OrderAddressActivity extends Activity implements SwipeRefreshLayout
     }
     public void AddressData()
     {
+        swipeRefreshLayout.setEnabled(true);
+        swipeRefreshLayout.setRefreshing(true);
         AccessToken accessToken = new AccessToken(ShareUtils.getToken(this),ShareUtils.getKey(this));
         getAddressDta(user_id, accessToken.accessToken(), new MainApiManager.FialedInterface() {
             @Override
@@ -156,6 +147,7 @@ public class OrderAddressActivity extends Activity implements SwipeRefreshLayout
                 Message msg = Message.obtain();
                 msg.obj = object;
                 msg.what = Constant.MSG_SUCCESS;
+                swipeRefreshLayout.setEnabled(false);
                 // 发送这个消息到消息队列中
                 handler.sendMessage(msg);
             }

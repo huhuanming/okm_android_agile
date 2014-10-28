@@ -4,41 +4,50 @@
     android:orientation="vertical"
     android:background="#f3f3f3"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
-    <info.hoang8f.android.segmented.SegmentedGroup
-
-        android:id="@+id/sorting_segmented"
+    android:layout_height="match_parent">
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_container"
         android:layout_width="match_parent"
-        android:gravity="center_horizontal"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="20dp"
-        android:orientation="horizontal">
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <info.hoang8f.android.segmented.SegmentedGroup
 
-        <RadioButton
-            android:id="@+id/sorting_time_segmentbutton"
-            android:layout_weight="1"
-            android:checked="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/sorting_time"
-            style="@style/RadioButton" />
+                android:id="@+id/sorting_segmented"
+                android:layout_width="match_parent"
+                android:gravity="center_horizontal"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
 
-        <RadioButton
-            android:id="@+id/sorting_score_segmentbutton"
-            android:layout_weight="1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/sorting_score"
-            style="@style/RadioButton" />
-    </info.hoang8f.android.segmented.SegmentedGroup>
+                <RadioButton
+                    android:id="@+id/sorting_time_segmentbutton"
+                    android:layout_weight="1"
+                    android:checked="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/sorting_time"
+                    style="@style/RadioButton" />
 
-    <FrameLayout
-        android:layout_marginTop="10dp"
-        android:id="@+id/sorting_fragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" >
-    </FrameLayout>
+                <RadioButton
+                    android:id="@+id/sorting_score_segmentbutton"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/sorting_score"
+                    style="@style/RadioButton" />
+            </info.hoang8f.android.segmented.SegmentedGroup>
+
+            <FrameLayout
+                android:layout_marginTop="10dp"
+                android:id="@+id/sorting_fragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+            </FrameLayout>
+        </LinearLayout>
+    </android.support.v4.widget.SwipeRefreshLayout>
 </LinearLayout>

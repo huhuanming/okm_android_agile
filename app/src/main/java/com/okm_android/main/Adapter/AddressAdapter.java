@@ -8,6 +8,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.okm_android.main.Model.AddressAddData;
+import com.okm_android.main.Model.AddressData;
 import com.okm_android.main.R;
 
 import java.util.List;
@@ -15,10 +17,10 @@ import java.util.Map;
 
 public class AddressAdapter extends BaseAdapter {
     private Context context;                        //运行上下文
-    private List<Map<String, String>> listItems;    //商品信息集合
+    private List<AddressData> listItems;    //商品信息集合
     private LayoutInflater layoutInflater;
 
-    public AddressAdapter(Context c, List<Map<String, String>> list) {
+    public AddressAdapter(Context c, List<AddressData> list) {
         context = c;
         layoutInflater = LayoutInflater.from(context);
         listItems = list;
@@ -30,7 +32,7 @@ public class AddressAdapter extends BaseAdapter {
     }
 
     @Override
-    public Map<String, String> getItem(int position) {
+    public AddressData getItem(int position) {
         return listItems.get(position);
     }
 
@@ -54,9 +56,9 @@ public class AddressAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
         //从list对象中为子组件赋值
-        holder.name.setText(listItems.get(position).get("name").toString());
-        holder.number.setText(listItems.get(position).get("number").toString());
-        holder.address.setText(listItems.get(position).get("address").toString());
+        holder.name.setText(listItems.get(position).shipping_user);
+        holder.number.setText(listItems.get(position).phone_number);
+        holder.address.setText(listItems.get(position).shipping_address);
         return convertView;
     }
 

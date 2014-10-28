@@ -68,7 +68,6 @@
                     android:layout_marginLeft="44.25dp"
                     android:layout_gravity="center"
                     android:background="#ffffff"/>
-
             </LinearLayout>
 
 

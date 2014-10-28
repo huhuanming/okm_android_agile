@@ -14,6 +14,7 @@ import com.okm_android.main.ApiManager.MainApiManager;
 import com.okm_android.main.ApiManager.QinApiManager;
 import com.okm_android.main.Model.RestaurantComment;
 import com.okm_android.main.R;
+import com.okm_android.main.Utils.AddObserver.NotificationCenter;
 import com.okm_android.main.Utils.Constant;
 import com.okm_android.main.Utils.ErrorUtils;
 import com.okm_android.main.Utils.ToastUtils;
@@ -48,6 +49,7 @@ public class ScoreSortingFragment extends Fragment{
                 {
                     //获取成功
                     case Constant.MSG_SUCCESS:
+                        NotificationCenter.getInstance().postNotification("SortStopFlash");
                         List<RestaurantComment> list = (List<RestaurantComment>) msg.obj;
                         if(list.size() > 0)
                         {

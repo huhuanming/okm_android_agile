@@ -43,7 +43,6 @@ import java.util.List;
 
 import rx.android.concurrency.AndroidSchedulers;
 import rx.functions.Action1;
-import rx.schedulers.Schedulers;
 
 /**
  * Created by chen on 14-9-22.
@@ -330,7 +329,7 @@ public class HomeFragment extends Fragment implements ViewPager.OnPageChangeList
     }
 
     private void getRestaurantData(String latitude, String longitude, String page, final MainApiManager.FialedInterface fialedInterface) {
-        ChenApiManager.RestaurantsList(latitude, longitude, page).observeOn(Schedulers.newThread())
+        ChenApiManager.RestaurantsList(latitude, longitude, page).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<List<RestaurantBackData>>() {
                     @Override
                     public void call(List<RestaurantBackData> restaurantBackDatas) {

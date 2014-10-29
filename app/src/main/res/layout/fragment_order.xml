@@ -3,41 +3,50 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F2F2F2"
-    android:orientation="vertical"
-    >
-    <info.hoang8f.android.segmented.SegmentedGroup
-
-        android:id="@+id/order_segmented"
+    android:orientation="vertical">
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_container"
         android:layout_width="match_parent"
-        android:gravity="center_horizontal"
-        android:layout_height="34dp"
-        android:layout_marginLeft="22.5dp"
-        android:layout_marginRight="22.5dp"
-        android:layout_marginTop="20dp"
-        android:orientation="horizontal">
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <info.hoang8f.android.segmented.SegmentedGroup
 
-        <RadioButton
-            android:id="@+id/order_segmentbutton"
-            android:layout_weight="1"
-            android:checked="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/order_on"
-            style="@style/RadioButton" />
+                android:id="@+id/order_segmented"
+                android:layout_width="match_parent"
+                android:gravity="center_horizontal"
+                android:layout_height="34dp"
+                android:layout_marginLeft="22.5dp"
+                android:layout_marginRight="22.5dp"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
 
-        <RadioButton
-            android:id="@+id/order_finish_segmentbutton"
-            android:layout_weight="1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/order_finish"
-            style="@style/RadioButton" />
-    </info.hoang8f.android.segmented.SegmentedGroup>
+                <RadioButton
+                    android:id="@+id/order_segmentbutton"
+                    android:layout_weight="1"
+                    android:checked="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/order_on"
+                    style="@style/RadioButton" />
 
-    <FrameLayout
-        android:id="@+id/order_fragment"
-        android:layout_marginTop="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" >
-    </FrameLayout>
+                <RadioButton
+                    android:id="@+id/order_finish_segmentbutton"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/order_finish"
+                    style="@style/RadioButton" />
+            </info.hoang8f.android.segmented.SegmentedGroup>
+
+            <FrameLayout
+                android:id="@+id/order_fragment"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+            </FrameLayout>
+        </LinearLayout>
+    </android.support.v4.widget.SwipeRefreshLayout>
 </LinearLayout>

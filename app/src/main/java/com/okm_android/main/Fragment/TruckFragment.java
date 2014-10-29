@@ -53,7 +53,7 @@ public class TruckFragment extends Fragment implements SwipeRefreshLayout.OnRefr
     private Handler handler;
     private String user_id;
     private List<AddressData> addressDatas = new ArrayList<AddressData>();
-    List<Map<String,String>> listItem;
+    List<AddressData> listItem;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
@@ -120,7 +120,7 @@ public class TruckFragment extends Fragment implements SwipeRefreshLayout.OnRefr
                         {
                             addressDatas.clear();
                             addressDatas.addAll(list);
-                            listItem = new ArrayList<Map<String, String>>();
+                            listItem = new ArrayList<AddressData>();
                             for(int i=0;i<addressDatas.size();i++){
                                 if(addressDatas.get(i).is_default.toString().equals("1"))
                                 {
@@ -129,12 +129,7 @@ public class TruckFragment extends Fragment implements SwipeRefreshLayout.OnRefr
                                     number.setText(addressDatas.get(i).phone_number);
                                 }
                                 else {
-                                    map = new HashMap<String, String>();
-                                    map.put("name",addressDatas.get(i).shipping_user);
-                                    map.put("address",addressDatas.get(i).shipping_address);
-                                    map.put("number",addressDatas.get(i).phone_number);
-                                    map.put("address_id",addressDatas.get(i).address_id);
-                                    listItem.add(map);
+                                    listItem.add(addressDatas.get(i));
                                 }
                             }
                             mAdapter = new AddressAdapter(getActivity(),listItem);
@@ -151,10 +146,10 @@ public class TruckFragment extends Fragment implements SwipeRefreshLayout.OnRefr
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 ArrayList<String> addressData = new ArrayList<String>();
-                addressData.add(listItem.get(position).get("name"));
-                addressData.add(listItem.get(position).get("number"));
-                addressData.add(listItem.get(position).get("address"));
-                addressData.add(listItem.get(position).get("address_id"));
+                addressData.add(listItem.get(position).shipping_user);
+                addressData.add(listItem.get(position).phone_number);
+                addressData.add(listItem.get(position).shipping_address);
+                addressData.add(listItem.get(position).address_id);
                 Intent intent = new Intent(getActivity(), AddAddressActivity.class);
                 intent.putStringArrayListExtra("addressData",addressData);
                 intent.putExtra("SetAddOrChange",1);
@@ -167,13 +162,13 @@ public class TruckFragment extends Fragment implements SwipeRefreshLayout.OnRefr
                 switch (index) {
                     case 0:// default
                     {
-                        String address_id = listItem.get(position).get("address_id");
+                        String address_id = listItem.get(position).address_id;
                         SetDefaultAddressData(address_id);
                     }
                     break;
                     case 1:// delete
                     {
-                        String address_id = listItem.get(position).get("address_id");
+                        String address_id = listItem.get(position).address_id;
                         DeleteAddressData(address_id);
                     }break;
                 }

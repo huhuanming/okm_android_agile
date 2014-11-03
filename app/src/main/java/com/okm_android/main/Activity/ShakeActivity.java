@@ -1,6 +1,8 @@
 package com.okm_android.main.Activity;
 
+import android.app.ActionBar;
 import android.app.Activity;
+import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -10,37 +12,67 @@ import android.os.Handler;
 import android.os.Message;
 import android.os.SystemClock;
 import android.os.Vibrator;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
+import com.okm_android.main.ApiManager.ChenApiManager;
+import com.okm_android.main.ApiManager.MainApiManager;
+import com.okm_android.main.Model.ShakeDetailBackData;
 import com.okm_android.main.R;
+import com.okm_android.main.Utils.Constant;
+import com.okm_android.main.Utils.ErrorUtils;
+import com.okm_android.main.Utils.ToastUtils;
 
+import butterknife.ButterKnife;
 import butterknife.InjectView;
+import rx.android.concurrency.AndroidSchedulers;
+import rx.functions.Action1;
 
 /**
  * Created by chen on 14-9-27.
  */
 
-public class ShakeActivity extends Activity {
+public class ShakeActivity extends Activity implements SwipeRefreshLayout.OnRefreshListener{
 
     private boolean isStop = false;
     private SensorManager sensorManager;
     private Vibrator vibrator;
     private static final int SENSOR_SHAKE = 10;
+    private String longitude;
+    private String latitude;
 
     @InjectView(R.id.shake_img)ImageView shake_img;
     @InjectView(R.id.shake_text)TextView shake_text;
+    @InjectView(R.id.shake_swiperefresh)SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shake);
+        ButterKnife.inject(this);
+
+        longitude = getIntent().getExtras().getString("Lng");
+        latitude = getIntent().getExtras().getString("Lat");
+
+        swipeRefreshLayout.setOnRefreshListener(this);
+        swipeRefreshLayout.setEnabled(false);
+        swipeRefreshLayout.setRefreshing(false);
+        //加载颜色是循环播放的，只要没有完成刷新就会一直循环，color1>color2>color3>color4
+        swipeRefreshLayout.setColorScheme(android.R.color.holo_blue_bright,
+                android.R.color.holo_blue_light,
+                android.R.color.white, android.R.color.holo_blue_bright);
 
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
+
+        //显示actionbar上面的返回键
+        ActionBar actionBar = this.getActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
                 // 开启线程无限自动移动
         Thread myThread = new Thread(new Runnable() {
@@ -55,7 +87,6 @@ public class ShakeActivity extends Activity {
                             YoYo.with(Techniques.Shake).playOn(findViewById(R.id.shake_text));
                         }
                     });
-
                 }
             }
         });
@@ -77,6 +108,7 @@ public class ShakeActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
+        isStop = false;
         if (sensorManager != null) {// 注册监听器
             sensorManager.registerListener(sensorEventListener, sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL);
 // 第一个参数是Listener，第二个参数是所得传感器类型，第三个参数值获取传感器信息的频率
@@ -85,6 +117,7 @@ public class ShakeActivity extends Activity {
     @Override
     protected void onPause() {
         super.onPause();
+        isStop = true;
         if (sensorManager != null) {// 取消监听器
             sensorManager.unregisterListener(sensorEventListener);
         }
@@ -123,9 +156,91 @@ public class ShakeActivity extends Activity {
             super.handleMessage(msg);
             switch (msg.what) {
                 case SENSOR_SHAKE:
+                    swipeRefreshLayout.setRefreshing(true);
+                    shakeData();
 
+                    break;
+                case Constant.MSG_SUCCESS:
+                    ShakeDetailBackData shakeDetailBackData = (ShakeDetailBackData)msg.obj;
+                    swipeRefreshLayout.setRefreshing(false);
+                    Intent intent = new Intent();
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("data",shakeDetailBackData);
+                    bundle.putString("Lat",latitude);
+                    bundle.putString("Lng",longitude);
+                    intent.putExtras(bundle);
+                    intent.setClass(ShakeActivity.this,ShakeDetailActivity.class);
+                    startActivity(intent);
                     break;
             }
         }
     };
+
+
+    public void shakeData() {
+        getShakeData(new MainApiManager.FialedInterface() {
+            @Override
+            public void onSuccess(Object object) {
+
+                // 获取一个Message对象，设置what为1
+                Message msg = Message.obtain();
+                msg.obj = object;
+                msg.what = Constant.MSG_SUCCESS;
+                // 发送这个消息到消息队列中
+                handler.sendMessage(msg);
+            }
+
+            @Override
+            public void onFailth(int code) {
+                swipeRefreshLayout.setRefreshing(false);
+                ErrorUtils.setError(code, ShakeActivity.this);
+            }
+
+            @Override
+            public void onOtherFaith() {
+                swipeRefreshLayout.setRefreshing(false);
+                ToastUtils.setToast(ShakeActivity.this, "发生错误");
+            }
+
+            @Override
+            public void onNetworkError() {
+                swipeRefreshLayout.setRefreshing(false);
+                ToastUtils.setToast(ShakeActivity.this, "网络错误");
+            }
+        });
+    }
+
+    private void getShakeData(final MainApiManager.FialedInterface fialedInterface) {
+        ChenApiManager.GetShakeFood(longitude, latitude).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<ShakeDetailBackData>() {
+                    @Override
+                    public void call(ShakeDetailBackData shakeDetailBackData) {
+                        fialedInterface.onSuccess(shakeDetailBackData);
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        ErrorUtils.SetThrowable(throwable,fialedInterface);
+                    }
+                });
+    }
+
+    @Override
+    public void onRefresh() {
+        swipeRefreshLayout.setRefreshing(false);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        // TODO Auto-generated method stub
+        switch (item.getItemId())
+        {
+            //监听返回键
+            case android.R.id.home:
+               ShakeActivity.this.finish();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }

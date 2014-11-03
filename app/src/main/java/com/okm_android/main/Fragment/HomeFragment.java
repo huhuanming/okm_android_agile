@@ -122,7 +122,6 @@ public class HomeFragment extends Fragment implements ViewPager.OnPageChangeList
                             textone.setVisibility(View.VISIBLE);
                             texttwo.setVisibility(View.VISIBLE);
                             restaurantBackDatas.addAll(list);
-
                         }
                         adapter.notifyDataSetChanged();
                         break;
@@ -285,7 +284,6 @@ public class HomeFragment extends Fragment implements ViewPager.OnPageChangeList
             }
         });
         myThread.start(); // 用来更细致的划分  比如页面失去焦点时候停止子线程恢复焦点时再开启
-
     }
 
     public void restaurantData(HashMap<String, String> map) {
@@ -494,6 +492,10 @@ public class HomeFragment extends Fragment implements ViewPager.OnPageChangeList
             break;
             case R.id.menu_shake: {
                 Intent intent = new Intent();
+                Bundle bundle = new Bundle();
+                bundle.putString("Lat",geoLat+"");
+                bundle.putString("Lng",geoLng+"");
+                intent.putExtras(bundle);
                 intent.setClass(getActivity(), ShakeActivity.class);
                 startActivity(intent);
             }

@@ -6,6 +6,7 @@ import com.okm_android.main.Model.RestaurantBackData;
 import com.okm_android.main.Model.RestaurantDetailsBackData;
 import com.okm_android.main.Model.RestaurantOrderBackData;
 import com.okm_android.main.Model.RestaurantTypeData;
+import com.okm_android.main.Model.ShakeDetailBackData;
 import com.okm_android.main.Model.UploadBackData;
 
 import java.util.List;
@@ -65,5 +66,10 @@ public class ChenApiInterface {
     public interface ApiManagerGetComments {
         @GET("/{restaurant_id}/comments")
         CommentBackData GetComments(@Path("restaurant_id") String restaurant_id,@Query("cid")String cid,@Query("order")String order);
+    }
+
+    public interface ApiManagerShakeFood {
+        @GET("/restaurants/shake_to_food")
+        ShakeDetailBackData getShakeFood(@Query("longitude")String longitude,@Query("latitude")String latitude);
     }
 }

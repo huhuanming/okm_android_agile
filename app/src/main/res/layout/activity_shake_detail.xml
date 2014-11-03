@@ -6,15 +6,88 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
-    <de.hdodenhof.circleimageview.CircleImageView
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/profile_image"
-        android:layout_marginTop="65dp"
-        android:layout_width="200dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_height="200dp"
-        android:src="@drawable/lingjiaxiaochu"
-        app:border_width="5dp"
-        app:border_color="#82cae8"/>
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/shake_detail_swiperefresh"
+        >
+        <ScrollView
+            android:layout_width="fill_parent"
+            android:scrollbars="none"
+            android:layout_height="fill_parent"
+            >
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:orientation="vertical"
+                >
+                <de.hdodenhof.circleimageview.CircleImageView
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/shake_detail_food_image"
+                    android:layout_marginTop="65dp"
+                    android:layout_width="200dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_height="200dp"
+                    android:src="@drawable/lingjiaxiaochu"
+                    app:border_width="5dp"
+                    app:border_color="#82cae8"/>
+
+                <TextView
+                    android:id="@+id/shake_detail_food_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center_horizontal"
+                    android:textSize="20.25sp"
+                    android:layout_marginTop="44dp"
+                    android:textColor="@color/white"
+                    />
+
+                <TextView
+                    android:id="@+id/shake_detail_food_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center_horizontal"
+                    android:textSize="20.25sp"
+                    android:layout_marginTop="22dp"
+                    android:textColor="@color/white"
+                    />
+
+                <TextView
+                    android:id="@+id/shake_detail_food_shaketext"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center_horizontal"
+                    android:textSize="11.25sp"
+                    android:text="@string/shake_food_continue"
+                    android:layout_marginTop="42.5dp"
+                    android:textColor="@color/white"
+                    />
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="22.5dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:id="@+id/shake_detail_layout">
+
+                    <TextView
+                        android:id="@+id/shake_detail_button_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="@string/order_in"
+                        android:textSize="20.25sp"
+                        android:clickable="true"
+                        android:layout_centerInParent="true"
+                        android:background="@drawable/shake_detail_button_style"
+                        android:textColor="@drawable/shake_detail_button_textstyle"
+                        android:gravity="center" />
+                </RelativeLayout>
+            </LinearLayout>
+        </ScrollView>
+        </android.support.v4.widget.SwipeRefreshLayout>
 
 </LinearLayout>

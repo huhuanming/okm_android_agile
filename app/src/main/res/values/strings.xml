@@ -26,6 +26,7 @@
     <string name="get_verification_code">获取验证码</string>
     <string name="do_not_kown_eat">不知道吃什么?</string>
     <string name="shake_food">摇一摇随机选单</string>
+    <string name="shake_food_continue">结果不满意? 继续摇一摇</string>
     <string name="search">搜索</string>
     <string name="search_food">输入关键字</string>
     <string name="lijiaxiaochu">邻家小厨</string>
@@ -77,6 +78,7 @@
     <string name="total_prices">总价：</string>
     <string name="place_order">下订单</string>
     <string name="see_evaluate">查看点评</string>
+    <string name="order_in">进入订单</string>
     <string name="shop_address">地址：</string>
     <string name="relation_number">联系电话：</string>
     <string name="rmb_send">元/起送</string>

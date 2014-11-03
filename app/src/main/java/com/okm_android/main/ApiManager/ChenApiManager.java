@@ -7,6 +7,7 @@ import com.okm_android.main.Model.RestaurantBackData;
 import com.okm_android.main.Model.RestaurantDetailsBackData;
 import com.okm_android.main.Model.RestaurantOrderBackData;
 import com.okm_android.main.Model.RestaurantTypeData;
+import com.okm_android.main.Model.ShakeDetailBackData;
 import com.okm_android.main.Model.UploadBackData;
 
 import java.util.List;
@@ -160,6 +161,23 @@ public class ChenApiManager extends MainApiManager{
             public Subscription onSubscribe(Observer<? super CommentBackData> observer) {
                 try {
                     observer.onNext(GetCommentsapiManager.GetComments(restaurant_id,cid,order));
+                    observer.onCompleted();
+                } catch (Exception e) {
+                    observer.onError(e);
+                }
+
+                return Subscriptions.empty();
+            }
+        }).subscribeOn(Schedulers.io());
+    }
+
+    private static final ChenApiInterface.ApiManagerShakeFood GetShakeFoodapiManager = restAdapter.create(ChenApiInterface.ApiManagerShakeFood.class);
+    public static Observable<ShakeDetailBackData> GetShakeFood(final String longitude, final String latitude) {
+        return Observable.create(new Observable.OnSubscribeFunc<ShakeDetailBackData>() {
+            @Override
+            public Subscription onSubscribe(Observer<? super ShakeDetailBackData> observer) {
+                try {
+                    observer.onNext(GetShakeFoodapiManager.getShakeFood(longitude,latitude));
                     observer.onCompleted();
                 } catch (Exception e) {
                     observer.onError(e);

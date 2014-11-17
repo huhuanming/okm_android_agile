@@ -15,6 +15,7 @@ import com.okm_android.main.Activity.AddCommentActivity;
 import com.okm_android.main.Adapter.OrderTestAdapter;
 import com.okm_android.main.ApiManager.MainApiManager;
 import com.okm_android.main.ApiManager.QinApiManager;
+import com.okm_android.main.Application.OkmApplication;
 import com.okm_android.main.Model.WatchOrderData;
 import com.okm_android.main.R;
 import com.okm_android.main.Utils.AddObserver.NotificationCenter;
@@ -43,7 +44,7 @@ public class FinishOrderFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         parentView = inflater.inflate(R.layout.fragment_finish_order,container,false);
         init();
-        user_id=ShareUtils.getId(getActivity());
+        user_id=ShareUtils.getId(OkmApplication.getAppContext());
         OrderData();
         handler = new Handler(){
 

@@ -9,13 +9,11 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.MenuItem;
-import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 
 import com.okm_android.main.R;
 import com.okm_android.main.Utils.AddObserver.NotificationCenter;
 
-import butterknife.ButterKnife;
 import butterknife.InjectView;
 import info.hoang8f.android.segmented.SegmentedGroup;
 
@@ -39,7 +37,6 @@ public class SortingActivity extends FragmentActivity implements SwipeRefreshLay
         Intent intent = this.getIntent();
         restaurant_id=intent.getStringExtra("restaurant_id");
         getIntent().putExtra("Restaurant_id", restaurant_id);
-        ButterKnife.inject(this);
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
         swipeRefreshLayout.setOnRefreshListener(this);
         swipeRefreshLayout.setEnabled(false);

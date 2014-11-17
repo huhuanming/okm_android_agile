@@ -29,6 +29,7 @@ import com.okm_android.main.Activity.ShakeActivity;
 import com.okm_android.main.Adapter.FragmentHomeAdapter;
 import com.okm_android.main.ApiManager.ChenApiManager;
 import com.okm_android.main.ApiManager.MainApiManager;
+import com.okm_android.main.Application.OkmApplication;
 import com.okm_android.main.Model.RestaurantBackData;
 import com.okm_android.main.Model.RestaurantTypeData;
 import com.okm_android.main.R;
@@ -95,7 +96,7 @@ public class HomeFragment extends Fragment implements ViewPager.OnPageChangeList
         swipeRefreshLayout.setColorScheme(android.R.color.holo_blue_bright,
                 android.R.color.holo_blue_light,
                 android.R.color.white, android.R.color.holo_blue_bright);
-        adapter = new FragmentHomeAdapter(getActivity(), restaurantBackDatas);
+        adapter = new FragmentHomeAdapter(restaurantBackDatas);
         listview.setAdapter(adapter);
 
         NotificationCenter.getInstance().addObserver("restaurant", this, "restaurantData");
@@ -187,7 +188,7 @@ public class HomeFragment extends Fragment implements ViewPager.OnPageChangeList
         spinner_shop = (Spinner) parentView.findViewById(R.id.spinner_shop);
         spinner_sorting = (Spinner) parentView.findViewById(R.id.spinner_sorting);
         shoplist.add("全部商家");
-        ArrayAdapter<String> adapter_sorting = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, sorting);
+        ArrayAdapter<String> adapter_sorting = new ArrayAdapter<String>(OkmApplication.getAppContext(), android.R.layout.simple_spinner_item, sorting);
         //设置下拉列表的风格
         adapter_sorting.setDropDownViewResource(R.layout.spinner_dropdown_item_print);
 

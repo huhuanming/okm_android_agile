@@ -1,12 +1,12 @@
 package com.okm_android.main.Adapter;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.okm_android.main.Application.OkmApplication;
 import com.okm_android.main.Model.RestaurantBackData;
 import com.okm_android.main.R;
 
@@ -18,12 +18,10 @@ import java.util.List;
 public class FragmentHomeAdapter extends BaseAdapter{
 
     //	内部类实现BaseAdapter  ，自定义适配器
-    private Context context;
     private List<RestaurantBackData> restaurantBackDatas;
 
-    public FragmentHomeAdapter(Context context, List<RestaurantBackData> restaurantBackDatas )
+    public FragmentHomeAdapter(List<RestaurantBackData> restaurantBackDatas )
     {
-        this.context = context;
         this.restaurantBackDatas = restaurantBackDatas;
     }
 
@@ -58,7 +56,7 @@ public class FragmentHomeAdapter extends BaseAdapter{
         final ViewHolder holder;
         if(convertView == null)
         {
-            convertView = LayoutInflater.from(context).inflate(R.layout.fragment_home_item, null);
+            convertView = LayoutInflater.from(OkmApplication.getAppContext()).inflate(R.layout.fragment_home_item, null);
             holder = new ViewHolder();
             holder.home_item_name = (TextView) convertView
                     .findViewById(R.id.home_item_name);

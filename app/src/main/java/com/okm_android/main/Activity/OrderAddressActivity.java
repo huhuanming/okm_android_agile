@@ -28,7 +28,6 @@ import com.okm_android.main.Utils.ToastUtils;
 import com.okm_android.main.Utils.TokenUtils.AccessToken;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -84,7 +83,7 @@ public class OrderAddressActivity extends Activity implements SwipeRefreshLayout
                         listItem=list;
                         if(list.size() > 0)
                         {
-                            mAdapter = new AddressAdapter(OrderAddressActivity.this,list);
+                            mAdapter = new AddressAdapter(list);
                             mListView.setAdapter(mAdapter);
                             mAdapter.notifyDataSetChanged();
                         }

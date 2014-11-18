@@ -1,28 +1,23 @@
 package com.okm_android.main.Adapter;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.okm_android.main.Model.AddressAddData;
+import com.okm_android.main.Application.OkmApplication;
 import com.okm_android.main.Model.AddressData;
 import com.okm_android.main.R;
 
 import java.util.List;
-import java.util.Map;
 
 public class AddressAdapter extends BaseAdapter {
-    private Context context;                        //运行上下文
     private List<AddressData> listItems;    //商品信息集合
     private LayoutInflater layoutInflater;
 
-    public AddressAdapter(Context c, List<AddressData> list) {
-        context = c;
-        layoutInflater = LayoutInflater.from(context);
+    public AddressAdapter(List<AddressData> list) {
+        layoutInflater = LayoutInflater.from(OkmApplication.getAppContext());
         listItems = list;
     }
 

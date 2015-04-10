@@ -34,7 +34,6 @@ import com.okm_android.main.View.ListView.swipemenulistview.SwipeMenuItem;
 import com.okm_android.main.View.ListView.swipemenulistview.SwipeMenuListView;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -132,7 +131,7 @@ public class TruckFragment extends Fragment implements SwipeRefreshLayout.OnRefr
                                     listItem.add(addressDatas.get(i));
                                 }
                             }
-                            mAdapter = new AddressAdapter(getActivity(),listItem);
+                            mAdapter = new AddressAdapter(listItem);
                             mListView.setAdapter(mAdapter);
                             mAdapter.notifyDataSetChanged();
                         }
